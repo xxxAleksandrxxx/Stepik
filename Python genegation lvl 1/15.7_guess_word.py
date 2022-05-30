@@ -51,14 +51,14 @@ f.close()
 #графическое отображение статуса игры
 def display_hangman(tries):
     stages = ['''
-\r\r\r\r\r\r\r\r--------
-\r\r\r\r\r\r\r\r|      |
-\r\r\r\r\r\r\r\r|      O
-\r\r\r\r\r\r\r\r|     \\|/
-\r\r\r\r\r\r\r\r|      |
-\r\r\r\r\r\r\r\r|     / \\
-\r\r\r\r\r\r\r\r---
-\r\r\r\r\r\r\r\r''',
+--------
+|      |
+|      O
+|     \\|/
+|      |
+|     / \\
+---
+''',
 '''
 --------
 |      |
