@@ -26,7 +26,7 @@ print(oct(num)[2:])
 print(hex(num)[2:].upper())
 '''
 
-
+'''
 #BOH - custom
 def dec_to_any(num, base):
     alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[:base - 10]
@@ -50,3 +50,29 @@ number = input()
 print(dec_to_any(number, 2))
 print(dec_to_any(number, 8))
 print(dec_to_any(number, 16))
+'''
+
+#BOH custom bonus - из разных форматов в десятичный
+def less_ten_to_dec(num, base):
+    answer = 0
+    num_len = len(num)
+    for i in range(num_len):
+        answer += int(num[num_len -1 - i])*base**i
+    return answer
+
+
+def any_to_dec(num, base):
+    answer = 0
+    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    num_len = len(num)
+    for i in range(num_len):
+        digit = num[num_len -1 - i].upper()
+        if digit in alphabet:
+            digit = 10 + alphabet.index(digit)
+        else:
+            digit = int(digit)
+        answer += digit*base**i
+    return answer
+
+number = input()
+print(any_to_dec(number, 16))
