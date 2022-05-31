@@ -14,6 +14,7 @@ https://stepik.org/lesson/349847/step/1?unit=333702
 '''
 
 import random
+from os import system  #для очистки экрана. нормально работает через консоль
 
 
 #берем случайное слово из файла russian_nouns.txt
@@ -170,12 +171,15 @@ len_word_to_guess = len(word_to_guess)
 word = ''
 used_alphas = ''
 try_number = 0
-print('\n' * 6)
-print('Игра начинается... <(^_-)>')
+#
+system('cls')  #для очистки экрана. нормально работает через консоль
 print('\n' * 3)
+#
+print('Игра начинается... <(^_-)>')
+print('\n' * 5)
 print(display_hangman(try_number))
 print(f'загаданное слово ({len_word_to_guess} букв):')
-print('_ '*len_word_to_guess)
+print(' ' + '_ '*len_word_to_guess)
 
 while try_number < 6:
     word_to_print = ''
@@ -185,6 +189,7 @@ while try_number < 6:
         word += alpha
     else:
         try_number += 1
+    system('cls')  #для очистки экрана. нормально работает через консоль
     print('\n' * 10)
     print(display_hangman(try_number))
     for i in word_to_guess:
@@ -193,9 +198,9 @@ while try_number < 6:
         else:
             word_to_print += '_ '
     print(f'загаданное слово ({len_word_to_guess} букв):')
-    print(word_to_print)
+    print(' ' + word_to_print)
     print('\nиспользованные буквы:')
-    print(used_alphas.replace('', ' ').strip())
+    print(used_alphas.replace('', ' '))
     if word_to_print.replace(' ', '') == word_to_guess:
         break
     
