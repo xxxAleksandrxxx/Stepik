@@ -63,7 +63,7 @@ def display_hangman(tries):
 |    
 |      
 |     
----
+----
 ''',
 '''\
 --------
@@ -72,7 +72,7 @@ def display_hangman(tries):
 |    
 |      
 |     
----
+----
 ''',
 '''\
 --------
@@ -81,7 +81,7 @@ def display_hangman(tries):
 |      |
 |      |
 |     
----
+----
 ''',
 '''\
 --------
@@ -90,7 +90,7 @@ def display_hangman(tries):
 |     \\|
 |      |
 |     
----
+----
 ''',
 '''\
 --------
@@ -99,7 +99,7 @@ def display_hangman(tries):
 |     \\|/
 |      |
 |      
----
+----
 ''',
 '''\
 --------
@@ -108,7 +108,7 @@ def display_hangman(tries):
 |     \\|/
 |      |
 |     / 
----
+----
 ''',
 '''\
 --------
@@ -117,7 +117,7 @@ def display_hangman(tries):
 |     \\|/
 |      |
 |     / \\
----
+----
 ''']
     return stages[tries]
 
@@ -172,7 +172,7 @@ word = ''
 used_alphas = ''
 try_number = 0
 #
-system('cls')  #для очистки экрана. нормально работает через консоль
+system('cls||clear')  #для очистки экрана. нормально работает через консоль
 print('\n' * 3)
 #
 print('Игра начинается... <(^_-)>')
@@ -189,7 +189,7 @@ while try_number < 6:
         word += alpha
     else:
         try_number += 1
-    system('cls')  #для очистки экрана. нормально работает через консоль
+    system('cls||clear')  #для очистки экрана. нормально работает через консоль
     print('\n' * 10)
     print(display_hangman(try_number))
     for i in word_to_guess:
