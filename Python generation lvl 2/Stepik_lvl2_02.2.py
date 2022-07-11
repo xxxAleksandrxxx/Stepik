@@ -99,8 +99,42 @@ num = [i for i in input().split()]
 num[1:], num[0] = num[:-1], num[-1]
 print(*num)
 '''
-
+'''
 # через .pop() и .insert()
 num = [i for i in input().split()]
 num.insert(0, num.pop())
 print(*num)
+'''
+
+
+'''
+Различные элементны
+На вход программе подается строка текста, содержащая натуральные числа,
+расположенные по неубыванию. Из строки формируется список чисел.
+Напишите программу для подсчета количества разных элементов в списке.
+Вход: числа в строке разделены пробелом
+Примечание: задачу можно решить без множеств.
+'''
+
+#Через опереции со строкой
+def first_num_from_st(stroka):
+    answer = ''
+    i = 0
+    while stroka[i] != ' ':
+        answer += stroka[i]
+        i += 1
+        if i == len(stroka):
+            break
+    return answer
+
+st = input()
+count = 1
+
+while st.find(' ') > 0:
+    num = first_num_from_st(st)
+    st = st[len(num) + 1:]
+    if num != first_num_from_st(st):
+        count += 1
+
+print(count)
+
