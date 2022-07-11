@@ -115,7 +115,7 @@ print(*num)
 Вход: числа в строке разделены пробелом
 Примечание: задачу можно решить без множеств.
 '''
-
+'''
 #Через опереции со строкой
 def first_num_from_st(stroka):
     answer = ''
@@ -137,4 +137,17 @@ while st.find(' ') > 0:
         count += 1
 
 print(count)
+'''
+'''
+#Через перевод в список и .pop()
+st = [i for i in input().split()]
 
+count = 1
+while len(st) > 1:
+    num = st[-1]
+    st.pop()
+    if num != st[-1]:
+        count += 1
+        
+print(count)
+'''
