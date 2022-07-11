@@ -125,7 +125,7 @@ def display_hangman(tries):
 #вводим букву или слово, проверям язык ввода: 'рус.' или 'eng.'
 def input_alpha(lang):
     if lang == 'рус.':
-        alphabet = 'АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЭЬЪЮЯ'
+        alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЭЫЬЪЮЯ'
     elif lang == 'eng.':
         alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     else:
@@ -145,7 +145,7 @@ def input_alpha(lang):
 #вводим букву или слово, проверям язык ввода: 'рус.' или 'eng.'
 def input_alpha_one(lang):
     if lang == 'рус.':
-        alphabet = 'АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЭЬЪЮЯ'
+        alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЭЫЬЪЮЯ'
     elif lang == 'eng.':
         alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     while True:
