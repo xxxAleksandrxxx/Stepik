@@ -151,7 +151,7 @@ while len(st) > 1:
         
 print(count)
 '''
-
+'''
 #Через список и for
 st = input().split()
 count = 1
@@ -159,3 +159,30 @@ for i in range(len(st) - 1):
     if st[i] != st[i + 1]:
         count += 1
 print(count)
+'''
+
+
+'''
+Произведение чисел
+Напишите программу для определения, является ли число произведением двух
+чисел из данного набора, выводящую результат в виде ответа "ДА" или "НЕТ".
+В первой строке - число от 1 до 999 - к-во чисел в наборе.
+В следующих - целые числа, составляющие набор (могут повторяться).
+Затем - число, которое необходимо проверить.
+'''
+'''
+n = int(input())
+numbers = [int(input()) for i in range(n)]
+chek_number = int(input())
+f = False
+for i in range(n - 1):
+    for j in range(i + 1, n):
+        if numbers[i] * numbers[j] == chek_number:
+            print('ДА')
+            f = True
+            break
+    if f:
+        break
+else:
+    print('НЕТ')
+'''
