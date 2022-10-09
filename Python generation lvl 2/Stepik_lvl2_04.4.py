@@ -1,5 +1,9 @@
 
 #%%
+from concurrent.futures.process import _ThreadWakeup
+from locale import MON_1
+
+
 matrix = [[2, 5, 1, 0],
           [9, 4, 6, 3],
           [4, 7, 2, 2]]
@@ -692,3 +696,144 @@ for j in range(n):
   mx[i][j], mx[~i][j] = mx[~i][j], mx[i][j]
 
 [print(row) for row in mx]
+
+# %%
+# Ход коня
+# На шахматной доске 
+# 8×8 стоит конь. Напишите программу, которая отмечает положение коня на доске и все клетки, которые бьет конь. Клетку, где стоит конь, отметьте английской буквой N, клетки, которые бьет конь, отметьте символами *, остальные клетки заполните точками.
+
+n = 8
+chess_desk = [['.']*n for _ in range(n)]
+
+
+# красивый вывод поля с обозначением номеров строк и букв столбцов
+def print_chess(chess_desk):
+ desk = [[elem for elem in row] for row in chess_desk]
+ for i in range(1, 9):
+  desk[n-i].insert(0, i)
+ desk.insert(0, [' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'])
+ [print(*row) for row in desk]
+
+
+# добавдяем коня
+pos = input().lower()
+ind_i = n - int(pos[1])
+ind_j = ord(pos[0]) - 97
+chess_desk[ind_i][ind_j] = 'N'
+ 
+# обозначим, куда конь может ходить
+steps = [[ind_i - 2, ind_j - 1],
+   [ind_i - 2, ind_j + 1],
+   [ind_i - 1, ind_j - 2],
+   [ind_i - 1, ind_j + 2],
+   [ind_i + 1, ind_j - 2],
+   [ind_i + 1, ind_j + 2],
+   [ind_i + 2, ind_j - 1],
+   [ind_i + 2, ind_j + 1]]
+
+# добавим точки возможных ходов на поле
+for p in steps:
+ if 0 <= p[0] < 8 and 0 <= p[1] < 8:
+  chess_desk[p[0]][p[1]] = '*'
+
+[print(*row) for row in chess_desk]
+
+print_chess(chess_desk)
+# %%
+# v2
+# рисуем поле
+x,y = input()
+desk = [['.']*8 for _ in range(8)]
+
+# добавдяем коня
+ind_i = n - int(y)
+ind_j = ord(x) - 97
+desk[ind_i][ind_j] = 'N'
+
+# расставляем возможные ходы для коня
+for i in range(8):
+    for j in range(8):
+        if abs(ind_i - i)*abs(ind_j - j) == 2:
+            desk[i][j] = '*'
+
+
+[print(*row) for row in desk]
+
+# %%
+# Магический квадрат
+# Магическим квадратом порядка n называется квадратная 
+# таблица размера n x n составленная из всех чисел 
+# 1, 2, 3... n^2 так, что суммы по каждому столбцу, 
+# каждой строке и каждой из двух диагоналей равны 
+# между собой. Напишите программу, которая проверяет, 
+# является ли заданная квадратная матрица магическим квадратом.
+# На вход программе подаётся натуральное число 
+# n — количество строк и столбцов в матрице, затем 
+# элементы матрицы: n строк, по n чисел в каждой, 
+# разделённые пробелами.
+
+# v1 
+# n = input()
+# matrix = [[int(elem) for elem in input().split()] for _ in range(n)]
+flag = True
+
+n = 3
+m1 = [[8, 1, 6], [3, 5, 7], [4, 9, 2]]
+matrix = m1
+
+def check_elems(li):
+    current_sum = li[0]
+    for elem in li[1:]:
+        if current_sum != elem:
+            return False
+        else:
+            return True
+
+# проверяем суммы строк
+sum_row = []
+for i in range(n):
+    sum_current = 0
+    for j in range(n):
+        sum_current += matrix[i][j]
+    sum_row.append(sum_current)
+sum_current = sum_row[0]
+
+# # выводим список сумм
+# print('sum_row:', sum_row)
+# print(check_elems(sum_row))
+
+# обновляем флаг
+flag = flag and check_elems(sum_row)
+
+
+# проверяем суммы столбцов
+sum_col = []
+for j in range(n):
+    current_sum = 0
+    for i in range(n):
+        current_sum += matrix[i][j]
+    sum_col.append(current_sum)
+
+# # выводим список сумм
+# print('sum_col:', sum_col)
+# print(check_elems(sum_col))
+
+flag = flag and check_elems(sum_col)
+
+
+# проверяем сумму главной диагонали
+sum_diag = [0, 0]
+for i in range(n):
+    sum_diag[0] += matrix[i][i]
+    sum_diag[1] += matrix[i][~i]
+
+# # выводим сумму главной диагонали
+# print('main diagonal:', sum_diag[0])
+# print(check_elems(sum_diag))
+# # выводим сумму побочной диагонали
+# print('second diagonal:', sum_diag[1])
+
+flag = flag and check_elems(sum_diag)
+
+print('final flag:', flag)
+# %%
