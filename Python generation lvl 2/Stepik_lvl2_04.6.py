@@ -295,3 +295,22 @@ matrix = [[j+1 for j in range(i*m, (i+1)*m)][::(-1)**i] for i in range(n)]
 
 print_matrix(matrix)
 '''
+#%%
+# заполнение диагоналями
+n, m = map(int, input().split())
+matrix = [[0]*m for _ in range(n)]
+num = 1
+for index in range(n+m-1):
+	for i in range(n):
+		for j in range(m):
+			if i+j==index:
+				matrix[i][j] = num
+				num += 1
+
+def print_matrix(matrix, l=3):
+	for row in matrix:
+		for elem in row:
+			print(str(elem).ljust(l), end='')
+		print()
+
+print_matrix(matrix)
