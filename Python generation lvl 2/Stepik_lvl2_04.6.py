@@ -295,7 +295,27 @@ matrix = [[j+1 for j in range(i*m, (i+1)*m)][::(-1)**i] for i in range(n)]
 
 print_matrix(matrix)
 '''
+#%%
+# заполнение диагоналями
+n, m = map(int, input().split())
+matrix = [[0]*m for _ in range(n)]
+num = 1
+for index in range(n+m-1):
+	for i in range(n):
+		for j in range(m):
+			if i+j==index:
+				matrix[i][j] = num
+				num += 1
 
+def print_matrix(matrix, l=3):
+	for row in matrix:
+		for elem in row:
+			print(str(elem).ljust(l), end='')
+		print()
+
+print_matrix(matrix)
+#%%
+# 10 - заполнение матрицы спиралью
 #%%
 # Заполнение спиралью 😈😈
 '''
@@ -499,6 +519,40 @@ n×m заполнив её "спиралью" в соответствии с о�
 # v4
 #n, m = map(int, input().split())
 n, m = 1, 1
+matrix = [[0]*m for _ in range(n)]
+numbers = [i for i in range(1, n*m+1)]
+
+top, right, bottom, left = 0, m-1, n-1, 0
+while len(numbers) > 0:
+    # заполняем верх
+    for j in range(left, right+1):
+        matrix[top][j] = numbers.pop(0)
+    top += 1
+    # заполняем право
+    for i in range(top, bottom+1):
+        matrix[i][right] = numbers.pop(0)
+    right -= 1
+    # проверка на случай, если строк не хватает
+    if len(numbers) == 0:
+        break
+    # заполняем низ
+    for j in range(right, left-1, -1):
+        matrix[bottom][j] = numbers.pop(0)
+    bottom -= 1
+    # заполняем лево
+    for i in range(bottom, top-1, -1):
+        matrix[i][left] = numbers.pop(0)
+    left += 1
+
+for row in matrix:
+    for elem in row:
+        print(str(elem).ljust(3), end = '')
+    print()
+#%%
+# Заполнение спиралью 😈😈 v 5
+# v5
+n, m = map(int, input().split())
+#n, m = 2, 4
 matrix = [[0]*m for _ in range(n)]
 numbers = [i for i in range(1, n*m+1)]
 
