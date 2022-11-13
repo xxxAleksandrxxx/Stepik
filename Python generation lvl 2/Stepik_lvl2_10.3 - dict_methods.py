@@ -29,29 +29,64 @@ dict2 = {'a': 300, 'b': 200, 'd': 400, 't': 777, 'c': 12, 'p': 123, 'w': 111, 'z
 
 result = {}
 '''
-
+'''
 # v1
 dict1 = {'a': 100, 'z': 333, 'b': 200, 'c': 300, 'd': 45, 'e': 98, 't': 76, 'q': 34, 'f': 90, 'm': 230}
 dict2 = {'a': 300, 'b': 200, 'd': 400, 't': 777, 'c': 12, 'p': 123, 'w': 111, 'z': 666}
 
 result = {}
-for el in dict1:
+for el in dict1|dict2:
     if el in dict1 and el in dict2:
         result[el] = dict1[el]+dict2[el]
-
-ls = []
-
-for elem in dict1:
-    if elem in dict1 and elem in dict2:
-        print('dict1: ', elem, dict1[elem])
-        print('dict2: ', elem, dict2[elem])
-        print('result:', elem, result[elem])
-        ls.append(elem)
-        print()
+    elif el in dict1 and el not in dict2:
+        result[el] = dict1[el]
+    else:
+        result[el] = dict2[el]
 '''
-for elem in dict1:
-    if elem not in ls:
-        print('dict1: ', elem, dict1[elem])
-        print('result:', elem, result[elem])
-        print()      
+'''
+# v2
+dict1 = {'a': 100, 'z': 333, 'b': 200, 'c': 300, 'd': 45, 'e': 98, 't': 76, 'q': 34, 'f': 90, 'm': 230}
+dict2 = {'a': 300, 'b': 200, 'd': 400, 't': 777, 'c': 12, 'p': 123, 'w': 111, 'z': 666}
+
+result = {}
+for el in dict1|dict2:
+    result[el] = dict1.get(el, 0) + dict2.get(el, 0)
+
+print(len(result))
+print(result)
+'''
+'''
+# v3
+dict1 = {'a': 100, 'z': 333, 'b': 200, 'c': 300, 'd': 45, 'e': 98, 't': 76, 'q': 34, 'f': 90, 'm': 230}
+dict2 = {'a': 300, 'b': 200, 'd': 400, 't': 777, 'c': 12, 'p': 123, 'w': 111, 'z': 666}
+
+result = {i : dict1.get(i,0) + dict2.get(i, 0) for i in dict1|dict2}
+print(len(result))
+print(result)
+'''
+
+# 10.3.12
+'''
+Дополните приведенный код так, чтобы в переменной result хранился словарь, в котором для каждого символа строки text будет подсчитано количество его вхождений.
+Примечание. Выводить содержимое словаря result не нужно.
+text = 'footballcyberpunkextraterritorialityconversationalistblockophthalmoscopicinterdependencemamauserfff'
+result = {}
+'''
+'''
+# v1
+text = 'footballcyberpunkextraterritorialityconversationalistblockophthalmoscopicinterdependencemamauserfff'
+
+result = {}
+for symbol in text:
+    result[symbol] = result.get(symbol, 0) + 1
+print(len(result))
+print(result)
+'''
+'''
+# v2
+text = 'footballcyberpunkextraterritorialityconversationalistblockophthalmoscopicinterdependencemamauserfff'
+
+result = {sym : text.count(sym) for sym in set(text)}
+print(len(result))
+print(result)
 '''
