@@ -160,9 +160,9 @@ s = 'orange strawberry barley gooseberry apple apricot barley currant orange mel
 s_dict = {}
 for word in s.split():
     s_dict[word] = s_dict.get(word, 0) + 1
+
 max_el_count = max(s_dict.values())
 answer = list()
-
 for key, value in s_dict.items():
     if value == max_el_count:
         answer.append(key)
@@ -212,4 +212,53 @@ for tup in pets:
     result.setdefault(tup[1:], []).append(tup[0])
 
 print(result)
+'''
+
+# 10.3.15 Самое редкое слово 🌶️
+'''
+На вход программе подается строка текста. Напишите программу, которая выводит слово, которое встречается реже всего, без учета регистра. Если таких слов несколько, выведите то, которое меньше в лексикографическом порядке.
+Формат входных данных
+На вход программе подается строка текста.
+Формат выходных данных
+Программа должна вывести слово (в нижнем регистре), встречаемое реже всего.
+
+Примечание 1. Программа не должна быть чувствительной к регистру, слова apple и Apple должна воспринимать как одинаковые.
+Примечание 2. Слово — последовательность букв. Кроме слов в тексте могут присутствовать пробелы и знаки препинания .,!?:;-, которые нужно игнорировать. Других символов в тексте нет.
+'''
+s = 'London is the capital of Great Britain. More than six million people live in London. London lies on both banks of the river Thames. It is the largest city in Europe and one of the largest cities in the world. London is not only the capital of the country, it is also a very big port, one of the greatest commercial centres in the world, a university city, and the seat of the government of Great Britain!'
+a = 'also'
+'''
+# v1
+s = input()
+s_dict = {}
+for word in s.split():
+    w = word.lower().strip('.,!?:;- ')
+    s_dict[w] = s_dict.get(w, 0) + 1
+print(s_dict)
+
+min_freq_word = min(s_dict.values())
+answer = list()
+for key, value in s_dict.items():
+    if value == min_freq_word:
+        answer.append(key)
+
+answer = min(answer)
+
+print(('wrong', 'right')[a==answer])
+print('a      =', a)
+print('answer =', answer)
+'''
+'''
+# v2
+#s = [word.strip('.,!?:;- ').lower() for word in input().split()]
+
+s = [word.strip('.,!?:;- ').lower() for word in s.split()]
+
+s_dict = {}
+for word in s:
+    s_dict[word] = s_dict.get(word, 0) + 1
+
+answer = min(s_dict.items(), key = lambda x: (x[1], x[0]))[0]
+
+print(answer)
 '''
