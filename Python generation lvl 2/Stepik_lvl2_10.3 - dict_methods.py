@@ -400,3 +400,50 @@ for elem in a:
 print(('NO', 'YES')[a[0] == a[1]])
 [print(i) for i in a]
 '''
+
+
+
+# 10.4.4 Словарь синонимов
+'''
+Вам дан словарь, состоящий из пар слов-синонимов. Повторяющихся слов в словаре нет. Напишите программу, которая для одного данного слова определяет его синоним.
+
+Формат входных данных
+На вход программе подается количество пар синонимов n. Далее следует n строк, каждая строка содержит два слова-синонима. После этого следует одно слово, синоним которого надо найти.
+
+Формат выходных данных
+Программа должна вывести одно слово, синоним введенного.
+
+Примечание 1. Гарантируется, что синоним введенного слова существует в словаре.
+Примечание 2. Все слова в словаре начинаются с заглавной буквы.
+'''
+'''
+# v1
+test = ['4', 'Awful Terrible', 'Beautiful Pretty', 'Great Excellent', 'Generous Bountiful', 'Pretty']
+n = int(input())
+text = [input() for _ in range(n+1)]
+text.insert(0, n)
+print(text)
+test = text
+
+n = test[0]
+words_dict_1 = dict()
+words_dict_2 = dict()
+for word in test[1:-1]:
+    key, value = word.split()
+    words_dict_1[key] = words_dict_1.setdefault(key, value)
+    words_dict_2[value] = words_dict_2.setdefault(value, key)
+try:
+    print(words_dict_1[test[-1]])
+except: 
+    print(words_dict_2[test[-1]])
+'''
+'''
+# v2
+test = ['4', 'Awful Terrible', 'Beautiful Pretty', 'Great Excellent', 'Generous Bountiful', 'Pretty']
+answer = dict()
+for words in test[1:-1]:
+    key, value = words.split()
+    answer[key], answer[value] = value, key
+
+print(answer[test[-1]])
+'''
