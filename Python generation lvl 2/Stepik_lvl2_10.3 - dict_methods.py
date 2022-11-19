@@ -648,10 +648,18 @@ numbers = [34, 10, 4, 6, 10, 23, 90, 100, 21, 35, 95, 1, 36, 38, 19, 1, 6, 87, 1
 
 result = {}
 '''
-
+'''
+# v1
 numbers = [34, 10, 4, 6, 10, 23, 90, 100, 21, 35, 95, 1, 36, 38, 19, 1, 6, 87, 1000, 13456, 360]
 
-numbers = [1, 6, 18]
+result = {elem : sorted([i for i in range(1, elem+1) if elem%i==0]) for elem in numbers}
+'''
+'''
+# v2 меньше чисел перебираем
+ numbers = [34, 10, 4, 6, 10, 23, 90, 100, 21, 35, 95, 1, 36, 38, 19, 1, 6, 87, 1000, 13456, 360]
+
+# numbers = [1, 6, 18]
 
 result = {elem : sorted([i for i in range(1, elem//2+1) if elem%i==0] + [elem]) for elem in numbers}
-print(result)
+# print(result)
+'''
