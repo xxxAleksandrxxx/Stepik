@@ -663,3 +663,26 @@ result = {elem : sorted([i for i in range(1, elem+1) if elem%i==0]) for elem in 
 result = {elem : sorted([i for i in range(1, elem//2+1) if elem%i==0] + [elem]) for elem in numbers}
 # print(result)
 '''
+
+
+# 10.5.12
+'''
+Дополните приведенный код, используя генератор, так, чтобы получить словарь result , в котором ключом будет строка – элемент списка words, а значением – список соответствующих кодов ASCII символов данной строки.
+
+Примечание 1. Если бы список words имел вид: words = ['yes', 'hello'], то результатом был бы словарь
+
+result = {'yes': [121, 101, 115], 'hello': [104, 101, 108, 108, 111]}
+Примечание 2. Для получения ASCII кода символа используйте функцию ord().
+
+words = ['hello', 'bye', 'yes', 'no', 'python', 'apple', 'maybe', 'stepik', 'beegeek']
+
+result = {}
+'''
+'''
+words = ['hello', 'bye', 'yes', 'no', 'python', 'apple', 'maybe', 'stepik', 'beegeek']
+
+# words = ['yes', 'hello']
+
+result = {elem : [ord(i) for i in elem] for elem in words}
+# print(result)
+'''
