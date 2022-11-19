@@ -636,3 +636,22 @@ s = '1:men 2:kind 90:number 0:sun 34:book 56:mountain 87:wood 54:car 3:island 88
 result = {int(key) : value for key, value in [elem.split(':') for elem in s.split()]}
 print(result)
 '''
+
+
+# 10.5.11
+'''
+Используя генератор, дополните приведенный код, чтобы получить словарь result , где ключом будет элемент списка numbers, а значением – отсортированный по возрастанию список всех его делителей начиная с 1.
+Примечание 1. Если бы список numbers имел вид: numbers = [1, 6, 18], то результатом был бы словарь
+result = {1: [1], 6: [1, 2, 3, 6], 18: [1, 2, 3, 6, 9, 18]}
+
+numbers = [34, 10, 4, 6, 10, 23, 90, 100, 21, 35, 95, 1, 36, 38, 19, 1, 6, 87, 1000, 13456, 360]
+
+result = {}
+'''
+
+numbers = [34, 10, 4, 6, 10, 23, 90, 100, 21, 35, 95, 1, 36, 38, 19, 1, 6, 87, 1000, 13456, 360]
+
+numbers = [1, 6, 18]
+
+result = {elem : sorted([i for i in range(1, elem//2+1) if elem%i==0] + [elem]) for elem in numbers}
+print(result)
