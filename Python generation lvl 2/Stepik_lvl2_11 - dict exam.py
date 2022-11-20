@@ -145,3 +145,51 @@ answer = answer[1:]
 print('answer', answer)
 # print(t_dict)
 '''
+
+
+# 11.2.3 Scrabble game
+'''
+В игре Scrabble каждая буква приносит определенное количество баллов. Общая стоимость слова – сумма баллов его букв. Чем реже буква встречается, тем больше она ценится:
+Баллы	Буква
+1       A, E, I, L, N, O, R, S, T, U
+2       D, G
+3       B, C, M, P
+4       F, H, V, W, Y
+5       K
+8       J, X
+10      Q, Z
+Напишите программу подсчета итоговой стоимости введенного слова.
+
+Формат входных данных
+На вход программе подается одно слово в верхнем регистре на английском языке.
+
+Формат выходных данных
+Программа должна вывести суммарную стоимость букв введеного слова.
+'''
+'''
+# v1
+word_count_dict = dict.fromkeys(('A', 'E', 'I', 'L', 'N', 'O', 'R', 'S', 'T', 'U'), 1)
+word_count_dict = word_count_dict | dict.fromkeys(('D', 'G'), 2)
+word_count_dict = word_count_dict | dict.fromkeys(('B', 'C', 'M', 'P'), 3)
+word_count_dict = word_count_dict | dict.fromkeys(('F', 'H', 'V', 'W', 'Y'), 4)
+word_count_dict = word_count_dict | dict.fromkeys(('K'), 5)
+word_count_dict = word_count_dict | dict.fromkeys(('J', 'X'), 8)
+word_count_dict = word_count_dict | dict.fromkeys(('Q', 'Z'), 10)
+
+answer = 0
+for letter in input():
+    answer += word_count_dict[letter]
+print(answer)
+'''
+'''
+# v2
+word_count_dict = dict.fromkeys(('A', 'E', 'I', 'L', 'N', 'O', 'R', 'S', 'T', 'U'), 1)
+word_count_dict = word_count_dict | dict.fromkeys(('D', 'G'), 2)
+word_count_dict = word_count_dict | dict.fromkeys(('B', 'C', 'M', 'P'), 3)
+word_count_dict = word_count_dict | dict.fromkeys(('F', 'H', 'V', 'W', 'Y'), 4)
+word_count_dict = word_count_dict | dict.fromkeys(('K'), 5)
+word_count_dict = word_count_dict | dict.fromkeys(('J', 'X'), 8)
+word_count_dict = word_count_dict | dict.fromkeys(('Q', 'Z'), 10)
+
+print(sum([word_count_dict[elem] for elem in input()]))
+'''
