@@ -128,3 +128,65 @@ def generate_index():
 
 print(generate_index())
 '''
+
+
+#%%
+# 12.2.8
+'''
+Напишите программу, которая с помощью модуля random перемешивает случайным образом содержимое матрицы (двумерного списка).
+
+Примечание. Выводить содержимое матрицы не нужно.
+'''
+'''
+# v1
+import random as r
+
+matrix = [[1, 2, 3, 4],
+          [5, 6, 7, 8],
+          [9, 10, 11, 12],
+          [13, 14, 15, 16]]
+
+
+numbers = list()
+for i in range(len(matrix)):
+    for j in range(len(matrix[i])):
+        numbers.append(matrix[i][j])
+print(numbers)
+
+r.shuffle(numbers)
+print(numbers)
+matrix_mixed = [[numbers.pop(0) for i in range(len(matrix))] for j in range(len(matrix[i]))]
+matrix = matrix_mixed
+
+for row in matrix_mixed:
+    print(row)
+'''
+'''
+# v2
+import random as r
+
+matrix = [[1, 2, 3, 4],
+          [5, 6, 7, 8],
+          [9, 10, 11, 12],
+          [13, 14, 15, 16]]
+
+n = len(matrix)
+m = len(matrix[0])
+
+# превращаем матрицу в список двумя спосабами
+numbers1 = [elem for row in matrix for elem in row]
+numbers2 = sum(matrix, [])
+
+print(numbers1)
+print(numbers2)
+r.shuffle(numbers1)
+r.shuffle(numbers2)
+mx1 = [[numbers1[i*m + j] for j in range(m)] for i in range(n)]
+mx2 = [[numbers2[i*m + j] for j in range(m)] for i in range(n)]
+print()
+for row in mx1:
+    print(row)
+print()
+for row in mx2:
+    print(row)
+'''
