@@ -190,3 +190,39 @@ print()
 for row in mx2:
     print(row)
 '''
+
+
+#%%
+# 12.2.9
+'''
+Напишите программу, которая с помощью модуля random генерирует 100 случайных номеров лотерейных билетов и выводит их каждый на отдельной строке. Обратите внимание, вы должны придерживаться следующих условий:
+
+номер не может начинаться с нулей;
+номер лотерейного билета должен состоять из 7 цифр;
+все 100 лотерейных билетов должны быть различными.
+
+'''
+'''
+# v1
+import random as r
+n = 100
+tickets = set()
+while len(tickets) < n:
+    num = [str(r.randint(1, 9))]
+    for _ in range(6):
+        num += [str(r.randint(0, 9))]
+    tickets.add(''.join(num))
+
+# print('total tickets:', len(tickets))
+for ticket in tickets:
+    print(ticket)
+'''
+'''
+# v2
+from random import sample
+n = 10
+answer = sample(range(1000000, 10000000), n)
+print('total tickets:', len(answer))
+for ticket in answer:
+    print(ticket)
+'''
