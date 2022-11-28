@@ -82,3 +82,49 @@ def generate_ip():
 for _ in range(10):
     print(generate_ip())
 '''
+
+
+#%%
+# 12.2.7 
+'''
+Почтовый индекс в Латверии имеет вид: LetterLetterNumber_NumberLetterLetter, где Letter – заглавная буква английского алфавита, Number – число от 0 до 99 (включительно).
+
+Напишите функцию generate_index(), которая с помощью модуля random генерирует и возвращает случайный корректный почтовый индекс Латверии.
+
+Примечание 1. Пример правильного (неправильного) индекса Латверии:
+
+AB23_56VG          # правильный
+V3F_231GT          # неправильный
+Примечание 2. Обратите внимание на символ _ в почтовом индексе.
+
+Примечание 3. Вызывать функцию generate_index() не нужно, требуется только реализовать.
+'''
+'''
+# v1
+import random as r
+import string as s
+def generate_index():
+    answer = list()
+    answer.append(r.choice(s.ascii_uppercase))
+    answer.append(r.choice(s.ascii_uppercase))
+    answer.append(str(r.randint(0, 99)))
+    answer.append('_')
+    answer.append(str(r.randint(0, 99)))
+    answer.append(r.choice(s.ascii_uppercase))
+    answer.append(r.choice(s.ascii_uppercase))
+    answer = ''.join(answer)
+    return answer
+
+print(generate_index())
+'''
+'''
+# v2
+import random as r
+import string as s
+def generate_index():
+    num1, num2 = (str(r.randint(0, 99)) for _ in range(2))
+    l1, l2, l3, l4 = (r.choice(s.ascii_uppercase) for _ in range(4))
+    return '{}{}{}_{}{}{}'.format(l1, l2, num1, num2, l3, l4)
+
+print(generate_index())
+'''
