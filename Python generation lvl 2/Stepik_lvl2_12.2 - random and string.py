@@ -226,3 +226,28 @@ print('total tickets:', len(answer))
 for ticket in answer:
     print(ticket)
 '''
+
+#%%
+# 12.2.10
+'''
+Анаграмма – это слово образованное путём перестановки букв, составляющих другое слово.
+
+Например, слова пила и липа или пост и стоп – анаграммы.
+
+Напишите программу, которая считывает одно слово и выводит с помощью модуля random его случайную анаграмму.
+
+Примечание. Обратите внимание на то, что метод shuffle() работает со списком, а не со строкой.
+'''
+'''
+# v1 
+from random import shuffle
+word = [sym for sym in input()]
+shuffle(word)
+print(''.join(word))
+'''
+'''
+# v2
+from random import sample
+word = input()
+print(''.join(sample(word, len(word))))
+'''
