@@ -287,6 +287,7 @@ for row in bingo_ticket:
 from random import sample
 num_list = sample(range(1,76), 25)
 ticket = [num_list[i:i+5] for i in range(0, 21, 5)]
+ticket[2][2] = 0
 for row in ticket:
     for elem in row:
         print(str(elem).rjust(3, ' '), end = '')
