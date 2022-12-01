@@ -71,3 +71,39 @@ plt.scatter(x_out, y_out, s=1, c='r')
 print('k =',k)
 print(f'pi = 4 * {k}/{n} = {4 * k/(n)}')
 '''
+'''
+# богосорт - болотная сортировка
+from random import shuffle
+from random import randint
+
+def if_sorted(my_list):
+    for i in range(len(my_list) - 1):
+        if my_list[i+1] < my_list[i]:
+            return False
+    return True
+
+def bogosort(my_list):
+    k = 0
+    while not if_sorted(my_list):
+        shuffle(my_list)
+        k += 1
+    return k, my_list
+
+n = 12
+list_nonsorted = [randint(1, n) for _ in range(n)]
+print('list before:', list_nonsorted)
+print('sorted status:', if_sorted(list_nonsorted))
+print()
+k, list_sorted = bogosort(list_nonsorted)
+print('list after:', list_sorted)
+print('sorted status:', if_sorted(list_sorted))
+print('всего итераций:', k)
+'''
+'''
+list before: [4, 5, 12, 9, 6, 4, 1, 6, 2, 10, 10, 11]
+sorted status: False
+
+list after: [1, 2, 4, 4, 5, 6, 6, 9, 10, 10, 11, 12]
+sorted status: True
+всего итераций: 101324621
+'''
