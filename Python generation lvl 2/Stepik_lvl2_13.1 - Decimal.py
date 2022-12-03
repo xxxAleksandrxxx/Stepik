@@ -124,3 +124,31 @@ num = Decimal(input())
 # num = Decimal('12345')
 d = num.as_tuple()
 print(max(d[1]) + min(d[1])*(abs(num) >= 1))
+
+
+#%%
+# 13.1.13 Математическое выражение
+'''
+На вход программе подается Decimal число d. Напишите программу, которая вычисляет значение выражения:
+e^d + ln(d) + lg(d) + d^0.5
+
+Формат входных данных
+На вход программе подается положительное десятичное число d.
+
+Формат выходных данных
+Программа должна вывести искомое значение выражения.
+'''
+'''
+# v1
+from decimal import Decimal
+# d = Decimal(input())
+d = Decimal('1.1')
+answer = d.exp() + d.ln() + d.log10() + d.sqrt()
+print(answer)
+'''
+
+# v2
+from decimal import Decimal
+d = Decimal(input())
+print(sum(func() for func in (d.exp, d.ln, d.log10, d.sqrt)))
+print(sum(func for func in (d.exp(), d.ln(), d.log10(), d.sqrt())))
