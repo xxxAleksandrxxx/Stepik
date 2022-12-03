@@ -94,3 +94,33 @@ s = '9.73 8.84 8.92 9.60 9.32 8.97 8.53 1.26 6.62 9.85 1.85 1.80 0.83 6.75 9.74 
 s_dec = [Decimal(number) for number in s.split()]
 print(sum(s_dec))
 print(*sorted(s_dec, reverse=True)[:5])
+
+
+#%%
+# 3.1.12
+'''
+Дополните приведенный код, чтобы он вывел сумму наибольшей и наименьшей цифры Decimal числа.
+from decimal import *
+num = Decimal(input())
+'''
+# v1
+'''
+from decimal import Decimal
+num = Decimal(input())
+# num = Decimal('0.1244354689')
+# num = Decimal('123')
+# num = Decimal('-0.12345678')
+d = num.as_tuple()
+if d[2]+len(d[1]) == 0:
+    print(max(d[1]))
+else:
+    print(max(d[1])+min(d[1]))
+'''
+
+# v2
+from decimal import Decimal
+num = Decimal(input())
+# num = Decimal('0.1244354689')
+# num = Decimal('12345')
+d = num.as_tuple()
+print(max(d[1]) + min(d[1])*(abs(num) >= 1))
