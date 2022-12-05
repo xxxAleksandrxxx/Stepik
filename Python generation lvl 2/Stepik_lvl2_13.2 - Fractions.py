@@ -130,8 +130,20 @@ print(sum(s))
 
 Примечание 1. Результирующая дробь должна быть несократимой.
 '''
+'''
+# v1
 from fractions import Fraction
 from math import factorial
 
 s = [Fraction(1, factorial(i)) for i in range(1, int(input()) + 1)]
+print(sum(s))
+'''
+
+# v2
+from fractions import Fraction
+s = []
+f = 1
+for i in range(1, int(input()) + 1):
+    f *= i
+    s.append(Fraction(1, f))
 print(sum(s))
