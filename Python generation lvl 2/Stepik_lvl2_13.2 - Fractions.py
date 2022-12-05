@@ -104,7 +104,14 @@ print('{} / {} = {}'.format(num1, num2, Fraction(num1) / Fraction(num2)))
 
 Примечание 1. Результирующая дробь должна быть несократимой.
 '''
+'''
 # v1
 from fractions import Fraction
 s = [Fraction('1/{}'.format(i))**2 for i in range(1, int(input())+1)]
+print(sum(s))
+'''
+
+# v2
+from fractions import Fraction
+s = [Fraction(1, i**2) for i in range(1, int(input())+1)]
 print(sum(s))
