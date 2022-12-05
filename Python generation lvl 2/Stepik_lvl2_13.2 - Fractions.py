@@ -138,7 +138,7 @@ from math import factorial
 s = [Fraction(1, factorial(i)) for i in range(1, int(input()) + 1)]
 print(sum(s))
 '''
-
+'''
 # v2
 from fractions import Fraction
 s = []
@@ -147,3 +147,13 @@ for i in range(1, int(input()) + 1):
     f *= i
     s.append(Fraction(1, f))
 print(sum(s))
+'''
+
+# v3
+from fractions import Fraction
+s = 0
+f = 1
+for i in range(1, int(input()) + 1):
+    f *= i
+    s += Fraction(1, f)
+print(s)
