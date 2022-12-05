@@ -65,7 +65,7 @@ print(Fraction(m)/Fraction(n))
 
 Примечание. Обратите внимание на третий тест: исходные дроби сокращать не нужно, а результат нужно.
 '''
-
+'''
 # v1
 from fractions import Fraction
 
@@ -80,3 +80,12 @@ print('{} + {} = {}'.format(num[0], num[1], num1 + num2))
 print('{} - {} = {}'.format(num[0], num[1], num1 - num2))
 print('{} * {} = {}'.format(num[0], num[1], num1 * num2))
 print('{} / {} = {}'.format(num[0], num[1], num1 / num2))
+'''
+
+# v2
+from fractions import Fraction
+num1, num2 = [input() for _ in range(2)]
+print('{} + {} = {}'.format(num1, num2, Fraction(num1) + Fraction(num2)))
+print('{} - {} = {}'.format(num1, num2, Fraction(num1) - Fraction(num2)))
+print('{} * {} = {}'.format(num1, num2, Fraction(num1) * Fraction(num2)))
+print('{} / {} = {}'.format(num1, num2, Fraction(num1) / Fraction(num2)))
