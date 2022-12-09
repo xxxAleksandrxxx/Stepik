@@ -56,3 +56,31 @@ for number in numbers:
         answer = number
 
 print(answer, abs(answer), sep='\n')
+
+
+#%% 
+# 13.3.14 Сопряженные числа
+'''
+Дано натуральное число n и два комплексных числа z1, z2. Напишите программу, которая вычисляет и выводит значение выражения
+z1^n + z2^n + z1_sopr^n + z2_sopr^(n+1)
+z1_sopr, z2_sopr - сопряженные числа числам z1 и z2
+'''
+'''
+# v1
+def power(number, power):
+    result = 1
+    for _ in range(power):
+        result *= number
+    return result
+
+n = int(input())
+z1, z2 = [complex(input()) for _ in range(2)]
+
+answer = power(z1, n) + power(z2, n) + power(z1.conjugate(), n) + power(z2.conjugate(), (n+1))
+print(answer)
+'''
+
+# v2
+n = int(input())
+z1, z2 = [complex(input()) for _ in range(2)]
+print(z1**n + z2**n + z1.conjugate()**n + z2.conjugate()**(n+1))
