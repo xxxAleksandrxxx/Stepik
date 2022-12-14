@@ -3,16 +3,6 @@
 import turtle
 import math
 t1 = turtle.Turtle()
-# t1.showturtle()
-# t1.bk(100)
-# t1.hideturtle()
-
-n = 1000
-dist = 30
-ang_step = 0.001
-ang = 73
-end = 115
-
 
 
 def paint1(dist, ang, n):
@@ -65,17 +55,24 @@ def paint3(dist, ang, n):
     turtle.update()
 
 
+n = 2500
+dist = 10
+ang_step = 0.001
+ang = 78
+end = 100
 
 turtle.bgcolor('gray')
-r = 1
-g = 50
-b = 100
+r0 = 1
+r_max = 20
+r = r0
+g = 30
+b = 80
 t = 1
 while ang < end:
     turtle.title(f'угол = {ang:.3f}')
     print(f'r = {r}  g = {g}  b = {b}')
     r = (r + t)
-    if r == 115 or r == 1:
+    if r == r_max or r == r0:
         t *= -1
 
     paint1_c(dist, ang, n)
@@ -424,7 +421,7 @@ turtle.exitonclick()
 Напишите программу, которая рисует узор, показанный на рисунке.
 квадратная спираль
 '''
-
+'''
 import turtle
 
 turtle.speed(0)
@@ -440,3 +437,4 @@ for _ in range(n):
     turtle.left(angle)
 
 turtle.exitonclick()
+'''
