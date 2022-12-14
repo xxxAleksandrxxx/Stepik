@@ -229,7 +229,7 @@ turtle.exitonclick()
 '''
 правильный n-угольник
 '''
-
+'''
 import turtle
 
 turtle.speed(9)
@@ -240,5 +240,29 @@ angle = 360 / n
 for _ in range(n):
     turtle.forward(side)
     turtle.left(angle)
+
+turtle.exitonclick()
+'''
+
+
+# 14.1.7
+'''
+Напишите программу, которая рисует соты.
+'''
+
+import turtle
+
+def hexagon(side):
+    for _ in range(6):
+        turtle.forward(side)
+        turtle.left(60)
+
+turtle.speed(0)
+side = 50
+
+for i in range(0,6):
+    hexagon(side)
+    turtle.forward(side)
+    turtle.right(60)
 
 turtle.exitonclick()
