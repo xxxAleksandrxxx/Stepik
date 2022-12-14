@@ -381,7 +381,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует правильную пятиконечную звезду.
 '''
-
+'''
 import turtle
 
 turtle.speed(3)
@@ -392,5 +392,27 @@ turtle.right(angle0)
 for _ in range(5):
     turtle.left(angle)
     turtle.fd(length)
+
+turtle.exitonclick()
+'''
+
+
+# 14.1.12
+'''
+Напишите программу, которая рисует квадраты, чтобы создать узор, показанный на рисунке.
+'''
+
+import turtle
+
+turtle.speed(0)
+side0 = 15
+side_max = 200
+step = 5
+for l in range(side0, side_max, step):
+    turtle.setheading(0)
+    turtle.left(90)
+    for _ in range(4):
+        turtle.fd(l)
+        turtle.left(90)
 
 turtle.exitonclick()
