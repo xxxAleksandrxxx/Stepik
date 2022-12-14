@@ -212,7 +212,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует правильный шестиугольник.
 '''
-
+'''
 import turtle
 
 turtle.speed(9)
@@ -221,5 +221,24 @@ side = 50
 for _ in range(6):
     turtle.forward(side)
     turtle.left(60)
+
+turtle.exitonclick()
+'''
+
+
+'''
+правильный n-угольник
+'''
+
+import turtle
+
+turtle.speed(9)
+side = 50
+n = 7
+angle = 360 / n
+
+for _ in range(n):
+    turtle.forward(side)
+    turtle.left(angle)
 
 turtle.exitonclick()
