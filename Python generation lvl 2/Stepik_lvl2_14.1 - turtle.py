@@ -188,7 +188,7 @@ turtle.done()
 '''
 Напишите программу, которая рисует изображенную фигуру из восьми квадратов.
 '''
-
+'''
 import turtle
 
 def square(side):
@@ -204,4 +204,22 @@ for _ in range(8):
     turtle.left(45)
 
 # turtle.done()
+turtle.exitonclick()
+'''
+
+
+# 14.1.6
+'''
+Напишите программу, которая рисует правильный шестиугольник.
+'''
+
+import turtle
+
+turtle.speed(9)
+side = 50
+
+for _ in range(6):
+    turtle.forward(side)
+    turtle.left(60)
+
 turtle.exitonclick()
