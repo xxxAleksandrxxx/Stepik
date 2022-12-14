@@ -249,7 +249,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует соты.
 '''
-
+'''
 import turtle
 
 def hexagon(side):
@@ -266,3 +266,24 @@ for i in range(0,6):
     turtle.right(60)
 
 turtle.exitonclick()
+'''
+
+
+# 14.1.8
+'''
+Напишите программу, которая рисует ромб с углами 60 и 120 градусов.
+'''
+
+import turtle
+
+def rhombus(side, angle = 60):
+    for alfa in [angle, 180-angle]*2:
+        turtle.forward(side)
+        turtle.left(alfa)
+
+turtle.speed(0)
+side = 50
+rhombus(side, 10)
+
+turtle.exitonclick()
+
