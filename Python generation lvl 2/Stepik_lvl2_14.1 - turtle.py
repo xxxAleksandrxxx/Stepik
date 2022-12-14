@@ -353,3 +353,24 @@ for i_n in range(200, 300):
 
 turtle.exitonclick()
 '''
+
+
+# 14.1.10
+'''
+Напишите программу, которая рисует лучи звезды, показанной на рисунке.
+'''
+
+import turtle
+
+turtle.speed(0)
+n = 12
+length = 100
+angle = 360 / n
+for _ in range(n):
+    turtle.forward(length)
+    turtle.up()
+    turtle.backward(length)
+    turtle.down()
+    turtle.left(angle)
+
+turtle.exitonclick()
