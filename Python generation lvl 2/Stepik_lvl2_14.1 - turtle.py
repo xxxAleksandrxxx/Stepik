@@ -273,17 +273,83 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует ромб с углами 60 и 120 градусов.
 '''
-
+'''
 import turtle
 
-def rhombus(side, angle = 60):
+def rhombus(side, angle = 120):
     for alfa in [angle, 180-angle]*2:
         turtle.forward(side)
         turtle.left(alfa)
 
 turtle.speed(0)
-side = 50
-rhombus(side, 10)
+side = 150
+rhombus(side)
 
 turtle.exitonclick()
+'''
 
+# 14.1.9
+'''
+Напишите программу, которая рисует снежинку из 10 ромбов.
+'''
+'''
+import turtle
+
+def rhombus(side0, angle0 = 36):
+    # color = ['purple']*4
+    for alfa in [180 - angle0, angle0]*2:
+        # turtle.pencolor(color.pop(0))
+        turtle.left(alfa)
+        turtle.forward(side0)
+
+turtle.speed(0)
+n = 10
+side = 150
+alfa_shift = 30  # смещение лепестков снежинок
+
+for i in range(n):
+    rhombus(side, 360/n + alfa_shift)
+    turtle.left(360/n)
+
+turtle.exitonclick()
+'''
+
+
+# анимация снежинки
+'''
+import turtle
+
+def rhombus(side0, angle0 = 36):
+    # color = ['purple']*4
+    for alfa in [180 - angle0, angle0]*2:
+        # turtle.pencolor(color.pop(0))
+        turtle.left(alfa)
+        turtle.forward(side0)
+
+def rhombus_circle(n0, side0, alfa_shift0):
+    for _ in range(n0):
+        rhombus(side0, 360/n0 + alfa_shift0)
+        turtle.left(360/n0)
+
+turtle.speed(0)
+n = 39
+side = 150
+alfa_shift = 30  # смещение лепестков снежинок
+
+turtle.hideturtle()
+alfa_step = 0.1
+alfa_max = 178
+
+for i_n in range(200, 300):
+    alfa = 90
+    while alfa < alfa_max:
+        turtle.clear()
+        turtle.title(f'alfa = {alfa:.2f}')
+        turtle.tracer(0, 0)
+        rhombus_circle(i_n, side, alfa)
+        turtle.update()
+        alfa += alfa_step
+
+
+turtle.exitonclick()
+'''
