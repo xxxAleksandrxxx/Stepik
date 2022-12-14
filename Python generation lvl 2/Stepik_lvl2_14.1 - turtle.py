@@ -184,3 +184,24 @@ for i in range(n):
 turtle.done()
 '''
 
+# 14.1.5 
+'''
+Напишите программу, которая рисует изображенную фигуру из восьми квадратов.
+'''
+
+import turtle
+
+def square(side):
+    for _ in range(4):
+        turtle.forward(side)
+        turtle.left(90)
+
+turtle.speed(9)
+side = 100
+
+for _ in range(8):
+    square(side)
+    turtle.left(45)
+
+# turtle.done()
+turtle.exitonclick()
