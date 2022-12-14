@@ -401,7 +401,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует квадраты, чтобы создать узор, показанный на рисунке.
 '''
-
+'''
 import turtle
 
 turtle.speed(0)
@@ -414,5 +414,29 @@ for l in range(side0, side_max, step):
     for _ in range(4):
         turtle.fd(l)
         turtle.left(90)
+
+turtle.exitonclick()
+'''
+
+
+# 14.1.13
+'''
+Напишите программу, которая рисует узор, показанный на рисунке.
+квадратная спираль
+'''
+
+import turtle
+
+turtle.speed(0)
+n = 50
+l0 = 10
+step = 3
+angle = 90
+turtle.left(angle)
+l = l0
+for _ in range(n):
+    turtle.fd(l)
+    l += step
+    turtle.left(angle)
 
 turtle.exitonclick()
