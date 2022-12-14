@@ -153,3 +153,34 @@ triangle(190)
 
 turtle.done()
 '''
+
+
+# 14.1.4
+'''
+Напишите программу, которая рисует изображенную фигуру, состоящую из трех квадратов.
+Примечание 1. Напишите функцию square(side), где side – длина стороны квадрата в пикселях.
+Примечание 2. Поэксперементируйте с углом поворота черепашки при переходе от одного квадрата к другому.
+'''
+'''
+import turtle
+
+turtle.speed(0)
+
+def square(side):
+    for _ in range(4):
+        turtle.forward(side)
+        turtle.left(90)
+
+n = 12
+a0 = 45/n
+a1 = 10
+s = 100
+
+for i in range(n):
+    turtle.setheading(a0)
+    square(s)
+    a0 += 90/n
+
+turtle.done()
+'''
+
