@@ -121,6 +121,7 @@ turtle.done()
 Напишите программу, которая рисует прямоугольник.
 Примечание. Программу нужно оформить в виде функции rectangle(width, height), где width, height – ширина и высота прямоугольника.
 '''
+'''
 import turtle
 t = turtle.Turtle()
 
@@ -132,3 +133,23 @@ def rectangel(len = 30, hight = 10):
 rectangel(30, 20)
 
 turtle.done()
+'''
+
+
+# 14.1.3
+'''
+Напишите программу, которая рисует правильный треугольник.
+Программу нужно оформить в виде функции triangle(side), где side – длина стороны треугольника в пикселях.
+'''
+'''
+import turtle
+
+def triangle(side):
+    for _ in range(3):
+        turtle.forward(side)
+        turtle.left(120)
+
+triangle(190)
+
+turtle.done()
+'''
