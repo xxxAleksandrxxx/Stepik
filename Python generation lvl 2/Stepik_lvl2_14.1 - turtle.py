@@ -359,7 +359,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует лучи звезды, показанной на рисунке.
 '''
-
+'''
 import turtle
 
 turtle.speed(0)
@@ -372,5 +372,25 @@ for _ in range(n):
     turtle.backward(length)
     turtle.down()
     turtle.left(angle)
+
+turtle.exitonclick()
+'''
+
+
+# 14.1.11
+'''
+Напишите программу, которая рисует правильную пятиконечную звезду.
+'''
+
+import turtle
+
+turtle.speed(3)
+length = 200
+angle0 = 180-144
+angle = 144
+turtle.right(angle0)
+for _ in range(5):
+    turtle.left(angle)
+    turtle.fd(length)
 
 turtle.exitonclick()
