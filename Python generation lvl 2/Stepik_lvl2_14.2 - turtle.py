@@ -58,3 +58,32 @@ for num in [a, b]*2:
     turtle.left(90)
 turtle.exitonclick()
 '''
+
+
+# 14.2.4
+'''
+Напишите программу для рисования паутины в соответствии с примером. Программа должна считывать количество лучей паутины, число n
+'''
+
+import turtle
+turtle.speed(0)
+n = 6
+l = 100
+turtle.dot(10)
+# turtle.shape('triangle')
+alfa = 360/n
+count = 0
+while count < 360:
+    turtle.fd(l)
+    turtle.stamp()
+    turtle.back(l)
+    turtle.left(alfa)
+    count += alfa
+# turtle.fd(l/10)
+i = 0
+while i < 100:
+    turtle.left(alfa)
+    turtle.fd(i)
+    i += 1
+
+turtle.exitonclick()
