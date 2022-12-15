@@ -156,8 +156,9 @@ for i in range(0, 150, 5):
 turtle.exitonclick()
 '''
 
-# Плавное изменение цвета в RGB формате
 
+# Плавное изменение цвета в RGB формате
+'''
 import turtle
 turtle.colormode(255)
 turtle.bgcolor('black')
@@ -188,3 +189,29 @@ for i in range(1, 1000):
     turtle.forward(l)
 turtle.update()  # отобразить нарисованное
 turtle.mainloop()
+'''
+
+
+# 14.2.8
+'''
+Напишите программу, которая рисует узор в соответствии с образцом.
+спираль, постепенно меняется толщина линии и ее цвет
+'''
+
+import turtle
+turtle.tracer(0, 0)
+turtle.hideturtle()
+tire = '2'
+colors = [f'SpringGreen{tire}', f'SlateBlue{tire}', f'tomato{tire}', f'red{tire}', f'SteelBlue{tire}']
+colors_len = len(colors)
+angle = 45
+turtle.pensize(0.1)
+l = 10
+for i in range(50):
+    turtle.fd(l)
+    turtle.left(angle)
+    turtle.pensize(i/1)
+    turtle.pencolor(colors[i%colors_len])
+    l += 5
+turtle.update()
+turtle.exitonclick()
