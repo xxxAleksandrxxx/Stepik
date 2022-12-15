@@ -42,3 +42,19 @@ for i in range(0, line, l):
     turtle.fd(l)
 turtle.exitonclick()
 '''
+
+# 14.2.3
+'''
+Напишите программу, которая рисует прямоугольник с точкой в каждом углу
+'''
+'''
+import turtle
+turtle.speed(0)
+a = 100
+b = 50
+for num in [a, b]*2:
+    turtle.fd(num)
+    turtle.dot()
+    turtle.left(90)
+turtle.exitonclick()
+'''
