@@ -94,7 +94,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует черепашек в соответствии с образцом.
 '''
-
+'''
 import turtle
 turtle.speed(5)
 turtle.shape('turtle')
@@ -109,4 +109,31 @@ for i in range(0, 360, 360//n):
     turtle.back(l)
     turtle.left(angle)
 turtle.hideturtle()
+turtle.exitonclick()
+'''
+
+
+# 14.2.6
+'''
+Напишите программу, которая рисует циферблат часов в соответствии с образцом.
+'''
+
+import turtle
+turtle.speed(0)
+turtle.shape('turtle')
+turtle.pensize(4)
+l = 200
+l1 = 20
+n = 12
+angle = 360/n
+for _ in range(0, 360, 360//n):
+    turtle.up()
+    turtle.fd(l - 2*l1)
+    turtle.down()
+    turtle.fd(l1)
+    turtle.up()
+    turtle.fd(l1)
+    turtle.stamp()
+    turtle.back(l)
+    turtle.left(angle)
 turtle.exitonclick()
