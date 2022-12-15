@@ -144,7 +144,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует черепашью спираль в соответствии с образцом.
 '''
-
+'''
 import turtle
 turtle.speed(0)
 turtle.shape('turtle')
@@ -154,3 +154,37 @@ for i in range(0, 150, 5):
     turtle.fd(i)
     turtle.right(27)
 turtle.exitonclick()
+'''
+
+# Плавное изменение цвета в RGB формате
+
+import turtle
+turtle.colormode(255)
+turtle.bgcolor('black')
+turtle.speed(0)
+turtle.hideturtle()
+turtle.tracer(0, 0)  # скрыть перемещение черепашки для ускорения отрисовки
+r = 0
+g = 0 
+b = 255
+color_step = 3
+l = 5
+for i in range(1, 1000): 
+    if 0 < i % 379 < 64: 
+        r += color_step
+    elif 63 < i % 379 < 127: 
+        b -= color_step 
+    elif 126 < i % 379 < 190: 
+        g += color_step
+    elif 189 < i % 379 < 253:
+        r -= color_step
+    elif 252 < i % 379 < 316:
+        b += color_step
+    elif 315 < i % 379 < 379:
+        g -= color_step
+    turtle.pencolor(r, g, b) 
+    l += 0.1
+    turtle.left(45)
+    turtle.forward(l)
+turtle.update()  # отобразить нарисованное
+turtle.mainloop()
