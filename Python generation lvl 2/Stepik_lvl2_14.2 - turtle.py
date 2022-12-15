@@ -64,7 +64,7 @@ turtle.exitonclick()
 '''
 Напишите программу для рисования паутины в соответствии с примером. Программа должна считывать количество лучей паутины, число n
 '''
-
+'''
 import turtle
 turtle.speed(0)
 n = 6
@@ -86,4 +86,27 @@ while i < 100:
     turtle.fd(i)
     i += 1
 
+turtle.exitonclick()
+'''
+
+
+# 14.2.5
+'''
+Напишите программу, которая рисует черепашек в соответствии с образцом.
+'''
+
+import turtle
+turtle.speed(5)
+turtle.shape('turtle')
+turtle.stamp()
+turtle.up()
+n = 6
+l = 100
+angle = 360/n
+for i in range(0, 360, 360//n):
+    turtle.fd(l)
+    turtle.stamp()
+    turtle.back(l)
+    turtle.left(angle)
+turtle.hideturtle()
 turtle.exitonclick()
