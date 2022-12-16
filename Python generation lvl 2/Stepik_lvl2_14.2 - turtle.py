@@ -414,7 +414,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует цветные олимпийские кольца
 '''
-
+'''
 import turtle
 
 turtle.speed(0)
@@ -437,4 +437,55 @@ for color in ['blue', 'black', 'red', 'orange', 'green']:
     turtle.up()
     x += 2*r - shift
 
+turtle.exitonclick()
+'''
+
+
+# 14.2.14
+'''
+Напишите программу, которая рисует изображение мордашки мишки.
+'''
+
+import turtle
+
+turtle.tracer(0, 0)
+turtle.hideturtle()
+head = 150
+mouth = 1.1*head/2
+nose = 0.2*mouth
+eye = nose*1.9
+ear = mouth/2
+x0, y0 = 0, -head-ear
+turtle.up()
+turtle.goto(x0, y0)
+turtle.down()
+# head
+turtle.circle(head)
+# mouth and nose
+turtle.circle(mouth)
+turtle.up()
+turtle.goto(x0, y0 + 2*nose)
+turtle.down()
+turtle.goto(x0, y0 + 2*mouth - 3*nose)
+turtle.circle(nose)
+# eyes
+turtle.up()
+turtle.goto(x0 + head/2, y0 + 1.1*head)
+turtle.down()
+turtle.dot(eye)
+turtle.up()
+turtle.goto(x0 - head/2, y0 + 1.1*head)
+turtle.down()
+turtle.dot(eye)
+# ears
+turtle.up()
+turtle.goto(x0 + 7*head/8, y0 + 1.65*head)
+turtle.down()
+turtle.circle(ear)
+turtle.up()
+turtle.goto(x0 - 7*head/8, y0 + 1.65*head)
+turtle.down()
+turtle.circle(ear)
+
+turtle.update()
 turtle.exitonclick()
