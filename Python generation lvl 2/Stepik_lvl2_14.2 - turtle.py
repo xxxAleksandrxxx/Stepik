@@ -308,8 +308,8 @@ y += 0
 turtle.setpos(x, y)
 turtle.exitonclick()
 '''
-'''
 # v3
+'''
 import turtle
 turtle.speed(8)
 c = 50
@@ -339,8 +339,8 @@ y -= 3*b
 turtle.goto(x, y)
 turtle.exitonclick()
 '''
-
 # v4
+'''
 import turtle
 turtle.speed(8)
 c = 150
@@ -369,5 +369,41 @@ for i in range(2):
     x += 0.5*3*c
     y -= 3*b*(-1)**i
     turtle.goto(x, y)
+
+turtle.exitonclick()
+'''
+
+
+# 14.2.12
+'''
+Напишите программу, которая рисует изображение в соответствии с образцом.
+лучи вниз из центральной точки наверху
+'''
+
+import turtle
+
+turtle.speed(0)
+turtle.hideturtle()
+n = 5
+h = 100
+l = 350
+dot_size = 20
+step = l / (n-1)
+x0, y0 = -l/2, -h/2
+turtle.up()
+turtle.goto(x0, y0)
+turtle.down()
+for i in range(0, n):
+    turtle.pencolor('green')
+    turtle.goto(l/2 + x0, h + y0)
+    turtle.down()
+    turtle.goto(i * step + x0, 0 + y0)
+    turtle.pencolor('blue')
+    turtle.dot(dot_size)
+    turtle.up()
+turtle.pencolor('green')
+turtle.goto(l/2 + x0, h + y0)
+turtle.pencolor('red')
+turtle.dot(dot_size)
 
 turtle.exitonclick()
