@@ -197,7 +197,7 @@ turtle.mainloop()
 Напишите программу, которая рисует узор в соответствии с образцом.
 спираль, постепенно меняется толщина линии и ее цвет
 '''
-
+'''
 import turtle
 turtle.tracer(0, 0)
 turtle.hideturtle()
@@ -214,4 +214,160 @@ for i in range(50):
     turtle.pencolor(colors[i%colors_len])
     l += 5
 turtle.update()
+turtle.exitonclick()
+'''
+
+
+# 14.2.11
+'''
+Напишите программу, которая рисует звезду, показанную на рисунке. Такую звезду можно создать из двух треугольников. Однако их невозможно нарисовать непрерывной линией, поэтому перо нужно будет поднять для перехода ко второму треугольнику.
+'''
+'''
+# v1
+import turtle
+turtle.speed(4)
+a = 100
+for _ in range(6):
+    turtle.right(60)
+    turtle.fd(a)
+    turtle.left(60+60)
+    turtle.fd(a)
+for _ in range(6):
+    turtle.fd(a)
+    turtle.left(60)
+turtle.exitonclick()
+'''
+
+# v2
+'''
+import turtle
+turtle.speed(8)
+c = 100
+b = 0.5 * c * 3**0.5
+a = 0.5 * c
+turtle.up()
+turtle.setpos(0, -2*b)
+turtle.down()
+x = turtle.xcor()
+y = turtle.ycor()
+
+
+x += a
+y += b
+turtle.setpos(x, y)
+x += c
+y += 0
+turtle.setpos(x, y)
+x -= a
+y += b
+turtle.setpos(x, y)
+x += a
+y += b
+turtle.setpos(x, y)
+x -= c
+y += 0
+turtle.setpos(x, y)
+x -= a
+y += b
+turtle.setpos(x, y)
+x -= a
+y -= b
+turtle.setpos(x, y)
+x -= c
+y -= 0
+turtle.setpos(x, y)
+x += a
+y -= b
+turtle.setpos(x, y)
+x -= a
+y -= b
+turtle.setpos(x, y)
+x += c
+y += 0
+turtle.setpos(x, y)
+x += a
+y -= b
+turtle.setpos(x, y)
+x += 2*a
+y += 2*b
+turtle.setpos(x, y)
+x -= a
+y += b
+turtle.setpos(x, y)
+x -= c
+y -= 0
+turtle.setpos(x, y)
+x -= a
+y -= b
+turtle.setpos(x, y)
+x += a
+y -= b
+turtle.setpos(x, y)
+x += c
+y += 0
+turtle.setpos(x, y)
+turtle.exitonclick()
+'''
+'''
+# v3
+import turtle
+turtle.speed(8)
+c = 50
+a = 0.5 * c
+b = 0.5 * c * 3**0.5
+x, y = 0, 0
+x += 3*c
+y += 0
+turtle.goto(x, y)
+for i in range(2):
+    x -= 0.5*3*c
+    y += 3*b*(-1)**i
+    turtle.goto(x, y)
+turtle.up()
+x += 0.5*3*c
+y -= b
+turtle.goto(x, y)
+turtle.down()
+x += 0.5*3*c
+y += 3*b
+turtle.goto(x, y)
+x -= 3*c
+y -= 0
+turtle.goto(x, y)
+x += 0.5*3*c
+y -= 3*b
+turtle.goto(x, y)
+turtle.exitonclick()
+'''
+
+# v4
+import turtle
+turtle.speed(8)
+c = 150
+a = 0.5 * c
+b = 0.5 * c * 3**0.5
+turtle.up()
+x, y = -0.5*3*c, -b
+turtle.goto(x, y)
+turtle.down()
+x += 3*c
+y += 0
+turtle.goto(x, y)
+for i in range(2):
+    x -= 0.5*3*c
+    y += 3*b*(-1)**i
+    turtle.goto(x, y)
+turtle.up()
+x += 3*c
+y += 2*b
+turtle.goto(x, y)
+turtle.down()
+x -= 3*c
+y += 0
+turtle.goto(x, y)
+for i in range(2):
+    x += 0.5*3*c
+    y -= 3*b*(-1)**i
+    turtle.goto(x, y)
+
 turtle.exitonclick()
