@@ -445,7 +445,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует изображение мордашки мишки.
 '''
-
+'''
 import turtle
 
 turtle.tracer(0, 0)
@@ -488,4 +488,61 @@ turtle.down()
 turtle.circle(ear)
 
 turtle.update()
+turtle.exitonclick()
+'''
+
+
+# 14.2.15
+'''
+Напишите программу, которая случайным образом рисует снежинки разного цвета и размера
+'''
+
+import turtle
+import random
+
+def snowflake(size0, color0, x0, y0):
+    s = turtle.Turtle()
+    s.hideturtle()
+    turtle.tracer(0, 0)
+    s.pencolor(color0)
+    s.pensize(size0/30)
+    s.up()
+    s.goto(x0, y0)
+    s.down()
+    s.speed(9)
+    sl = size0/4
+    ss = 0.5*sl*2**0.5
+    for _ in range(8):
+        for _ in range(3):
+            s.fd(sl)
+            s.left(45)
+            s.fd(sl)
+            s.up() 
+            s.bk(sl) 
+            s.down()
+            s.right(90)
+            s.fd(sl)
+            s.up() 
+            s.bk(sl) 
+            s.down()
+            s.left(45)
+        s.fd(ss)
+        s.up()
+        s.bk(size0-sl+ss)
+        s.down()
+        s.left(45)
+    turtle.update()
+
+h = 600
+w = 600
+
+turtle.Screen().setup(h, w)
+turtle.Screen().bgcolor('azure')
+n = 50
+for _ in range(n):
+    x, y = [random.uniform(-0.47*w, 0.47*w) for _ in range(2)]
+    color = (random.uniform(0, 1) for _ in range(3))
+    snowflake(random.uniform(5, 50), color, x, y)
+    # turtle.update()
+
 turtle.exitonclick()
