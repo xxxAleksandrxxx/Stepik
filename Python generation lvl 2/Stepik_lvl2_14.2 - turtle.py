@@ -379,7 +379,7 @@ turtle.exitonclick()
 Напишите программу, которая рисует изображение в соответствии с образцом.
 лучи вниз из центральной точки наверху
 '''
-
+'''
 import turtle
 
 turtle.speed(0)
@@ -405,5 +405,36 @@ turtle.pencolor('green')
 turtle.goto(l/2 + x0, h + y0)
 turtle.pencolor('red')
 turtle.dot(dot_size)
+
+turtle.exitonclick()
+'''
+
+
+# 14.2.13
+'''
+Напишите программу, которая рисует цветные олимпийские кольца
+'''
+
+import turtle
+
+turtle.speed(0)
+turtle.hideturtle()
+turtle.pensize(10)
+r = 50
+shift = -30*r/100
+x0 = -2*r + 1*shift
+y0 = -1*r
+x, y = x0, y0
+turtle.up()
+for color in ['blue', 'black', 'red', 'orange', 'green']:
+    if color == 'orange':
+        x = x0 + r - shift/2
+        y = y0 - r - abs(shift/2)
+    turtle.goto(x, y)
+    turtle.down()
+    turtle.pencolor(color)
+    turtle.circle(r)
+    turtle.up()
+    x += 2*r - shift
 
 turtle.exitonclick()
