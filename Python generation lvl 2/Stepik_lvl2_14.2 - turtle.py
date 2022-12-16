@@ -505,7 +505,7 @@ def snowflake(size0, color0, x0, y0):
     s.hideturtle()
     turtle.tracer(0, 0)
     s.pencolor(color0)
-    s.pensize(size0/30)
+    s.pensize(size0/10)
     s.up()
     s.goto(x0, y0)
     s.down()
@@ -539,10 +539,14 @@ w = 600
 turtle.Screen().setup(h, w)
 turtle.Screen().bgcolor('azure')
 n = 50
+s0 = 5
+s1 = 70
 for _ in range(n):
     x, y = [random.uniform(-0.47*w, 0.47*w) for _ in range(2)]
-    color = (random.uniform(0, 1) for _ in range(3))
-    snowflake(random.uniform(5, 50), color, x, y)
+    r = random.uniform(0, 0.2)
+    g = random.uniform(0, 0.2)
+    b = random.uniform(0.7, 0.99)
+    snowflake(random.uniform(s0, s1), [0.4, 0.5, b], x, y)
     # turtle.update()
 
 turtle.exitonclick()
