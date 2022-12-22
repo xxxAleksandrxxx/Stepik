@@ -87,7 +87,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует изображение светофора
 '''
-
+'''
 import turtle
 t = turtle.Turtle()
 t.hideturtle()
@@ -123,5 +123,50 @@ Y0 -= h/2+r
 circle(r, X0, Y0+h/2*0.62, 'red')
 circle(r, X0, Y0+0, 'yellow')
 circle(r, X0, Y0-h/2*0.62, 'green')
+
+turtle.exitonclick()
+'''
+
+
+# 14.3.4
+'''
+Напишите программу, которая рисует оптическую иллюзию по образцу.
+'''
+import turtle
+t = turtle.Turtle()
+t.hideturtle()
+t.speed(0)
+a = 200
+r = a*0.15
+x0 = -a/2
+y0 = -a/4
+
+def tri(length, X0=0, Y0=0, fill='False'):
+    if fill:
+      t.fillcolor('white')
+      t.begin_fill()
+      t.pencolor('white')
+    t.up()
+    t.goto(X0, Y0)
+    t.down()
+    for _ in range(3):
+        t.fd(length)
+        t.left(120)
+    t.end_fill()
+
+def circ(radius, X=0, Y=0, bk_color='black'):
+    t.up()
+    t.goto(X, Y)
+    t.down()
+    t.fillcolor(bk_color)
+    t.begin_fill()
+    t.circle(radius)
+    t.end_fill()
+
+tri(a, x0, y0, False)
+circ(r, x0+a/2, y0 - (a*3**0.5)/6 - r)
+circ(r, x0+a, y0 + 2*(a*3**0.5)/6 - r)
+circ(r, x0, y0 + 2*(a*3**0.5)/6 - r)
+tri(-a, a/2, a/3, True)
 
 turtle.exitonclick()
