@@ -132,6 +132,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует оптическую иллюзию по образцу.
 '''
+'''
 import turtle
 t = turtle.Turtle()
 t.hideturtle()
@@ -170,3 +171,34 @@ circ(r, x0, y0 + 2*(a*3**0.5)/6 - r)
 tri(-a, a/2, a/3, True)
 
 turtle.exitonclick()
+'''
+
+
+# 14.3.5
+'''
+Напишите программу, которая рисует изображение радуги по образцу.
+'''
+import turtle
+t = turtle.Turtle()
+t.speed(0)
+t.hideturtle()
+radius = 150
+step = radius/7
+colors = ['#fc0303', '#fc8003', '#fcdb03', '#0ffc03', '#03dbfc', '#0307fc', '#9803fc']
+t.up()
+t.goto(0, -radius)
+t.down()
+y = -radius
+for color in colors:
+    t.fillcolor(color)
+    t.begin_fill()
+    t.circle(radius)
+    t.end_fill()
+    y += step
+    t.up()
+    t.goto(0, y)
+    t.down()
+    radius -= step
+
+turtle.exitonclick()
+
