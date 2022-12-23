@@ -209,6 +209,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует изображение полумесяца 
 '''
+'''
 import turtle
 a = 400
 r = a*0.7/2
@@ -238,4 +239,35 @@ t.begin_fill()
 t.circle(r)
 t.end_fill()
 
+turtle.exitonclick()
+'''
+
+
+# 14.3.7
+'''
+Напишите программу, которая рисует анимированное изображение фаз луны
+'''
+# v1
+import turtle
+r = 150
+turtle.tracer(0, 0)
+turtle.Screen().bgcolor('#324ca8')
+t = turtle.Turtle()
+t.hideturtle()
+t.up()
+x = 2*r
+y = -r
+for _ in range(2*r):
+    t.goto(0, -r)
+    t.fillcolor('#ffde05')
+    t.begin_fill()
+    t.circle(r)
+    t.end_fill()
+    t.goto(x, y)
+    t.fillcolor('#324ca8')
+    t.begin_fill()
+    t.circle(r)
+    t.end_fill()
+    turtle.update()
+    x -= 2
 turtle.exitonclick()
