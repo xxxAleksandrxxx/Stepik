@@ -302,7 +302,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует много 5-ти конечных зведочек. Звезды должны быть рассыпаны случайно, иметь разный размер и цвет.
 '''
-
+'''
 import turtle
 import random
 size_min = 5
@@ -335,5 +335,48 @@ for _ in range(n):
     y = random.uniform(-h, h)
     size = random.randrange(size_min, size_max, 1)
     star_random(size, x, y)
+
+turtle.exitonclick()
+'''
+
+
+# 14.3.9
+'''
+Напишите программу, которая рисует изображение правильных многоугольников по образцу. Многоугольники должны иметь разный цвет.
+'''
+
+import turtle, math, random
+
+turtle.colormode(255)
+l = 50
+s = 3000
+x = -200
+y = -200
+i = 2
+
+def fig(len0, n0=3, x0=0, y0=0, color0=[120, 120, 120]):
+    angle = 360/n0
+    turtle.tracer(0, 0)
+    f = turtle.Turtle()
+    f.hideturtle()
+    f.up()
+    f.goto(x0, y0)
+    f.fillcolor(color0)
+    f.begin_fill()
+    f.fd(len0/2)
+    f.left(angle)
+    for _ in range(n0-1):
+        f.fd(len0)
+        f.left(angle)
+    f.fd(len0/2) 
+    f.end_fill()
+    turtle.update()
+
+for x_i in range(x, -x, int(s**0.5*1.8)):
+    for y_i in range(y, -y, int(s**0.5*1.8)):
+        i = random.randrange(3, 9)
+        color = [random.randrange(10, 200) for _ in range(3)]
+        a = (4*s*math.tan(math.radians(180/i))/i)**0.5
+        fig(a, i, x_i, y_i, color)
 
 turtle.exitonclick()
