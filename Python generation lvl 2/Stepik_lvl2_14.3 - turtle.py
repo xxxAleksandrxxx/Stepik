@@ -247,6 +247,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует анимированное изображение фаз луны
 '''
+'''
 # v1
 import turtle
 r = 150
@@ -270,4 +271,27 @@ for _ in range(2*r):
     t.end_fill()
     turtle.update()
     x -= 2
+turtle.exitonclick()
+'''
+
+# v2
+import turtle
+r = 100
+m = turtle.Turtle()
+m.shape('circle')
+m.shapesize(r/10)
+m.pencolor('#ffde05')
+m.fillcolor('#ffde05')
+turtle.tracer(0, 0)
+turtle.Screen().bgcolor('#324ca8')
+m.stamp()
+m.up()
+m.pencolor('#324ca8')
+m.fillcolor('#324ca8')
+m.goto(2*r, 0)
+turtle.update()
+turtle.tracer(1, 50)
+m.speed(1)
+m.goto(-2*r, 0)
+
 turtle.exitonclick()
