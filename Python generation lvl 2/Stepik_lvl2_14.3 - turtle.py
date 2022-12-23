@@ -178,6 +178,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует изображение радуги по образцу.
 '''
+'''
 import turtle
 t = turtle.Turtle()
 t.speed(0)
@@ -201,4 +202,40 @@ for color in colors:
     radius -= step
 
 turtle.exitonclick()
+'''
 
+
+# 14.3.6
+'''
+Напишите программу, которая рисует изображение полумесяца 
+'''
+import turtle
+a = 400
+r = a*0.7/2
+x0 = -a/2
+y0 = -a/2
+t = turtle.Turtle()
+t.speed(0)
+t.hideturtle()
+t.up()
+t.goto(x0, y0)
+t.down()
+t.fillcolor('#324ca8')
+t.begin_fill()
+for _ in range(4):
+    t.fd(a)
+    t.left(90)
+t.end_fill()
+t.up()
+t.goto(0, -r)
+t.fillcolor('#ffde05')
+t.begin_fill()
+t.circle(r)
+t.end_fill()
+t.fd(r*0.2)
+t.fillcolor('#324ca8')
+t.begin_fill()
+t.circle(r)
+t.end_fill()
+
+turtle.exitonclick()
