@@ -427,7 +427,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует изображение компаса
 '''
-
+'''
 import turtle
 l = 100
 r = l/3
@@ -451,3 +451,58 @@ t.goto(0, -r)
 t.circle(r)
 
 turtle.exitonclick()
+'''
+
+
+# 14.3.12
+'''
+Напишите программу, которая рисует солнечную систему
+'''
+
+import turtle
+# t = turtle.Turtle()
+
+def planet(r0=100, name0='test', x0=0, y0=0, color0='red'):
+    y0 -= r0
+    turtle.tracer(0, 0)
+    p = turtle.Turtle()
+    p.hideturtle()
+    p.up()
+    p.goto(x0, y0)
+    p.down()
+    p.fillcolor(color0)
+    p.begin_fill()
+    p.circle(r0)
+    p.end_fill()
+    y0 -= 20
+    p.up()
+    p.goto(x0, y0)
+    p.down()
+    p.write(name0, False, 'center', ('Arial', 14))
+    turtle.update()
+
+r = 5
+s = 700
+planets = {
+    'Солнце' : [s, '#f5e238'],
+    'Меркурий' : [0.382, '#eb9234'],
+    'Венера' : [0.949, '#f5cf38'],
+    'Земля' : [1, '#38dcf5'],
+    'Марс' : [0.53, '#f25c11'],
+    'Юпитер' : [11.2, '#f5d922'],
+    'Сатурн' : [9.41, '#c9713e'],
+    'Уран' : [3.98, '#22cef5'],
+    'Нептун' : [3.81, '#225af5'],
+    'Плутон' : [0.186, '#905ae0']
+    }
+
+x = -2*s*r-300
+y = 0
+for elem in planets:
+    x += r*planets[elem][0] + 30
+    planet(r*planets[elem][0], elem, x, y, planets[elem][1])
+    x += r*planets[elem][0] + 30
+
+turtle.exitonclick()
+
+
