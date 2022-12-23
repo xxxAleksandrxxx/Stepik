@@ -458,7 +458,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует солнечную систему
 '''
-
+'''
 import turtle
 # t = turtle.Turtle()
 
@@ -504,5 +504,50 @@ for elem in planets:
     x += r*planets[elem][0] + 30
 
 turtle.exitonclick()
+'''
 
 
+# 14.3.13
+'''
+Напишите программу, которая рисует знак STOP
+'''
+
+import turtle
+
+
+def octaedr(a0=50, x0=0, y0=0, color0='black'):
+    angle = 360/8
+    o = turtle.Turtle()
+    o.hideturtle()
+    o.speed(0)
+    o.up()
+    o.goto(x0, y0)
+    # o.down()
+    o.fillcolor(color0)
+    o.begin_fill()
+    o.fd(a0/2)
+    o.left(angle)
+    for _ in range(7):
+        o.fd(a0)
+        o.left(angle)
+    o.fd(a0/2)
+    o.end_fill()
+
+a = 150
+shift = a/20
+x = 0
+y = -(a+2*a/(2**0.5))/2
+k = 0.8
+for color in ['black', 'white', 'red']:
+    octaedr(a, x, y, color)
+    y += 1.25*shift
+    a -= shift
+
+turtle.hideturtle()
+turtle.speed(9)
+turtle.up()
+turtle.goto(0, -a*k/2)
+turtle.pencolor('white')
+turtle.write('STOP', False, 'center', ('Arial', int(a*k)))
+
+turtle.exitonclick()
