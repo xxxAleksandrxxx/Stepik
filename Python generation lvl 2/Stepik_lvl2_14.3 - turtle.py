@@ -273,7 +273,7 @@ for _ in range(2*r):
     x -= 2
 turtle.exitonclick()
 '''
-
+'''
 # v2
 import turtle
 r = 100
@@ -293,5 +293,47 @@ turtle.update()
 turtle.tracer(1, 50)
 m.speed(1)
 m.goto(-2*r, 0)
+
+turtle.exitonclick()
+'''
+
+
+# 14.3.8
+'''
+Напишите программу, которая рисует много 5-ти конечных зведочек. Звезды должны быть рассыпаны случайно, иметь разный размер и цвет.
+'''
+
+import turtle
+import random
+size_min = 5
+size_max = 15
+n = 100
+l = 300
+h = 300
+
+def star_random(size0, x0=0, y0=0):
+    s = turtle.Turtle()
+    s.hideturtle()
+    s.up()
+    s.goto(x0,  y0)
+    turtle.tracer(0, 0)
+    s.setheading(random.uniform(0, 90))
+    s.fillcolor(random.random(), random.random(), random.random())
+    s.begin_fill()
+    for _ in range(5):
+        s.fd(size0)
+        s.left(144)
+        s.fd(size0)
+        s.right(72)
+    s.end_fill()
+    turtle.update()
+
+turtle.colormode(1)
+turtle.Screen().bgcolor(0, 0, 0.1)
+for _ in range(n):
+    x = random.uniform(-l, l)
+    y = random.uniform(-h, h)
+    size = random.randrange(size_min, size_max, 1)
+    star_random(size, x, y)
 
 turtle.exitonclick()
