@@ -387,7 +387,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует изображение шахматной доски 
 '''
-
+'''
 import turtle
 length = 200
 n = 5
@@ -418,5 +418,36 @@ for i in range(0, n):
         sq(l, x, y, color)
         x += l
     y += l
+
+turtle.exitonclick()
+'''
+
+
+# 14.3.11
+'''
+Напишите программу, которая рисует изображение компаса
+'''
+
+import turtle
+l = 100
+r = l/3
+words = ['Восток', 'Север', 'Запад', 'Юг']
+align = ['left', 'center', 'right', 'center']
+shift = [r/2, r/2, r/2, 1.7*r/2]
+t = turtle.Turtle()
+t.hideturtle()
+t.speed(0)
+
+for i in range(4):
+    t.fd(l)
+    t.up()
+    t.fd(shift[i])
+    t.write(words[i], False, align[i], font=('Arial', 14))
+    t.back(l+shift[i])
+    t.left(90)
+    t.down()
+
+t.goto(0, -r)
+t.circle(r)
 
 turtle.exitonclick()
