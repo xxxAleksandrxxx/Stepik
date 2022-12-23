@@ -344,7 +344,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует изображение правильных многоугольников по образцу. Многоугольники должны иметь разный цвет.
 '''
-
+'''
 import turtle, math, random
 
 turtle.colormode(255)
@@ -378,5 +378,45 @@ for x_i in range(x, -x, int(s**0.5*1.8)):
         color = [random.randrange(10, 200) for _ in range(3)]
         a = (4*s*math.tan(math.radians(180/i))/i)**0.5
         fig(a, i, x_i, y_i, color)
+
+turtle.exitonclick()
+'''
+
+
+# 14.3.10
+'''
+Напишите программу, которая рисует изображение шахматной доски 
+'''
+
+import turtle
+length = 200
+n = 5
+l = length/n
+y = -length/2
+
+def sq(len0, x0=0, y0=0, color0='black'):
+    turtle.tracer(0, 0)
+    ch = turtle.Turtle()
+    ch.hideturtle()
+    ch.up()
+    ch.goto(x0, y0)
+    ch.down()
+    ch.fillcolor(color0)
+    ch.begin_fill()
+    for _ in range(4):
+        ch.fd(len0)
+        ch.left(90)
+    ch.end_fill()
+    turtle.update()
+
+colors = ('black', 'white')
+count = 1
+for i in range(0, n):
+    x = -length/2
+    for j in range(0, n):
+        color = colors[(i+j)%2]
+        sq(l, x, y, color)
+        x += l
+    y += l
 
 turtle.exitonclick()
