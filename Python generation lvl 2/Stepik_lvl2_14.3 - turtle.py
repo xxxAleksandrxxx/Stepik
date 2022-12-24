@@ -655,7 +655,7 @@ y = 8*(13*cos(t)-5*cos(2*t)-2*cos(3*t)-cos(4*t) - 5)
 Примечание 1. Изменяйте значение параметра t с маленьким шагом, равным 0.01
 Примечание 2. Для перемещения черепашки в заданную точку используйте команду goto(x, y)
 '''
-
+'''
 import turtle, math
 
 heart = turtle.Turtle()
@@ -672,3 +672,69 @@ for t in range(0, 360+1):
 heart.end_fill()
 
 turtle.exitonclick()
+'''
+
+
+#14.3.16
+'''
+Напишите программу, которая по нажатию на левую кнопку мыши рисует звезду в месте клика. Фон изображения должен быть черным, при этом звезды могут иметь разные размеры, цвета и иметь разное количество сторон.
+'''
+# v1
+import turtle, random
+turtle.Screen().bgcolor('black')
+turtle.Screen().colormode(255)
+a = 25
+
+def star_random(x0=0, y0=0):
+    length0 = 200#random.randint(5, 50)
+    color0 = [random.randint(0, 255) for _ in range(3)]
+    n0 = random.randint(2, 9)
+    #alfa0 = 360/n0
+    turtle.Screen().tracer(2, 5)
+    s = turtle.Turtle()
+    s.up()
+    s.goto(x0, y0)
+    s.down()
+    s.hideturtle()
+    s.setheading(random.randint(0, 360))
+    s.speed(2)
+    s.fillcolor(color0)
+    s.pencolor(color0)
+    s.begin_fill()
+    if n0 == 2:
+        for _ in range(2):
+            s.fd(length0)
+            s.left(30)
+            s.fd(length0)
+            s.left(30+120)
+    elif n0 == 3:
+        for _ in range(3):
+            s.fd(length0)
+            s.left(30+360/n0)
+            s.fd(length0)
+            s.right(30)
+    elif n0 == 4:
+        for _ in range(4):
+            s.fd(length0)
+            s.left(60 + 360/n0)
+            s.fd(length0)
+            s.right(60)
+    elif n0 > 4:
+        for _ in range(n0):
+            s.fd(length0)
+            s.left(360/n0**0.7 + 360/n0)#(2*alfa0)
+            s.fd(length0)
+            s.right(360/n0**0.7)#(alfa0)
+    s.end_fill()
+    turtle.update()
+
+def left_click(x, y):
+    star_random(x, y)
+
+# turtle.Screen().onclick(left_click)
+# turtle.Screen().listen()
+
+while True:
+    star_random()
+
+turtle.done()
