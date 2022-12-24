@@ -679,6 +679,7 @@ turtle.exitonclick()
 '''
 Напишите программу, которая по нажатию на левую кнопку мыши рисует звезду в месте клика. Фон изображения должен быть черным, при этом звезды могут иметь разные размеры, цвета и иметь разное количество сторон.
 '''
+'''
 # v1
 import turtle, random
 turtle.Screen().bgcolor('black')
@@ -736,5 +737,58 @@ def left_click(x, y):
 
 while True:
     star_random()
+
+turtle.done()
+'''
+
+
+# v2
+import turtle, random, time
+turtle.Screen().colormode(255)
+turtle.Screen().bgcolor('black')
+turtle.tracer(0, 0)
+
+s = turtle.Turtle()
+s.hideturtle()
+
+def star_random(x0=0, y0=0):
+    color0 = [random.randint(0, 255) for _ in range(3)]
+    n0 = random.randint(3, 7)
+    alfa0 = 360/n0
+    k0 = random.randint(18, 22)
+    size0 = random.randint(45, 50)
+    s.up()
+    s.goto(x0, y0)
+    s.setheading(random.randint(0, 360))
+    s.pencolor(color0)
+    s.fillcolor(color0)
+    s.down()
+    s.begin_fill()
+    for _ in range(n0):
+        s.fd(size0)
+        s.left(n0*k0 + alfa0)
+        s.fd(size0)
+        s.right(n0*k0)
+    s.end_fill()
+    turtle.update()
+
+# turtle.Screen().listen()
+# turtle.Screen().onclick(star_random)
+
+def clear(x, y):
+    s.reset()
+
+turtle.Screen().listen()
+turtle.Screen().onclick(clear)
+flag = 0
+while True:
+    
+    x, y = [random.randint(-300, 300) for _ in range(2)]
+    time.sleep(0.2)
+    star_random(x, y)
+    turtle.update()
+    flag += 1
+
+
 
 turtle.done()
