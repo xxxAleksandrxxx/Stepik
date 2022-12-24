@@ -561,7 +561,7 @@ turtle.exitonclick()
 рисования нескольких окон в зданиях;
 рисования случайно разбросанных звезд в виде точек (убедитесь, что звезды появляются на небе, а не на зданиях).
 '''
-
+'''
 import turtle, random
 
 #draw stars
@@ -641,5 +641,34 @@ while length < 600:
             window(x_w, y_w, window_w)
     x += w
     length += w
+
+turtle.exitonclick()
+'''
+
+
+# 14.3.15
+'''
+Напишите программу, которая рисует изображение сердца
+x = 128*sin(t)**3
+y = 8*(13*cos(t)-5*cos(2*t)-2*cos(3*t)-cos(4*t) - 5)
+0 <= t <= 2pi
+Примечание 1. Изменяйте значение параметра t с маленьким шагом, равным 0.01
+Примечание 2. Для перемещения черепашки в заданную точку используйте команду goto(x, y)
+'''
+
+import turtle, math
+
+heart = turtle.Turtle()
+heart.speed(9)
+color = '#e30e35'
+heart.fillcolor(color)
+heart.pencolor(color)
+turtle.Screen().bgcolor('black')
+heart.begin_fill()
+for t in range(0, 360+1):
+    x = 128*math.sin(math.radians(t))**3
+    y = 8*(13*math.cos(math.radians(t))-5*math.cos(2*math.radians(t))-2*math.cos(3*math.radians(t))-math.cos(4*math.radians(t)) - 5)
+    heart.goto(x, y)
+heart.end_fill()
 
 turtle.exitonclick()
