@@ -511,9 +511,8 @@ turtle.exitonclick()
 '''
 Напишите программу, которая рисует знак STOP
 '''
-
+'''
 import turtle
-
 
 def octaedr(a0=50, x0=0, y0=0, color0='black'):
     angle = 360/8
@@ -549,5 +548,98 @@ turtle.up()
 turtle.goto(0, -a*k/2)
 turtle.pencolor('white')
 turtle.write('STOP', False, 'center', ('Arial', int(a*k)))
+
+turtle.exitonclick()
+'''
+
+
+# 14.3.14
+'''
+Напишите программу, которая рисует силуэты многоэтажек по образцу. Разделите программу на функции:
+
+рисования контуров зданий;
+рисования нескольких окон в зданиях;
+рисования случайно разбросанных звезд в виде точек (убедитесь, что звезды появляются на небе, а не на зданиях).
+'''
+
+import turtle, random
+
+#draw stars
+def stars():
+    color0 = '#f5ec42'
+    size_min = 1
+    size_max = 4
+    coord_min = -300
+    coord_max = 300
+    n = 20
+    for _ in range(n):
+        turtle.tracer(0, 0)
+        s = turtle.Turtle()
+        s.hideturtle()
+        s.up()
+        x0, y0 = [random.uniform(coord_min, coord_max) for _ in range(2)]
+        r0 = random.uniform(size_min, size_max)
+        s.goto(x0, y0)
+        s.fillcolor(color0)
+        s.begin_fill()
+        s.circle(r0)
+        s.end_fill()
+    turtle.update()
+
+# draw building
+def building(x0=0, y0=0, w0=50, h0=100):
+    color0 = '#2a4087'
+    b = turtle.Turtle()
+    b.hideturtle()
+    b.speed(9)
+    b.up()
+    b.goto(x0, y0)
+    b.down()
+    b.fillcolor(color0)
+    b.begin_fill()
+    b.goto(x0, y0+h0)
+    b.goto(x0+w0, y0+h0)
+    b.goto(x0+w0, y0)
+    b.end_fill()
+
+# draw window
+def window(x0=0, y0=0, width0=0):
+    color0 = '#f5ec42'
+    w = turtle.Turtle()
+    w.up()
+    w.goto(x0, y0)
+    w.down()
+    w.fillcolor(color0)
+    w.begin_fill()
+    for _ in range(4):
+        w.fd(width0)
+        w.left(90)
+    w.end_fill()
+
+
+turtle.Screen().bgcolor('#343752')
+
+stars()
+
+h_min = 1
+h_max = 15
+window_w = 20
+x = -200
+y = -200
+
+# draw buldings with windows
+length = 0
+while length < 600:
+    w = random.randrange(2*window_w, 3*2*window_w, window_w*1.5)
+    h = random.randrange(h_min*2*window_w, h_max*2*window_w, window_w*1.5)
+    building(x, y, w, h)
+    windows_number = random.randint(0, int(w*h/window_w**2)//10)
+    if windows_number > 0:
+        for _ in range(windows_number):
+            x_w = random.randrange(x+window_w*0.5, x+w-window_w*0.5, window_w*1.5)
+            y_w = random.randrange(y+window_w*0.5, y+h-window_w*0.5, window_w*1.5)
+            window(x_w, y_w, window_w)
+    x += w
+    length += w
 
 turtle.exitonclick()
