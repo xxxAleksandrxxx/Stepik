@@ -20,5 +20,3 @@ for row in matrix(5):
         print(elem, end=' '),
     print()
 '''
-
-
