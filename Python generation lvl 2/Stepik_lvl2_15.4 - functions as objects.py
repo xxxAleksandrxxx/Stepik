@@ -160,7 +160,7 @@ athletes.sort(key=comparator)
 for athlet in athletes:
     print(*athlet)
 '''
-
+'''
 # v2
 athletes = [('Дима', 10, 130, 35), ('Тимур', 11, 135, 39), ('Руслан', 9, 140, 33), ('Рустам', 10, 128, 30), ('Амир', 16, 170, 70), ('Рома', 16, 188, 100), ('Матвей', 17, 168, 68), ('Петя', 15, 190, 90)]
 
@@ -168,3 +168,19 @@ i = int(input())
 athletes.sort(key=lambda x: x[i-1])
 for athlet in athletes:
     print(*athlet)
+'''
+
+# v3
+def comparator(i):
+    def s(tup):
+        return tup[i-1]
+    return s
+
+athletes = [('Дима', 10, 130, 35), ('Тимур', 11, 135, 39), ('Руслан', 9, 140, 33), ('Рустам', 10, 128, 30), ('Амир', 16, 170, 70), ('Рома', 16, 188, 100), ('Матвей', 17, 168, 68), ('Петя', 15, 190, 90)]
+
+i = int(input())
+k = comparator(i)
+
+athletes.sort(key=k)
+for ath in athletes:
+    print(*ath)
