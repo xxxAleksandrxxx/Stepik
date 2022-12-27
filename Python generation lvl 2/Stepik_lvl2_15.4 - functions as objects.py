@@ -208,6 +208,8 @@ for ath in athletes:
 
 Примечание. Решите задачу без использования условного оператора.
 """
+# 15.4.14 v1
+'''
 from math import sin
 
 def sq(num0):
@@ -225,3 +227,20 @@ num = int(input())
 f = input()
 
 print(funcs[f](num))
+'''
+
+# 15.4.14 v2
+'''
+def pow(power0):
+    def number(num0):
+        return num0**power0
+    return number
+
+num = int(input())
+f = input()
+# num = 10
+# f = 'корень'
+funcs = {'квадрат':pow(2), 'куб':pow(3), 'корень':pow(0.5), 'модуль':abs, 'синус':sin}
+
+print(funcs[f](num))
+'''
