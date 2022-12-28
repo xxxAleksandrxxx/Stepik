@@ -257,7 +257,7 @@ print(funcs[f](num))
 Программа должна вывести отсортированный список чисел в соответствии с условием задачи, разделяя его элементы одним пробелом.
 """
 # 15.4.15 v1
-
+'''
 test1 = '12 14 79 7 4 123 45 90 111'
 answer1 = '12 111 4 14 123 7 45 90 79'
 numbers = [num for num in test1.split()]
@@ -266,3 +266,9 @@ numbers = [num for num in input().split()]
 numbers.sort(key=lambda x: sum([int(num) for num in x]), reverse=False)
 print(*numbers)
 # print(answer1)
+'''
+# 15.4.15 v2
+
+numbers = [num for num in input().split()]
+numbers.sort(key=lambda x: sum(map(int, x)))
+print(*numbers)
