@@ -46,11 +46,12 @@ print(my_reduce(my_sum, a, 0))
 print(my_reduce(my_mult, a, 1))
 
 
-#%%
+
 # 15.5.10
 """
 Напишите программу, которая с помощью функции map() округляет все элементы списка numbers до 2 десятичных знаков, а затем выводит их, каждый на отдельной строке.
 """
+#%%
 # 15.5.10 v1
 def my_map(my_func, my_list):
     answer = list()
@@ -64,3 +65,14 @@ def okrugl_2(my_number):
 numbers = [3.56773, 5.57668, 4.00914, 56.24241, 9.01344, 32.12013, 23.22222, 90.09873, 45.45, 314.1528, 2.71828, 1.41546]
 
 print(*my_map(okrugl_2, numbers), sep='\n')
+
+#%%
+# 15.5.10 v2
+def my_map(my_func, my_list):
+    answer = list()
+    for elem in my_list:
+        answer.append(my_func(elem))
+    return answer
+
+numbers = [3.56773, 5.57668, 4.00914, 56.24241, 9.01344, 32.12013, 23.22222, 90.09873, 45.45, 314.1528, 2.71828, 1.41546]
+print(*my_map(lambda x: round(x, 2), numbers), sep='\n')
