@@ -179,3 +179,28 @@ print(sum(my_map(lambda x: x**2, my_filter(predicat, numbers))))
 # print(my_filter(predicat, numbers))
 # print(my_map(lambda x: x**2, my_filter(predicat, numbers)))
 # print(sum(my_map(lambda x: x**2, my_filter(predicat, numbers))))
+
+
+
+#%%
+# 15.5.14
+"""
+Напишите функцию func_apply(), принимающую на вход функцию и список значений и возвращающую список, в котором каждое значение будет результатом применения переданной функции к переданному списку.
+"""
+
+def func_apply(my_func, my_list):
+    answer = list()
+    for elem in my_list:
+        answer.append(my_func(elem))
+    return answer
+
+
+def add3(x):
+    return x + 3
+
+def mul7(x):
+    return x * 7
+
+print(func_apply(mul7, [1, 2, 3, 4, 5, 6]))
+print(func_apply(add3, [1, 2, 3, 4, 5, 6]))
+print(func_apply(str, [1, 2, 3, 4, 5, 6]))
