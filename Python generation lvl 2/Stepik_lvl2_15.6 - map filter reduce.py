@@ -36,3 +36,7 @@ a = [3.56773, 5.57668, 4.31914, 6.20241, 91.01344, 32.01213]
 
 result = map(round, a, [2]*len(a))
 print(*result, sep=', ')
+
+#%%
+a = [1, 0, 10, '', None, [], [1, 2, 3], ()]
+print(*filter(None, a), sep='\n')
