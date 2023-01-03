@@ -53,3 +53,27 @@ False
 False
 True'''
 print(answer)
+
+#%% 15.8.7 v1
+
+"""Напишите функцию is_non_negative_num, используя синтаксис анонимных функций, которая принимает строковый аргумент и возвращает значение True, если переданный аргумент является неотрицательным числом (целым или вещественным) и False в противном случае."""
+
+is_non_negative_num = lambda x: False if not x.replace('.', '').isdigit() or '-' in x or x.count('.') > 1 else True
+
+print(is_non_negative_num('10.34ab'))
+print(is_non_negative_num('10.45'))
+print(is_non_negative_num('-18'))
+print(is_non_negative_num('-34.67'))
+print(is_non_negative_num('987'))
+print(is_non_negative_num('abcd'))
+print(is_non_negative_num('123.122.12'))
+print(is_non_negative_num('123.122'))
+print()
+print('''False
+True
+False
+False
+True
+False
+False
+True''')
