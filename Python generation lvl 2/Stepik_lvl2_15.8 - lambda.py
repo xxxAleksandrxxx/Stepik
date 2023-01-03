@@ -34,3 +34,22 @@ False
 False
 True'''
 print(answer)
+
+
+#%% 15.8.6 v2
+func = lambda letter: letter[0] in 'aA' and letter[-1] in 'aA'
+
+print(func('abcd'))
+print(func('bcda'))
+print(func('abcda'))
+print(func('Abcd'))
+print(func('bcdA'))
+print(func('abcdA'))
+print()
+answer = '''False
+False
+True
+False
+False
+True'''
+print(answer)
