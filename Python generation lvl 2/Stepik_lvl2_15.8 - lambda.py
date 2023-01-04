@@ -357,3 +357,31 @@ for batch in test:
     print(evaluate(coef_values.split(), x_value))
     print()
 
+#%% 15.8.16 v2
+"""убрал из map лишний список их элементов x"""
+test = (
+    ('2 4 3', '10', '243'),
+    ('1 2 3 4 5 6 7', '1', '28'),
+    ('-2 4 5', '3', '-1'),
+    ('10', '2', '10'),
+    ('3 19', '10', '49')
+)
+coef_values, x_value, answ = test[0]
+
+from functools import reduce
+
+def evaluate(coefficients, x):
+    n = len(coefficients)
+    answer = list(map(lambda koef, pow: int(koef)*int(x)**pow, coefficients, list(range(n-1, -1, -1))))
+    answer = reduce(lambda a, b: a + b, answer)
+    return answer
+
+# coef_values, x_value = [input() for _ in range(2)]
+# print(evaluate(coef_values.split(), x_value))
+
+# прогон тестов
+for batch in test:
+    coef_values, x_value, answ = batch
+    print('answer', answ)
+    print(evaluate(coef_values.split(), x_value))
+    print()
