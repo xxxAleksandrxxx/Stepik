@@ -385,3 +385,29 @@ for batch in test:
     print('answer', answ)
     print(evaluate(coef_values.split(), x_value))
     print()
+
+
+#%% 15.8.16 v3 - решение от Алекс Глозман
+
+test = (
+    ('2 4 3', '10', '243'),
+    ('1 2 3 4 5 6 7', '1', '28'),
+    ('-2 4 5', '3', '-1'),
+    ('10', '2', '10'),
+    ('3 19', '10', '49')
+)
+coef_values, x_value, answ = test[0]
+
+
+from functools import reduce
+# воспользуемся разложением многочлена по схеме Горнера
+evaluate = lambda coefficients, x: reduce(lambda s, a: s * x + a, coefficients, 0)
+ 
+# print(evaluate([*map(int, input().split())], int(input())))
+
+
+for batch in test:
+    coef_values, x_value, answ = batch
+    print('answer', answ)
+    print(evaluate([*map(int, coef_values.split())], int(x_value)))
+    print()
