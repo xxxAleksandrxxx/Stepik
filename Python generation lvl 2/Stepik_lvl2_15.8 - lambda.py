@@ -185,7 +185,7 @@ numbers = [46, 61, 34, 17, 56, 26, 93, 1, 3, 82, 71, 37, 80, 27, 77, 94, 34, 100
 print(*map(lambda x: x//2 if x%2==0 else x, filter(lambda x: not (x%2==1 and x > 47), numbers)))
 '''
 
-#%% 15.8.11
+#%% 15.8.11 v1
 '''
 """Список data содержит информацию о численности населения некоторых штатов США. Напишите программу сортировки по убыванию списка data на основании последнего символа в названии штата. Затем распечатайте элементы этого списка, каждый на новой строке в формате:
 
@@ -204,4 +204,13 @@ data = [(19542209, 'New York'), (4887871, 'Alabama'), (1420491, 'Hawaii'), (6262
 data = sorted(data, key=lambda x: x[1][-1], reverse=True)
 for elem in data:
 	print(f'{elem[1]}: {elem[0]}')
+'''
+
+#%% 15.8.11 v2
+'''
+data = [(19542209, 'New York'), (4887871, 'Alabama'), (1420491, 'Hawaii'), (626299, 'Vermont'), (1805832, 'West Virginia'), (39865590, 'California'), (11799448, 'Ohio'), (10711908, 'Georgia'), (10077331, 'Michigan'), (10439388, 'Virginia'), (7705281, 'Washington'), (7151502, 'Arizona'), (7029917, 'Massachusetts'), (6910840, 'Tennessee')]
+
+data = sorted(data, key=lambda x: x[1][-1], reverse=True)
+for number, state in data:
+	print('{}: {}'.format(state, number))
 '''
