@@ -305,7 +305,7 @@ for row in test:
 '''
 
 #%% 15.9.13 - Интересные числа
-
+'''
 """Интересные числа
 
 На вход программе подаются два натуральных числа a и b. Напишите программу с использованием встроенной функции all() для обнаружения всех целых чисел в диапазоне [a;b], которые делятся на каждую содержащуюся в них цифру без остатка.
@@ -336,3 +336,38 @@ for row in test:
     # print(*map(lambda x: [x % int(num) == 0 for num in str(x) if int(num) != 0], range(int(row[0]), int(row[1])+1)))
     print()
     # print(row)
+'''
+
+#%% 15.9.14 - Хороший пароль
+
+"""Хороший пароль
+
+Хороший пароль по условиям этой задачи состоит как минимум из 7 символов, содержит хотя бы одну цифру, заглавную и строчную букву. Напишите программу со встроенной функцией any() для определения хорош ли введенный пароль.
+
+Формат входных данных
+На вход программе подаётся одна строка текста.
+
+Формат выходных данных
+Программа должна вывести YES, если строка – хороший пароль, и NO в противном случае."""
+
+password = input()
+print(['NO', 'YES'][all((len(password) >= 7, 
+                         any(symbol.isdigit() for symbol in password), 
+                         any(symbol.istitle() for symbol in password), 
+                         any(symbol.islower() for symbol in password)))])
+
+# test
+test = (
+    ('abcABC9', 'YES'),
+    ('abAB34', 'NO'),
+    ('DFSDFSDFSDsdfjsdfnsm', 'NO'),
+    ('zxcv123', 'NO')
+)
+
+for row in test:
+    print('answer:', row[-1])
+    print(['NO', 'YES'][all(((len(row[0]) >= 7), (any(symbol.isdigit() for symbol in row[0])), (any(symbol.istitle() for symbol in row[0])), (any(symbol.islower() for symbol in row[0]))))])
+
+    print(((len(row[0]) >= 7), (any(symbol.isdigit() for symbol in row[0])), (any(symbol.istitle() for symbol in row[0])), (any(symbol.islower() for symbol in row[0]))))
+    print()
+
