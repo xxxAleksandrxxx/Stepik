@@ -222,7 +222,7 @@ print(all(x**2 + y**2 + z**2 <= 4 for x, y, z in zip(abscissas, ordinates, appli
 '''
 
 #%% 15.9.12 - Корректный IP-адрес
-
+'''
 """Корректный IP-адрес
 
 IP-адрес – уникальный числовой идентификатор устройства в компьютерной сети, работающей по протоколу TCP/IP.
@@ -264,9 +264,9 @@ for row in test:
     print(ip_check(row[0].split('.')))
     print('answer:', row[1])
     print()
-
+'''
 #%% 15.9.12 v2
-
+'''
 def ip_check(adress):
     try:
         return all(0 <= int(num) <= 255 for num in adress)    
@@ -287,8 +287,9 @@ for row in test:
     print(ip_check(row[0].split('.')))
     print('answer:', row[1])
     print()
-
+'''
 #%% 15.9.12 v3
+'''
 # print(all(num.isdigit() and 0 <= int(num) <= 255 for num in row[0].split('.')))
 
 test = (
@@ -301,3 +302,37 @@ for row in test:
     print(all(num.isdigit() and 0 <= int(num) <= 255 for num in row[0].split('.')))
     print('answer:', row[1])
     print()
+'''
+
+#%% 15.9.13 - Интересные числа
+
+"""Интересные числа
+
+На вход программе подаются два натуральных числа a и b. Напишите программу с использованием встроенной функции all() для обнаружения всех целых чисел в диапазоне [a;b], которые делятся на каждую содержащуюся в них цифру без остатка.
+
+Формат входных данных
+На вход программе подаются два натуральных числа a и b на отдельных строках.
+
+Формат выходных данных
+Программа должна вывести все числа из диапазона [a;b], удовлетворяющие условию задачи, на одной строке, разделяя их символом пробела.
+"""
+
+# 15.9.13 v1
+# a, b = [input() for _ in range(2)]
+# print(*filter(lambda x: all(x%int(num)==0 if int(num)!=0 else False for num in str(x)), range(int(a), int(b)+1)))
+
+# test
+test = (
+    ('1', '25', '1 2 3 4 5 6 7 8 9 11 12 15 22 24'),
+    ('20', '30', '22 24'),
+    ('50', '150', '55 66 77 88 99 111 112 115 122 124 126 128 132 135 144')
+)
+
+for row in test:
+    print('answer:', row[-1])
+    print('result:', *filter(lambda x: all(x%int(num)==0 if int(num)!=0 else False for num in str(x)), range(int(row[0]), int(row[1])+1)))
+
+    # print(*range(int(row[0]), int(row[1])+1))
+    # print(*map(lambda x: [x % int(num) == 0 for num in str(x) if int(num) != 0], range(int(row[0]), int(row[1])+1)))
+    print()
+    # print(row)
