@@ -264,3 +264,26 @@ for row in test:
     print(ip_check(row[0].split('.')))
     print('answer:', row[1])
     print()
+
+#%% 15.9.12 v2
+
+def ip_check(adress):
+    try:
+        return all(0 <= int(num) <= 255 for num in adress)    
+    except:            
+        return False
+
+# ip = input().split('.')
+# print(ip_check(ip))
+
+# проверка
+test = (
+    ('10.0.1.1', True),
+    ('10.1.1.a', False),
+    ('10.1.1.260', False),
+    ('10.0023.0123.0000015', True)
+)
+for row in test:
+    print(ip_check(row[0].split('.')))
+    print('answer:', row[1])
+    print()
