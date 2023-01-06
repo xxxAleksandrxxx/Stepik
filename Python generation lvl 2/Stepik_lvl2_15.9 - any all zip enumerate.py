@@ -287,3 +287,17 @@ for row in test:
     print(ip_check(row[0].split('.')))
     print('answer:', row[1])
     print()
+
+#%% 15.9.12 v3
+# print(all(num.isdigit() and 0 <= int(num) <= 255 for num in row[0].split('.')))
+
+test = (
+    ('10.0.1.1', True),
+    ('10.1.1.a', False),
+    ('10.1.1.260', False),
+    ('10.0023.0123.0000015', True)
+)
+for row in test:
+    print(all(num.isdigit() and 0 <= int(num) <= 255 for num in row[0].split('.')))
+    print('answer:', row[1])
+    print()
