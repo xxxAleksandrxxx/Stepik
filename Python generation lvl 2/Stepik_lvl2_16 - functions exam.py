@@ -52,3 +52,29 @@ print(generate_letter('lara@yandex.ru', 'Лариса', '10 декабря', '12
 print()
 print(generate_letter('lara@yandex.ru', 'Лариса', '10 декабря', '12:00', 
                       'Часова 23, корпус 2', 'Василь Ярошевич', 23))
+
+
+#%% 16.1.16
+
+"""Pretty print
+
+Напишите функцию pretty_print(), которая выводит содержимое списка с рамкой. 
+
+Функция должна получать на вход один обязательный аргумент data – список, который следует вывести и два необязательных строковых односимвольных  аргумента side и delimiter и выводить содержимое списка в соответствии с примерами.
+
+В случае если отсутствует аргумент side, то полагаем side='-', а если отсутствует аргумент delimiter, то полагаем delimiter='|'."""
+
+def pretty_print(data, side='-', delimiter='|'):
+    horizon_line = ' ' + side*(2 + 4*(len(data)-1)) + side*(sum(map(lambda x: len(str(x)), data)) - (len(data) - 1))
+    print(horizon_line)
+    for elem in data:
+        print(delimiter, elem, end=' ')
+    print(delimiter)
+    print(horizon_line)
+
+# pretty_print([10000, 100, 100, '12'])
+pretty_print([1, 2, 10, 23, 123, 3000])
+pretty_print(['abc', 'def', 'ghi', '12345'])
+pretty_print(['abc', 'def', 'ghi'], side='*')
+pretty_print(['abc', 'def', 'ghi'], delimiter='#')
+pretty_print(['abc', 'def', 'ghi'], side='*', delimiter='#')
