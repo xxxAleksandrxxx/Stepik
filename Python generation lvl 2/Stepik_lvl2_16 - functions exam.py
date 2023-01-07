@@ -96,3 +96,22 @@ pretty_print(['abc', 'def', 'ghi', '12345'])
 pretty_print(['abc', 'def', 'ghi'], side='*')
 pretty_print(['abc', 'def', 'ghi'], delimiter='#')
 pretty_print(['abc', 'def', 'ghi'], side='*', delimiter='#')
+
+
+#%% 16.3.1
+
+"""Напишите функцию concat(), принимающую переменное количество аргументов и объединяющую их в одну строку через разделитель (sep). Если разделитель не задан, им служит пробел.
+
+Примечание 1. Обратите внимание, что функция concat() должна принимать не список, а именно переменное количество аргументов."""
+
+def concat(*arg, sep=' '):
+    answer = ''
+    for elem in arg:
+        answer += str(elem) + sep
+    return answer[:-len(sep)]
+
+print(concat('hello', 'python', 'and', 'stepik'))
+print(concat('hello', 'python', 'and', 'stepik', sep='*'))
+print(concat('hello', 'python', sep='()()()'))
+print(concat('hello', sep='()'))
+print(concat(1, 2, 3, 4, 5, 6, 7, 8, 9, sep='$$'))
