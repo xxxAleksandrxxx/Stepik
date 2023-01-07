@@ -197,3 +197,31 @@ numbers = [(10, -2, 3, 4), (-13, 56), (1, 9, 2), (-1, -9, -45, 32), (-1, 5, 1), 
 sorted_numbers = sorted(numbers, key=lambda x: sum(x)/len(x), reverse=True)
 
 print(sorted_numbers)
+
+
+#%% 16.3.6
+
+"""Напишите функцию call(), которая принимает произвольную функцию и аргументы для неё и делает вызов переданной функции, возвращая ее значение."""
+# the answer:
+def call(func, *arg):
+    return func(*arg)
+#--
+
+def mul7(x):
+    return x * 7
+
+
+def add2(x, y):
+    return x + y
+
+
+def add3(x, y, z):
+    return x + y + z
+
+
+print(call(mul7, 10))
+print(call(add2, 2, 7))
+print(call(add3, 10, 30, 40))
+print(call(bool, 0))
+print('answer:')
+print(70, 9, 80, False, sep='\n')
