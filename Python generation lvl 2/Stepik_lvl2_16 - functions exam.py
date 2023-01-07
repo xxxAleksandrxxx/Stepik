@@ -54,7 +54,7 @@ print(generate_letter('lara@yandex.ru', 'Лариса', '10 декабря', '12
                       'Часова 23, корпус 2', 'Василь Ярошевич', 23))
 
 
-#%% 16.1.16
+#%% 16.1.16 - Печать таблицы / таблица
 
 """Pretty print
 
@@ -73,6 +73,24 @@ def pretty_print(data, side='-', delimiter='|'):
     print(horizon_line)
 
 # pretty_print([10000, 100, 100, '12'])
+pretty_print([1, 2, 10, 23, 123, 3000])
+pretty_print(['abc', 'def', 'ghi', '12345'])
+pretty_print(['abc', 'def', 'ghi'], side='*')
+pretty_print(['abc', 'def', 'ghi'], delimiter='#')
+pretty_print(['abc', 'def', 'ghi'], side='*', delimiter='#')
+
+
+#%% 16.1.16 v2 - Печать таблицы / таблица
+def pretty_print(data, side='-', delimiter='|'):
+    st = f'{delimiter} ' +\
+         f' {delimiter} '.join(map(str, data)) +\
+         f' {delimiter}'
+    horizon_line = f' {side*(len(st) - 2)}'
+    print(horizon_line)
+    print(st)
+    print(horizon_line)
+
+pretty_print([10, 1])
 pretty_print([1, 2, 10, 23, 123, 3000])
 pretty_print(['abc', 'def', 'ghi', '12345'])
 pretty_print(['abc', 'def', 'ghi'], side='*')
