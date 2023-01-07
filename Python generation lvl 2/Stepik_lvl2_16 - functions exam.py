@@ -249,3 +249,23 @@ print(compose(mul7, add3)(1))
 print(compose(add3, mul7)(2))
 print(compose(mul7, str)(3))
 print(compose(str, mul7)(5))
+
+
+#%% 16.3.8
+
+"""Напишите функцию arithmetic_operation(), которая принимает символ одной из четырех арифметических операций (+, -, *, /) и возвращает функцию двух аргументов для соответствующей операции."""
+
+# result:
+from operator import add, sub, mul, truediv
+from functools import reduce
+def arithmetic_operation(symbol):
+    operations = {'+':add, '-':sub, '*':mul, '/':truediv}
+    def inner_function(a, b):
+        return reduce(operations[symbol], [a, b])
+    return inner_function
+#--
+
+add = arithmetic_operation('+')
+div = arithmetic_operation('/')
+print(add(10, 20))
+print(div(20, 5))
