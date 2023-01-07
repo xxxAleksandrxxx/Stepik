@@ -145,3 +145,24 @@ def product_of_odds_orig(data):   # data - список целых чисел
 
 print('answer', product_of_odds_orig(d))
 print('result', product_of_odds(d))
+
+
+#%% 16.3.3
+
+"""Дан список слов words. Допишите код после оператора распаковки (*), который оборачивает в двойные кавычки все элементы списка words, а затем печатает результат на одной строке через пробел.
+
+Примечание. Вспомните про встроенную функцию map() и анонимные функции lambda.
+words = 'the world is mine take a look what you have started'.split()
+
+print(*...)"""
+
+words = 'the world is mine take a look what you have started'.split()
+
+print(*map(lambda x: f'"{x}"', words))
+
+# long
+print(words)
+answer = ''
+for w in words:
+    answer += f'"{w}" '
+print(answer[:-1])
