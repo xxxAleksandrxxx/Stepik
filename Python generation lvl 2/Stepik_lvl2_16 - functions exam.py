@@ -225,3 +225,27 @@ print(call(add3, 10, 30, 40))
 print(call(bool, 0))
 print('answer:')
 print(70, 9, 80, False, sep='\n')
+
+
+#%% 16.3.7
+
+"""Напишите функцию compose(), которая принимает на вход две других одноаргументных функции f и g и возвращает новую функцию. Эта новая функция также должна принимать один аргумент x и применять к нему исходные функции в нужном порядке: для функций f и g порядок применения должен выглядеть, как f(g(x))."""
+
+# result:
+def compose(f, g):
+    def inner_f(x):
+        return f(g(x))
+    return inner_f
+#--
+
+def add3(x):
+    return x + 3
+
+
+def mul7(x):
+    return x * 7
+
+print(compose(mul7, add3)(1))
+print(compose(add3, mul7)(2))
+print(compose(mul7, str)(3))
+print(compose(str, mul7)(5))
