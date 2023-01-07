@@ -366,3 +366,21 @@ answer = sorted(zip(dec_num, st))
 for elem in answer:
     print(elem[1])
 #--
+
+#%% 16.3.11 v2
+
+test = {
+    q : ('128.199.44.24', '128.199.201.245', '143.198.168.95', '172.67.181.62', '172.67.222.111', '172.67.10.90', '45.8.106.59', '203.13.32.156', '172.67.181.194'),
+    a : ('45.8.106.59', '128.199.44.24', '128.199.201.245', '143.198.168.95', '172.67.10.90', '172.67.181.62', '172.67.181.194', '172.67.222.111', '203.13.32.156')
+}
+st = test[q]
+
+
+# st = [input() for _ in range(int(input()))]
+answer = sorted(st, key=lambda ip: int(ip.split('.')[0])*256**3 + int(ip.split('.')[1])*256**2 + int(ip.split('.')[2])*256 + int(ip.split('.')[3]))
+print(*answer, sep = '\n')
+
+
+# # проверка
+# print('answer - result')
+# [print(f'{a} - {b}', sep = '\n') for a, b in zip(test[a], answer)]
