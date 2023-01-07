@@ -115,3 +115,33 @@ print(concat('hello', 'python', 'and', 'stepik', sep='*'))
 print(concat('hello', 'python', sep='()()()'))
 print(concat('hello', sep='()'))
 print(concat(1, 2, 3, 4, 5, 6, 7, 8, 9, sep='$$'))
+
+#%% 16.3.2
+
+"""Перепишите функцию product_of_odds() в функциональном стиле с использованием встроенных функций filter() и reduce().
+
+def product_of_odds(data):   # data - список целых чисел
+    result = 1
+    for i in data:
+        if i % 2 == 1:
+            result *= i
+    return result
+Примечание 1. Тестирующая система никак не "покарает" вас за неиспользование встроенных функций filter() и reduce(), однако лучше сделать это задание честно 😃."""
+
+from functools import reduce
+from operator import mul, mod
+
+def product_of_odds(data):
+    return reduce(mul, filter(lambda x: mod(x, 2)==1, data), 1)
+
+d = range(10)
+
+def product_of_odds_orig(data):   # data - список целых чисел
+    result = 1
+    for i in data:
+        if i % 2 == 1:
+            result *= i
+    return result
+
+print('answer', product_of_odds_orig(d))
+print('result', product_of_odds(d))
