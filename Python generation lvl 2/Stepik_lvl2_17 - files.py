@@ -22,3 +22,10 @@ f_content.close()
 f_content = open(input(), 'r', encoding='utf-8')
 print(list(f_content)[-2].rstrip())
 f_content.close()
+
+#%% 17.2.13 - лучайная строка
+"""Вам доступен текстовый файл lines.txt из нескольких строк. Напишите программу, которая выводит на экран случайную строку из этого файла."""
+from random import choice
+f_content = open('lines.txt', 'r', encoding='utf-8')
+print(choice(list(f_content)).rstrip())
+f_content.close()
