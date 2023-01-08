@@ -42,3 +42,12 @@ f_content.close()
 f_content = open('numbers.txt', 'r', encoding='utf-8')
 print(sum(map(int, f_content)))
 f_content.close()
+
+#%% 17.2.14 - Сумма двух-2
+"""Вам доступен текстовый файл nums.txt. В файле записано два целых числа, они могут быть разделены символами пробела и конца строки. Напишите программу, выводящую на экран сумму этих чисел."""
+# f = '/Users/zwar/Downloads/nums.txt'
+# f_content = open(f, 'r', encoding='utf-8')
+
+f_content = open('nums.txt', 'r', encoding='utf-8')
+print(sum(map(int, filter(str.isdigit, f_content.read().split()))))
+f_content.close()
