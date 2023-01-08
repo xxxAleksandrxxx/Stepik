@@ -29,3 +29,9 @@ from random import choice
 f_content = open('lines.txt', 'r', encoding='utf-8')
 print(choice(list(f_content)).rstrip())
 f_content.close()
+
+#%% 17.2.13 - Сумма двух-1
+"""Вам доступен текстовый файл numbers.txt из двух строк, на каждой из них записано целое число. Напишите программу, выводящую на экран сумму этих чисел."""
+f_content = open('numbers.txt', 'r', encoding='utf-8')
+print(sum(map(int, map(str.rstrip, list(f_content)))))
+f_content.close()
