@@ -59,3 +59,21 @@ f_content = open(f, 'r', encoding='utf-8')
 # f_content = open('nums.txt', 'r', encoding='utf-8')
 print(sum(map(int, f_content.read().split())))
 f_content.close()
+
+#%% 17.2.15 Общая стоимость
+
+"""Вам доступен текстовый файл prices.txt с информацией о заказе из интернет магазина. В нем каждая строка с помощью символа табуляции (\t) разделена на три колонки:
+
+наименование товара;
+количество товара (целое число);
+цена (в рублях) товара за 1 шт (целое число).
+Напишите программу, выводящую на экран общую стоимость заказа."""
+# f = '/Users/zwar/Downloads/prices.txt'
+# f_content = open(f, 'r', encoding='utf-8')
+f_content = open('prices.txt', 'r', encoding='utf-8')
+result = 0
+for row in f_content:
+    qty, price = row.split()[1:]
+    result += int(price) * int(qty)
+f_content.close()
+print(result)
