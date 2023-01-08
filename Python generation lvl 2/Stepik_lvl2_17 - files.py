@@ -35,3 +35,10 @@ f_content.close()
 f_content = open('numbers.txt', 'r', encoding='utf-8')
 print(sum(map(int, map(str.rstrip, list(f_content)))))
 f_content.close()
+# поскольку f_content можно итерировать по строкам, list можно не делать
+# .strip() тоже можно не делать, т.к. int() сам уберет лишнее
+
+# v2
+f_content = open('numbers.txt', 'r', encoding='utf-8')
+print(sum(map(int, f_content)))
+f_content.close()
