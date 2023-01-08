@@ -51,3 +51,11 @@ f_content.close()
 f_content = open('nums.txt', 'r', encoding='utf-8')
 print(sum(map(int, filter(str.isdigit, f_content.read().split()))))
 f_content.close()
+# использовать фильтр конкретно в данном случае излишне - подсчитать сумму можно и без него
+
+#%% 17.2.14 v2 
+f = '/Users/zwar/Downloads/nums.txt'
+f_content = open(f, 'r', encoding='utf-8')
+# f_content = open('nums.txt', 'r', encoding='utf-8')
+print(sum(map(int, f_content.read().split())))
+f_content.close()
