@@ -182,3 +182,32 @@ with open(file_name, 'r', encoding='utf-8') as f:
 for elem in longest_list:
     print(elem)
         
+
+#%% 17.3.10 - Сумма чисел в строках
+
+"""Вам доступен текстовый файл numbers.txt, каждая строка которого может содержать одно или несколько целых чисел, разделенных одним или несколькими пробелами.
+
+Напишите программу, которая вычисляет сумму чисел в каждой строке и выводит эту сумму на экран (для каждой строки выводится сумма чисел в этой строке).
+
+Формат входных данных
+На вход программе ничего не подается.
+
+Формат выходных данных
+Программа должна вывести сумму чисел в каждой строке."""
+# 17.3.10 v1
+file_name = r'/Users/zwar/Downloads/'
+file_name += 'numbers.txt'
+# file_name = 'numbers.txt'
+with open(file_name, 'r', encoding='utf-8') as f:
+    line = f.readline().strip()
+    while line != '':
+        print(sum(map(int, line.split())))
+        line = f.readline().strip()
+
+#%% 17.3.10 v2
+file_name = r'/Users/zwar/Downloads/'
+file_name += 'numbers.txt'
+# file_name = 'numbers.txt'
+with open(file_name, 'r', encoding='utf-8') as f:
+    for line in f:
+        print(sum(map(int, line.split())))
