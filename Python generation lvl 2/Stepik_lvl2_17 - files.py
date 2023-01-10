@@ -359,6 +359,19 @@ def read_csv(file_name0=file_name, sym0=','):
 
 print(read_csv()[0])
 
+
+#%% 17.3.15 v2
+file_name = r'/Users/zwar/Downloads/'
+file_name += 'data.csv'
+# file_name = 'data.csv'
+def read_csv(file_name0=file_name, sym0=','):
+    with open(file_name0, 'r', encoding='utf-8') as f:
+        key = f.readline().strip().split(sym0)
+        return [dict(zip(key, row.strip().split(sym0))) for row in f]
+
+a = read_csv()
+print(a[0])
+
 #%% решил не ту задачу - выводит словарь из ключей составленных из первой строки и списков значений, соответствующих каждому ключу
 file_name = r'/Users/zwar/Downloads/'
 file_name += 'data.csv'
