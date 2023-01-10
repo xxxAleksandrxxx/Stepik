@@ -154,9 +154,31 @@ with open(file_name, 'r', encoding='utf-8') as f:
 
 Примечание 2. Используйте менеджер контекста 🙂."""
 # v1
+# делаем много обходов одного и того же объема данных, что не есть хорошо, но выглядит коротко
 file_name = r'/Users/zwar/Downloads/'
 file_name += 'lines.txt'
 # file_name = 'lines.txt'
 with open(file_name, 'r', encoding='utf-8') as f:
     f_content = f.readlines()
     print(*filter(lambda x: len(x) == max(map(len, f_content)), sorted(f_content, key=len)), sep='')
+
+#%% 17.3.9 v2
+# делаем один обход данных
+file_name = r'/Users/zwar/Downloads/'
+file_name += 'lines.txt'
+# file_name = 'lines.txt'
+with open(file_name, 'r', encoding='utf-8') as f:
+    longest_list = list()
+    longest_len = 0
+    st = f.readline().rstrip()
+    while st != '':
+        st_len = len(st)
+        if st_len > longest_len:
+            longest_len = st_len
+            longest_list = [st]
+        elif st_len == longest_len:
+            longest_list.append(st)
+        st = f.readline().rstrip()
+for elem in longest_list:
+    print(elem)
+        
