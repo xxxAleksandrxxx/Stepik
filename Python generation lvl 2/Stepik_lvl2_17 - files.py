@@ -329,3 +329,54 @@ with open(file_name, 'r', encoding='utf-8') as f:
         # if country == 'G' and int(qty) > 500000:
         if country.startswith('G') and int(qty) > 500000:
             print(country)
+
+
+#%% 17.3.15 - CSV-файл
+
+"""Вам доступен CSV-файл data.csv, содержащий информацию в csv формате. Напишите функцию read_csv для чтения данных из этого файла. Она должна возвращать список словарей, интерпретируя первую строку как имена ключей, а каждую последующую строку как значения этих ключей.
+
+Формат входных данных
+На вход программе ничего не подается.
+
+Формат выходных данных
+Программа должна содержать реализованную функцию read_csv.
+
+Примечание 1. Вызывать функцию read_csv не нужно.
+
+Примечание 2. Функция read_csv не должна принимать аргументов."""
+
+# 17.3.15 v1
+file_name = r'/Users/zwar/Downloads/'
+file_name += 'data.csv'
+# file_name = 'data.csv'
+def read_csv(file_name0=file_name, sym0=','):
+    data0 = list()
+    with open(file_name0, 'r', encoding='utf-8') as f:
+        head = f.readline().strip().split(sym0)
+        for row in f:
+            data0.append(dict(zip(head, row.strip().split(sym0))))
+    return data0
+
+print(read_csv()[0])
+
+#%% решил не ту задачу - выводит словарь из ключей составленных из первой строки и списков значений, соответствующих каждому ключу
+file_name = r'/Users/zwar/Downloads/'
+file_name += 'data.csv'
+# file_name = 'data.csv'
+def read_csv(file_name0=file_name, sym0=','):
+    with open(file_name0, 'r', encoding='utf-8') as f:
+        data0 = dict()
+        head = f.readline().strip().split(sym0)
+        for row in f:
+            row = row.strip().split(sym0)
+            for i in range(len(head)):
+                data0[head[i]] = data0.get(head[i], []) + [row[i]]
+    return data0
+
+    
+
+data = read_csv()
+for key, value in data.items():
+    print(key)
+    print(value)
+    print()
