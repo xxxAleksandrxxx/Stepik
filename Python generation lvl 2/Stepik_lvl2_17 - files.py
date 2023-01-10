@@ -250,6 +250,33 @@ with open(file_name, 'r', encoding='utf-8') as f:
     for line in f:
         line = ''.join(list(map(lambda x: x if x.isdigit()==True else ' ', line)))
         answer += sum(map(int, line.split()))
-        
+
 print(answer)
         
+
+#%% 17.3.12 - Статистика по файлу
+
+"""Вам доступен текстовый файл file.txt, набранный латиницей. Напишите программу, которая выводит количество букв латинского алфавита, слов и строк. Выведите три найденных числа в формате, приведенном в примере.
+
+Формат входных данных
+На вход программе ничего не подается.
+
+Формат выходных данных
+Программа должна вывести три найденных числа в формате, приведенном в примере.
+
+Input file contains:
+108 letters 
+20 words 
+4 lines
+"""
+
+file_name = r'/Users/zwar/Downloads/'
+file_name += 'file.txt'
+# file_name = 'file.txt'
+with open(file_name) as f:
+    content = f.read()
+
+print('Input file contains:')
+print(len(list(filter(str.isalpha, content))), 'letters')
+print(len(list(content.split())), 'words')
+print(1 + len(list(filter(lambda x: x == chr(10), content))), 'lines')
