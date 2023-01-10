@@ -239,3 +239,17 @@ with open(file_name, 'r', encoding='utf-8') as f:
         answer += sum(map(int, line.split()))
 
 print(answer)
+
+#%% 17.3.11 v2
+file_name = r'/Users/zwar/Downloads/'
+file_name += 'nums-2.txt'
+# file_name = 'nums.txt'
+
+with open(file_name, 'r', encoding='utf-8') as f:
+    answer = 0
+    for line in f:
+        line = ''.join(list(map(lambda x: x if x.isdigit()==True else ' ', line)))
+        answer += sum(map(int, line.split()))
+        
+print(answer)
+        
