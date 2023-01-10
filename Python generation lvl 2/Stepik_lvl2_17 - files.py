@@ -211,3 +211,31 @@ file_name += 'numbers.txt'
 with open(file_name, 'r', encoding='utf-8') as f:
     for line in f:
         print(sum(map(int, line.split())))
+
+
+#%% 17.3.11 - Сумма чисел в файле
+
+"""Вам доступен текстовый файл nums.txt. В файле могут быть записаны целые неотрицательные числа и все, что угодно. Числом назовем последовательность одной и более цифр, идущих подряд (число всегда неотрицательно).
+
+Напишите программу, которая вычисляет сумму всех чисел, записанных в файле.
+
+Формат входных данных
+На вход программе ничего не подается.
+
+Формат выходных данных
+Программа должна вывести сумму всех чисел, записанных в файле."""
+# 17.3.11 v1
+file_name = r'/Users/zwar/Downloads/'
+file_name += 'nums-2.txt'
+# file_name = 'nums.txt'
+
+with open(file_name, 'r', encoding='utf-8') as f:
+    answer = 0
+    for line in f:
+        line = line.strip()
+        for i in range(len(line)):
+            if line[i].isdigit() == False:
+                line = line.replace(line[i], ' ')
+        answer += sum(map(int, line.split()))
+
+print(answer)
