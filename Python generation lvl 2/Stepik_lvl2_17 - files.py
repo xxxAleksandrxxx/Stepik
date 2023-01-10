@@ -280,3 +280,29 @@ print('Input file contains:')
 print(len(list(filter(str.isalpha, content))), 'letters')
 print(len(list(content.split())), 'words')
 print(1 + len(list(filter(lambda x: x == chr(10), content))), 'lines')
+
+
+#%% 17.3.13 - Random name and surname
+
+"""Вам доступны два текстовых файла first_names.txt и last_names.txt, один с именами, другой с фамилиями.
+
+Напишите программу, которая c помощью модуля random создает 3 случайные пары имя + фамилия, а затем выводит их, каждую на отдельной строке.
+
+Формат входных данных
+На вход программе ничего не подается.
+
+Формат выходных данных
+Программа должна вывести текст в формате, приведенном в примере."""
+
+folder = r'/Users/zwar/Downloads/'
+file_name_1 = folder + 'first_names.txt'
+file_name_2 = folder + 'last_names.txt'
+from random import choice
+# file_name_1 = 'first_names.txt'
+# file_name_2 = 'last_names.txt'
+with open(file_name_1, 'r', encoding='utf-8') as f,\
+    open(file_name_2, 'r', encoding='utf-8') as l:
+    f_names = [elem.strip() for elem in f]
+    l_names = [elem.strip() for elem in l]
+for _ in range(3):
+    print(choice(f_names), choice(l_names))
