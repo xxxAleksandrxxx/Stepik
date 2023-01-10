@@ -306,3 +306,26 @@ with open(file_name_1, 'r', encoding='utf-8') as f,\
     l_names = [elem.strip() for elem in l]
 for _ in range(3):
     print(choice(f_names), choice(l_names))
+
+
+#%% 17.3.14 - Необычные страны
+
+"""Вам доступен текстовый файл population.txt с названиями стран и численностью их населения, разделенными символом табуляции '\t'.
+
+Напишите программу выводящую все страны, название которых начинается с буквы 'G', численность населения которых больше чем 500000 человек, не меняя их порядок.
+
+Формат входных данных
+На вход программе ничего не подается.
+
+Формат выходных данных
+Программа должна вывести названия стран, удовлетворяющие условиям задачи, каждое на отдельное строке."""
+
+file_name = r'/Users/zwar/Downloads/'
+file_name += 'population.txt'
+# file_name = 'population.txt'
+with open(file_name, 'r', encoding='utf-8') as f:
+    for raw in f:
+        country, qty = raw.split('\t')
+        # if country == 'G' and int(qty) > 500000:
+        if country.startswith('G') and int(qty) > 500000:
+            print(country)
