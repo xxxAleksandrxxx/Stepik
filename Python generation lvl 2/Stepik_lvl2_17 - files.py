@@ -393,3 +393,19 @@ for key, value in data.items():
     print(key)
     print(value)
     print()
+
+#%%% 17.4.8 - Входная строка
+
+"""Напишите программу, которая считывает строку текста и записывает её в текстовый файл output.txt.
+
+Формат входных данных
+На вход программе подается строка текста."""
+
+file_name = r'/Users/zwar/Downloads/'
+file_name += 'output.txt'
+# file_name = 'output.txt'
+with open(file_name, 'w', encoding='utf-8') as f:
+    f.write(input())
+
+# with open(file_name, 'r', encoding='utf-8') as f:
+#     print(f.readline())
