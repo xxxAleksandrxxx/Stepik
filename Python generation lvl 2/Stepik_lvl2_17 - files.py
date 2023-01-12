@@ -578,9 +578,15 @@ with open(f_name_out, 'w+', encoding='utf-8') as f_out:
 Программа должна создать файл с именем output.txt в соответствии с условием задачи.
 
 Примечание. Считайте, что исполняемая программа и указанные файлы находятся в одной папке."""
-
+# 17.4.12 v1
 names = [input() for _ in range(int(input()))]
 with open('output.txt', 'w+', encoding='utf-8') as f_out:
     for f_name in names:
         with open(f_name, 'r', encoding='utf-8') as f:
-            f_out.write(f.read()+'\n')
+            f_out.write(f.read())
+
+# 17.4.12 v2
+with open('output.txt', 'w+', encoding='utf-8') as f_out:
+    for _ in range(int(input())):
+        with open(input(), 'r', encoding='utf-8') as f:
+            f_out.write(f.read())
