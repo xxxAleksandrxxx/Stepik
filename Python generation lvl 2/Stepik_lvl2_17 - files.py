@@ -409,3 +409,93 @@ with open(file_name, 'w', encoding='utf-8') as f:
 
 # with open(file_name, 'r', encoding='utf-8') as f:
 #     print(f.readline())
+
+#%% 17.4.8 - Случайные числа
+
+"""Напишите программу, записывающую в текстовый файл random.txt 25 случайных чисел в диапазоне от 111 до 777 (включительно), каждое с новой строки.
+
+Формат входных данных
+На вход программе ничего не подается.
+
+Формат выходных данных
+Программа должна создать файл с именем random.txt и записать в него случайные числа в соответствии с условием задачи.
+
+Примечание 1. Считайте, что исполняемая программа и указанный файл находятся в одной папке."""
+
+file_name = r'/Users/zwar/Downloads/'
+file_name += 'random.txt'
+
+
+from random import randint
+
+# file_name = 'random.txt'
+with open(file_name, 'w', encoding='utf-8') as f:
+    f.writelines([str(randint(111, 777))+'\n' for _ in range(25)])
+
+print('result:')
+with open(file_name, 'r') as f:
+    [print(f.readline().strip()) for _ in f]
+
+
+#%% 17.4.9 - Нумерация строк
+
+"""Вам доступен текстовый файл input.txt, состоящий из нескольких строк. Напишите программу для записи содержимого этого файла в файл output.txt в виде нумерованного списка, где перед каждой строкой стоит ее номер, символ ) и пробел. Нумерация строк должна начинаться с 1.
+
+Формат входных данных
+На вход программе ничего не подается.
+
+Формат выходных данных
+Программа должна создать файл с именем output.txt и записать в него пронумерованные строки файла input.txt.
+
+Примечание 1. Считайте, что исполняемая программа и указанные файлы находятся в одной папке.
+
+Примечание 2. Используйте встроенную функцию enumerate()."""
+# 17.4.9 v1
+folder_in = r'/Users/zwar/Downloads/'
+folder_out = r'/Users/zwar/Documents/Temp/'
+
+f_name_in = folder_in + 'input.txt'
+f_name_out = folder_out + 'output.txt'
+# f_name_in = 'input.txt'
+# f_name_out = 'output.txt'
+
+with open(f_name_in, 'r', encoding='utf-8') as f_in,\
+    open(f_name_out, 'w+', encoding='utf-8') as f_out:
+    count = 0
+    for row in f_in:
+        count += 1
+        f_out.write(f'{count}) ' + row)
+
+print('result')
+with open(f_name_out, 'r', encoding='utf-8') as f:
+    print(f.readlines())
+
+
+#%% 17.4.10 - Подарок на новый год
+
+"""Вам доступен текстовый файл class_scores.txt с оценками за итоговый тест на строках вида: фамилия оценка (фамилия и оценка разделены пробелом). Оценка - целое число от 0 до 100 включительно.
+
+Напишите программу для добавления 5 баллов к каждому результату теста и вывода фамилий и новых результатов тестов в файл new_scores.txt.
+
+Формат входных данных
+На вход программе ничего не подается.
+
+Формат выходных данных
+Программа должна создать файл с именем new_scores.txt в соответствии с условием задачи.
+
+Примечание 1. Считайте, что исполняемая программа и указанные файлы находятся в одной папке."""
+# 17.4.10 v1
+folder_in = r'/Users/zwar/Downloads/'
+folder_out = r'/Users/zwar/Documents/Temp/'
+
+f_name_in = folder_in + 'class_scores.txt'
+f_name_out = folder_out + 'new_scores.txt'
+
+with open(f_name_in, 'r', encoding='utf-8') as f_in, \
+    open(f_name_out, 'w+', encoding='utf-8') as f_out:
+    for row in f_in:
+        # print(row)
+        n, g = row.strip().split()
+        g = str(min(int(g)+5, 100))
+        f_out .write(' '.join([n, g, '\n']))
+        # f_out.write(''.join([row.strip().split()[0], str(min(100, int(row.strip().split()[1])+5)), '\n']))
