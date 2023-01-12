@@ -499,3 +499,16 @@ with open(f_name_in, 'r', encoding='utf-8') as f_in, \
         g = str(min(int(g)+5, 100))
         f_out .write(' '.join([n, g, '\n']))
         # f_out.write(''.join([row.strip().split()[0], str(min(100, int(row.strip().split()[1])+5)), '\n']))
+
+#%% 17.4.10 v2
+folder_in = r'/Users/zwar/Downloads/'
+folder_out = r'/Users/zwar/Documents/Temp/'
+
+f_name_in = folder_in + 'class_scores.txt'
+f_name_out = folder_out + 'new_scores.txt'
+with open(f_name_in, 'r', encoding='utf-8') as f_in, \
+    open(f_name_out, 'w+', encoding='utf-8') as f_out:
+    for row in f_in:
+        n, g = row.strip().split()
+        g = min(int(g)+5, 100)
+        print(n, g, file=f_out)
