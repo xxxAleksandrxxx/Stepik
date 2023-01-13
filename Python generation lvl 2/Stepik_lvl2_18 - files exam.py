@@ -61,3 +61,10 @@ with open(file, 'r', encoding='utf-8') as f:
         if int(t1) >= 65 and int(t2)>= 65 and int(t3)>= 65:
             count += 1
 print(count)
+
+#%% 18.1.3 v2
+file = r'/Users/zwar/Downloads/grades.txt'
+# file = 'grades.txt'
+with open(file, 'r', encoding='utf-8') as f:
+#    print(sum(1 for i in f.readlines()))
+   print(sum(1 for i in f.readlines() if all([int(j)>=65 for j in i.split()[1:]])))
