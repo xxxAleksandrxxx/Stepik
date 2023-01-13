@@ -161,3 +161,86 @@ file = r'/Users/zwar/Downloads/grades.txt'
 
 with open(file, 'r') as f:
     print(*f.readlines()[-10:], sep='')
+
+
+
+#%% 18.1.6 - Forbidden words 🌶️
+
+"""На вход программе подается строка текста с именем текстового файла. Напишите программу, выводящую на экран содержимое этого файла, но с заменой всех запрещенных слов звездочками * (количество звездочек равно количеству букв в слове).
+
+Запрещенные слова, разделенные символом пробела, хранятся в текстовом файле forbidden_words.txt. Гарантируется, что все слова в этом файле записаны в нижнем регистре.
+
+Формат входных данных
+На вход программе подается строка текста с именем существующего текстового файла, в котором необходимо заменить запрещенные слова звездочками.
+
+Формат выходных данных
+Программа должна вывести текст в соответствии с условием задачи.
+
+Примечание 1. Ваша программа должна заменить запрещенные слова, где бы они ни встречались, даже если они встречаются в середине другого слова.
+
+Примечание 2. Программа должна заменять запрещенные слова независимо от их регистра. Например, если файл forbidden_words.txt содержит запрещенное слово exam, то слова exam, Exam, ExaM, EXAM и подобные должны быть заменены на ****."""
+
+# почему-то не принимает решение, хотя вроде работает на тестовых файлах..
+
+forbiden_f = r'/Users/zwar/Downloads/forbidden_words.txt'
+file1 =  r'/Users/zwar/Downloads/data.txt'
+file2 = r'/Users/zwar/Downloads/stepik.txt'
+file3 = r'/Users/zwar/Downloads/beegeek.txt'
+
+file = file2
+
+# forbiden_f = 'forbidden_words.txt'
+# file = input()
+
+with open(forbiden_f, 'r', encoding='utf-8') as f: 
+    forbiden_w = f.read().split()
+
+with open(file, 'r+', encoding='utf-8') as f:#,\
+    #open(r'/Users/zwar/Downloads/TTT.txt', 'w+', encoding='utf-8') as f2:
+    content = [row.strip().split() for row in f.readlines()]
+    for r in range(len(content)):
+        for w in range(len(content[r])):
+            for word in forbiden_w:
+                if word in content[r][w].lower():
+                    pos = content[r][w].lower().find(word)
+                    new_w = [leter for leter in content[r][w]]
+                    for _ in range(len(word)):
+                        new_w.pop(pos)
+                    new_w.insert(pos, '*'*len(word))
+                    new_w = ''.join(new_w)
+                    print()
+                    print('old word', content[r][w])
+                    print('forbiden', word)
+                    print('new     ', new_w)
+                    content[r][w] = new_w
+    for r in range(len(content)):
+        print(' '.join(content[r]))        
+        # print(' '.join(content[r]), file=f2)
+
+#%% 18.1.6 v2
+
+forbiden_f = r'/Users/zwar/Downloads/forbidden_words.txt'
+file1 =  r'/Users/zwar/Downloads/data.txt'
+file2 = r'/Users/zwar/Downloads/stepik.txt'
+file3 = r'/Users/zwar/Downloads/beegeek.txt'
+
+file = file2
+
+# forbiden_f = 'forbidden_words.txt'
+# file = input()
+
+with open(forbiden_f, 'r', encoding='utf-8') as f: 
+    forbiden_w = f.read().split()
+
+with open(file, 'r+', encoding='utf-8') as f:
+    content = f.read()
+    content_l = content.lower()
+    for w in forbiden_w:
+        if w in content_l:
+            content_l = content_l.replace(w, '*'*len(w))
+
+for i in range(len(content)):
+    if content_l[i] != '*':
+        print(content[i], end='')
+    else:
+        print(content_l[i], end='')
