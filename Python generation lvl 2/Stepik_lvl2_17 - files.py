@@ -45,7 +45,7 @@ f_content.close()
 
 #%% 17.2.14 - Сумма двух-2
 """Вам доступен текстовый файл nums.txt. В файле записано два целых числа, они могут быть разделены символами пробела и конца строки. Напишите программу, выводящую на экран сумму этих чисел."""
-# f = '/Users/zwar/Downloads/nums.txt'
+# f = '/Users/xxXXXXxx/Downloads/nums.txt'
 # f_content = open(f, 'r', encoding='utf-8')
 
 f_content = open('nums.txt', 'r', encoding='utf-8')
@@ -54,7 +54,7 @@ f_content.close()
 # использовать фильтр конкретно в данном случае излишне - подсчитать сумму можно и без него
 
 #%% 17.2.14 v2 
-f = '/Users/zwar/Downloads/nums.txt'
+f = '/Users/xxXXXXxx/Downloads/nums.txt'
 f_content = open(f, 'r', encoding='utf-8')
 # f_content = open('nums.txt', 'r', encoding='utf-8')
 print(sum(map(int, f_content.read().split())))
@@ -68,7 +68,7 @@ f_content.close()
 количество товара (целое число);
 цена (в рублях) товара за 1 шт (целое число).
 Напишите программу, выводящую на экран общую стоимость заказа."""
-# f = '/Users/zwar/Downloads/prices.txt'
+# f = '/Users/xxXXXXxx/Downloads/prices.txt'
 # f_content = open(f, 'r', encoding='utf-8')
 f_content = open('prices.txt', 'r', encoding='utf-8')
 result = 0
@@ -92,7 +92,7 @@ print(result)
 
 Примечание 2. Используйте менеджер контекста 🙂."""
 
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'text.txt'
 # file_name = 'text.txt'
 with open(file_name, 'r', encoding='utf-8') as f:
@@ -100,7 +100,7 @@ with open(file_name, 'r', encoding='utf-8') as f:
     print(f_content.strip()[::-1])
 
 #%% 17.3.7 v2
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'text.txt'
 # file_name = 'text.txt'
 with open(file_name, 'r', encoding='utf-8') as f:
@@ -124,7 +124,7 @@ with open(file_name, 'r', encoding='utf-8') as f:
 
 Примечание 4. Не забывайте про символ конца строки '\n'."""
 
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'data.txt'
 # file_name = 'data.txt'
 with open(file_name, 'r', encoding='utf-8') as f:
@@ -133,7 +133,7 @@ for line in strings[::-1]:
     print(line)
 
 #%% 17.3.8 v2
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'data.txt'
 # file_name = 'data.txt'
 with open(file_name, 'r', encoding='utf-8') as f:
@@ -155,7 +155,7 @@ with open(file_name, 'r', encoding='utf-8') as f:
 Примечание 2. Используйте менеджер контекста 🙂."""
 # v1
 # делаем много обходов одного и того же объема данных, что не есть хорошо, но выглядит коротко
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'lines.txt'
 # file_name = 'lines.txt'
 with open(file_name, 'r', encoding='utf-8') as f:
@@ -164,7 +164,7 @@ with open(file_name, 'r', encoding='utf-8') as f:
 
 #%% 17.3.9 v2
 # делаем один обход данных
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'lines.txt'
 # file_name = 'lines.txt'
 with open(file_name, 'r', encoding='utf-8') as f:
@@ -195,7 +195,7 @@ for elem in longest_list:
 Формат выходных данных
 Программа должна вывести сумму чисел в каждой строке."""
 # 17.3.10 v1
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'numbers.txt'
 # file_name = 'numbers.txt'
 with open(file_name, 'r', encoding='utf-8') as f:
@@ -205,7 +205,7 @@ with open(file_name, 'r', encoding='utf-8') as f:
         line = f.readline().strip()
 
 #%% 17.3.10 v2
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'numbers.txt'
 # file_name = 'numbers.txt'
 with open(file_name, 'r', encoding='utf-8') as f:
@@ -225,7 +225,7 @@ with open(file_name, 'r', encoding='utf-8') as f:
 Формат выходных данных
 Программа должна вывести сумму всех чисел, записанных в файле."""
 # 17.3.11 v1
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'nums-2.txt'
 # file_name = 'nums.txt'
 
@@ -241,7 +241,7 @@ with open(file_name, 'r', encoding='utf-8') as f:
 print(answer)
 
 #%% 17.3.11 v2
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'nums-2.txt'
 # file_name = 'nums.txt'
 
@@ -270,7 +270,7 @@ Input file contains:
 4 lines
 """
 
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'file.txt'
 # file_name = 'file.txt'
 with open(file_name) as f:
@@ -294,7 +294,7 @@ print(1 + len(list(filter(lambda x: x == chr(10), content))), 'lines')
 Формат выходных данных
 Программа должна вывести текст в формате, приведенном в примере."""
 
-folder = r'/Users/zwar/Downloads/'
+folder = r'/Users/xxXXXXxx/Downloads/'
 file_name_1 = folder + 'first_names.txt'
 file_name_2 = folder + 'last_names.txt'
 from random import choice
@@ -320,7 +320,7 @@ for _ in range(3):
 Формат выходных данных
 Программа должна вывести названия стран, удовлетворяющие условиям задачи, каждое на отдельное строке."""
 
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'population.txt'
 # file_name = 'population.txt'
 with open(file_name, 'r', encoding='utf-8') as f:
@@ -346,7 +346,7 @@ with open(file_name, 'r', encoding='utf-8') as f:
 Примечание 2. Функция read_csv не должна принимать аргументов."""
 
 # 17.3.15 v1
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'data.csv'
 # file_name = 'data.csv'
 def read_csv(file_name0=file_name, sym0=','):
@@ -361,7 +361,7 @@ print(read_csv()[0])
 
 
 #%% 17.3.15 v2
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'data.csv'
 # file_name = 'data.csv'
 def read_csv(file_name0=file_name, sym0=','):
@@ -373,7 +373,7 @@ a = read_csv()
 print(a[0])
 
 #%% решил не ту задачу - выводит словарь из ключей составленных из первой строки и списков значений, соответствующих каждому ключу
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'data.csv'
 # file_name = 'data.csv'
 def read_csv(file_name0=file_name, sym0=','):
@@ -401,7 +401,7 @@ for key, value in data.items():
 Формат входных данных
 На вход программе подается строка текста."""
 
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'output.txt'
 # file_name = 'output.txt'
 with open(file_name, 'w', encoding='utf-8') as f:
@@ -422,7 +422,7 @@ with open(file_name, 'w', encoding='utf-8') as f:
 
 Примечание 1. Считайте, что исполняемая программа и указанный файл находятся в одной папке."""
 
-file_name = r'/Users/zwar/Downloads/'
+file_name = r'/Users/xxXXXXxx/Downloads/'
 file_name += 'random.txt'
 
 
@@ -451,8 +451,8 @@ with open(file_name, 'r') as f:
 
 Примечание 2. Используйте встроенную функцию enumerate()."""
 # 17.4.9 v1
-folder_in = r'/Users/zwar/Downloads/'
-folder_out = r'/Users/zwar/Documents/Temp/'
+folder_in = r'/Users/xxXXXXxx/Downloads/'
+folder_out = r'/Users/xxXXXXxx/Documents/Temp/'
 
 f_name_in = folder_in + 'input.txt'
 f_name_out = folder_out + 'output.txt'
@@ -485,8 +485,8 @@ with open(f_name_out, 'r', encoding='utf-8') as f:
 
 Примечание 1. Считайте, что исполняемая программа и указанные файлы находятся в одной папке."""
 # 17.4.10 v1
-folder_in = r'/Users/zwar/Downloads/'
-folder_out = r'/Users/zwar/Documents/Temp/'
+folder_in = r'/Users/xxXXXXxx/Downloads/'
+folder_out = r'/Users/xxXXXXxx/Documents/Temp/'
 
 f_name_in = folder_in + 'class_scores.txt'
 f_name_out = folder_out + 'new_scores.txt'
@@ -501,8 +501,8 @@ with open(f_name_in, 'r', encoding='utf-8') as f_in, \
         # f_out.write(''.join([row.strip().split()[0], str(min(100, int(row.strip().split()[1])+5)), '\n']))
 
 #%% 17.4.10 v2
-folder_in = r'/Users/zwar/Downloads/'
-folder_out = r'/Users/zwar/Documents/Temp/'
+folder_in = r'/Users/xxXXXXxx/Downloads/'
+folder_out = r'/Users/xxXXXXxx/Documents/Temp/'
 
 f_name_in = folder_in + 'class_scores.txt'
 f_name_out = folder_out + 'new_scores.txt'
@@ -535,8 +535,8 @@ with open(f_name_in, 'r', encoding='utf-8') as f_in, \
 Программа должна создать файл с именем answer.txt и вывести в него в алфавитном порядке названия цветов козлов, которые удовлетворяют условию загадки Жака Фреско."""
 
 # 17.4.11 v1
-folder_in = r'/Users/zwar/Downloads/'
-folder_out = r'/Users/zwar/Documents/Temp/'
+folder_in = r'/Users/xxXXXXxx/Downloads/'
+folder_out = r'/Users/xxXXXXxx/Documents/Temp/'
 
 f_name_in = folder_in + 'goats.txt'
 f_name_out = folder_out + 'answer.txt'
@@ -608,8 +608,8 @@ with open('output.txt', 'w+', encoding='utf-8') as f_out:
 
 Примечание 2. Считайте, что каждый пользователь был только раз в системе, то есть в файле нет двух строк с одинаковым пользователем."""
 # 17.4.13 v1
-folder_in = r'/Users/zwar/Downloads/'
-folder_out = r'/Users/zwar/Documents/Temp/'
+folder_in = r'/Users/xxXXXXxx/Downloads/'
+folder_out = r'/Users/xxXXXXxx/Documents/Temp/'
 
 f_name_in = folder_in + 'logfile.txt'
 f_name_out = folder_out + 'output.txt'
@@ -628,8 +628,8 @@ with open(f_name_in, 'r', encoding='utf-8') as f_in,\
 #%% 17.4.13 v2
 # вместо перобразования времени в минуты, можно просто сделать десятичное число, тогда, например 15:23 станеть 1523 и если пройдет час, то это будет 16:23 -> 1623, таким образом, добавится + 100
 
-folder_in = r'/Users/zwar/Downloads/'
-folder_out = r'/Users/zwar/Documents/Temp/'
+folder_in = r'/Users/xxXXXXxx/Downloads/'
+folder_out = r'/Users/xxXXXXxx/Documents/Temp/'
 
 f_name_in = folder_in + 'logfile.txt'
 f_name_out = folder_out + 'output.txt'
