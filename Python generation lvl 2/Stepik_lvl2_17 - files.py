@@ -624,3 +624,19 @@ with open(f_name_in, 'r', encoding='utf-8') as f_in,\
         name, t_in, t_out = line.strip().split(',')
         if to_min(t_out) - to_min(t_in) >= 60:
             print(name, file=f_out)
+
+#%% 17.4.13 v2
+# вместо перобразования времени в минуты, можно просто сделать десятичное число, тогда, например 15:23 станеть 1523 и если пройдет час, то это будет 16:23 -> 1623, таким образом, добавится + 100
+
+folder_in = r'/Users/zwar/Downloads/'
+folder_out = r'/Users/zwar/Documents/Temp/'
+
+f_name_in = folder_in + 'logfile.txt'
+f_name_out = folder_out + 'output.txt'
+
+with open(f_name_in, 'r', encoding='utf-8') as f_in,\
+    open(f_name_out, 'w+', encoding='utf-8') as f_out:
+    for line in f_in:
+        name, t_in, t_out = line.strip().split(',')
+        if int(t_out.replace(':', '')) - int(t_in.replace(':', '')) >= 100:
+            print(name, file=f_out)
