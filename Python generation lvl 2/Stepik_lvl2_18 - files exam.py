@@ -75,3 +75,34 @@ file = r'/Users/zwar/Downloads/grades.txt'
 
 with open(file, 'r', encoding='utf-8') as f:
     print(len(list(filter(lambda x: all(int(x[i]) >= 65 for i in (1, 2, 3)), (map(str.split, f))))))
+
+
+#%% 18.1.4 - Самое длинное слово в файле
+
+"""Вам доступен текстовый файл words.txt со словами, разделенными пробелом. Напишите программу, которая находит и выводит самые длинные слова этого файла, не меняя порядка их следования.
+
+Формат входных данных
+На вход программе ничего не подается.
+
+Формат выходных данных
+Программа должна вывести самые длинные слова файла words.txt, каждое с новой строки, не меняя их порядка следования.
+
+Примечание 1. Считайте, что исполняемая программа и указанный файл находятся в одной папке.
+
+Примечание 2. Словом считайте любую группу символов без пробелов, даже если она включает цифры или знаки препинания."""
+# 18.1.4 v1 через подсчет длинны
+file = r'/Users/zwar/Downloads/words.txt'
+# file = 'words.txt'
+with open(file, 'r', encoding='utf-8') as f:
+    longest_len = 0
+    answer = []
+    for word in f.read().strip().split():
+        word_len = len(word)
+        if word_len > longest_len:
+            longest_len = word_len
+            answer = [word]
+        elif word_len == longest_len:
+            answer.append(word)
+print(*answer, sep='\n')
+
+
