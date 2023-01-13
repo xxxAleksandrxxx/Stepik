@@ -32,7 +32,7 @@ $8
 Программа должна вывести выручку фирмы (сумму всех чисел из файла) в соответствии с примером ниже.
 
 Примечание 1. Считайте, что исполняемая программа и указанный файл находятся в одной папке."""
-file = r'/Users/zwar/Downloads/ledger.txt'
+file = r'/Users/xxXXXxx/Downloads/ledger.txt'
 # file = 'ledger.txt'
 with open(file, 'r', encoding='utf-8') as f:
     print('$', sum(map(lambda x: int(x[1:-1]) if x[-1] == '\n' else int(x[1:]), f.readlines())), sep ='')
@@ -52,7 +52,7 @@ with open(file, 'r', encoding='utf-8') as f:
 
 Примечание 1. Считайте, что исполняемая программа и указанный файл находятся в одной папке."""
 # 18.1.3 v1
-file = r'/Users/zwar/Downloads/grades.txt'
+file = r'/Users/xxXXXxx/Downloads/grades.txt'
 # file = 'grades.txt'
 with open(file, 'r', encoding='utf-8') as f:
     count = 0
@@ -63,14 +63,14 @@ with open(file, 'r', encoding='utf-8') as f:
 print(count)
 
 #%% 18.1.3 v2
-file = r'/Users/zwar/Downloads/grades.txt'
+file = r'/Users/xxXXXxx/Downloads/grades.txt'
 # file = 'grades.txt'
 with open(file, 'r', encoding='utf-8') as f:
 #    print(sum(1 for i in f.readlines()))
    print(sum(1 for i in f.readlines() if all([int(j)>=65 for j in i.split()[1:]])))
 
 #%% 18.1.3 v3 - красивое решение с перебором индекса в lambda. жаль, сам не додумался до такого.
-file = r'/Users/zwar/Downloads/grades.txt'
+file = r'/Users/xxXXXxx/Downloads/grades.txt'
 # file = 'grades.txt'
 
 with open(file, 'r', encoding='utf-8') as f:
@@ -91,7 +91,7 @@ with open(file, 'r', encoding='utf-8') as f:
 
 Примечание 2. Словом считайте любую группу символов без пробелов, даже если она включает цифры или знаки препинания."""
 # 18.1.4 v1 через подсчет длинны
-file = r'/Users/zwar/Downloads/words.txt'
+file = r'/Users/xxXXXxx/Downloads/words.txt'
 # file = 'words.txt'
 with open(file, 'r', encoding='utf-8') as f:
     longest_len = 0
@@ -106,7 +106,7 @@ with open(file, 'r', encoding='utf-8') as f:
 print(*answer, sep='\n')
 
 #%% 18.1.4 v2 через словарь из длин слов
-file = r'/Users/zwar/Downloads/words.txt'
+file = r'/Users/xxXXXxx/Downloads/words.txt'
 # file = 'words.txt'
 with open(file, 'r', encoding='utf-8') as f:
     answer = dict()
@@ -131,8 +131,8 @@ print(*answer[max(answer)], sep='\n')
 
 Примечание 2. Если количество строк в файле меньше 10, необходимо вывести содержимое файла полностью.
 Примечание 4. Подумайте над ситуацией, когда файл очень большой и нерационально считывать все его содержимое в память компьютера."""
-file = r'/Users/zwar/Downloads/grades.txt'
-# file = r'/Users/zwar/Downloads/ledger.txt'
+file = r'/Users/xxXXXxx/Downloads/grades.txt'
+# file = r'/Users/xxXXXxx/Downloads/ledger.txt'
 
 # file = input()
 with open(file, 'rb') as f:
@@ -155,8 +155,8 @@ print('strok', count)
 
 
 #%%
-file = r'/Users/zwar/Downloads/grades.txt'
-# file = r'/Users/zwar/Downloads/ledger.txt'
+file = r'/Users/xxXXXxx/Downloads/grades.txt'
+# file = r'/Users/xxXXXxx/Downloads/ledger.txt'
 # file = input()
 
 with open(file, 'r') as f:
@@ -182,10 +182,10 @@ with open(file, 'r') as f:
 
 # почему-то не принимает решение, хотя вроде работает на тестовых файлах..
 
-forbiden_f = r'/Users/zwar/Downloads/forbidden_words.txt'
-file1 =  r'/Users/zwar/Downloads/data.txt'
-file2 = r'/Users/zwar/Downloads/stepik.txt'
-file3 = r'/Users/zwar/Downloads/beegeek.txt'
+forbiden_f = r'/Users/xxXXXxx/Downloads/forbidden_words.txt'
+file1 =  r'/Users/xxXXXxx/Downloads/data.txt'
+file2 = r'/Users/xxXXXxx/Downloads/stepik.txt'
+file3 = r'/Users/xxXXXxx/Downloads/beegeek.txt'
 
 file = file2
 
@@ -196,7 +196,7 @@ with open(forbiden_f, 'r', encoding='utf-8') as f:
     forbiden_w = f.read().split()
 
 with open(file, 'r+', encoding='utf-8') as f:#,\
-    #open(r'/Users/zwar/Downloads/TTT.txt', 'w+', encoding='utf-8') as f2:
+    #open(r'/Users/xxXXXxx/Downloads/TTT.txt', 'w+', encoding='utf-8') as f2:
     content = [row.strip().split() for row in f.readlines()]
     for r in range(len(content)):
         for w in range(len(content[r])):
@@ -219,10 +219,10 @@ with open(file, 'r+', encoding='utf-8') as f:#,\
 
 #%% 18.1.6 v2
 
-forbiden_f = r'/Users/zwar/Downloads/forbidden_words.txt'
-file1 =  r'/Users/zwar/Downloads/data.txt'
-file2 = r'/Users/zwar/Downloads/stepik.txt'
-file3 = r'/Users/zwar/Downloads/beegeek.txt'
+forbiden_f = r'/Users/xxXXXxx/Downloads/forbidden_words.txt'
+file1 =  r'/Users/xxXXXxx/Downloads/data.txt'
+file2 = r'/Users/xxXXXxx/Downloads/stepik.txt'
+file3 = r'/Users/xxXXXxx/Downloads/beegeek.txt'
 
 file = file2
 
@@ -252,8 +252,8 @@ for i in range(len(content)):
 
 Вам доступен текстовый файл cyrillic.txt, содержащий текст. Напишите программу для транслитерации этого файла, то есть замены кириллических символов на латинские в соответствии с предложенной таблицей. Все остальные символы надо оставить без изменений. Результат транслитерации требуется записать в файл transliteration.txt."""
 
-file = r'/Users/zwar/Downloads/cyrillic.txt'
-result_file =  r'/Users/zwar/Downloads/transliteration.txt'
+file = r'/Users/xxXXXxx/Downloads/cyrillic.txt'
+result_file =  r'/Users/xxXXXxx/Downloads/transliteration.txt'
 
 # file = 'cyrillic.txt'
 # result_file =  'transliteration.txt'
@@ -286,7 +286,7 @@ with open(result_file, 'w+', encoding='utf-8') as f:
 Формат выходных данных
 Программа должна вывести названия всех функций (не меняя порядка их следования в исходном файле), каждое на отдельной строке, для которых отсутствует поясняющий комментарий. Если все функции в файле имеют поясняющий комментарий, то следует вывести: Best Programming Team."""
 
-file = r'/Users/zwar/Downloads/test_file_with_functions.txt'
+file = r'/Users/xxXXXxx/Downloads/test_file_with_functions.txt'
 
 # file = input()
 st1, st2 = '', ''
@@ -299,5 +299,22 @@ with open(file, 'r', encoding='utf-8') as f:
             if not st1.startswith('#'):
                 print(st2.split()[1][:st2.split()[1].find('(')])
                 flag = False
+if flag:
+    print('Best Programming Team')
+
+
+#%% 18.1.8 v2
+file = r'/Users/xxXXXxx/Downloads/test_file_with_functions.txt'
+
+# file = input()
+st = ''
+flag = True
+with open(file, 'r', encoding='utf-8') as f:
+    for row in f:
+        if row.startswith('def '):
+            if not st.startswith('#'):
+                print(row[4:row.find('(')])
+                flag = False
+        st = row
 if flag:
     print('Best Programming Team')
