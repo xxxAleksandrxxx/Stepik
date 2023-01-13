@@ -114,3 +114,50 @@ with open(file, 'r', encoding='utf-8') as f:
         answer.setdefault(len(word), []).append(word)
 
 print(*answer[max(answer)], sep='\n')
+
+
+
+#%% 18.1.5 - Tail of a File
+
+"""На вход программе подается строка текста с именем текстового файла. Напишите программу, выводящую на экран последние 10 строк данного файла.
+
+Формат входных данных
+На вход программе подается строка текста с именем существующего текстового файла.
+
+Формат выходных данных
+Программа должна вывести последние 10 строк этого файла.
+
+Примечание 1. Считайте, что исполняемая программа и файл находятся в одной папке.
+
+Примечание 2. Если количество строк в файле меньше 10, необходимо вывести содержимое файла полностью.
+Примечание 4. Подумайте над ситуацией, когда файл очень большой и нерационально считывать все его содержимое в память компьютера."""
+file = r'/Users/zwar/Downloads/grades.txt'
+# file = r'/Users/zwar/Downloads/ledger.txt'
+
+# file = input()
+with open(file, 'rb') as f:
+    pos = 0
+    f.seek(pos, 2)
+    count = 1
+    answer = ''
+    # ищем 10-ю строку снизу подсчитывая '\n'
+    while count <11 and f.tell() != 1:
+        pos -= 1
+        f.seek(pos, 2) # перемещаемся в позицию pos, 2 - от конца файла
+        a = f.read(1).decode('utf-8')
+        answer += a
+        if a == '\n':
+            count += 1
+
+print(answer[::-1])
+
+print('strok', count)
+
+
+#%%
+file = r'/Users/zwar/Downloads/grades.txt'
+# file = r'/Users/zwar/Downloads/ledger.txt'
+# file = input()
+
+with open(file, 'r') as f:
+    print(*f.readlines()[-10:], sep='')
