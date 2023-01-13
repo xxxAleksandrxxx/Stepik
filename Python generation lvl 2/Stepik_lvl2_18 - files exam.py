@@ -105,4 +105,12 @@ with open(file, 'r', encoding='utf-8') as f:
             answer.append(word)
 print(*answer, sep='\n')
 
+#%% 18.1.4 v2 через словарь из длин слов
+file = r'/Users/zwar/Downloads/words.txt'
+# file = 'words.txt'
+with open(file, 'r', encoding='utf-8') as f:
+    answer = dict()
+    for word in f.read().strip().split():
+        answer.setdefault(len(word), []).append(word)
 
+print(*answer[max(answer)], sep='\n')
