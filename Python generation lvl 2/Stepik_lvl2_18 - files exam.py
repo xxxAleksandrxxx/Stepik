@@ -68,3 +68,10 @@ file = r'/Users/zwar/Downloads/grades.txt'
 with open(file, 'r', encoding='utf-8') as f:
 #    print(sum(1 for i in f.readlines()))
    print(sum(1 for i in f.readlines() if all([int(j)>=65 for j in i.split()[1:]])))
+
+#%% 18.1.3 v3 - красивое решение с перебором индекса в lambda. жаль, сам не додумался до такого.
+file = r'/Users/zwar/Downloads/grades.txt'
+# file = 'grades.txt'
+
+with open(file, 'r', encoding='utf-8') as f:
+    print(len(list(filter(lambda x: all(int(x[i]) >= 65 for i in (1, 2, 3)), (map(str.split, f))))))
