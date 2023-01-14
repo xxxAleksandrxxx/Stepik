@@ -6,11 +6,17 @@ card_number — строка, представляющая собой корре
 Функция должна заменять первые 12 цифр в строке card_number на символ * и возвращать полученный результат. Если между цифрами в номере имелись символы пробела, их следует удалить.
 
 Примечание 1. В тестирующую систему сдайте программу, содержащую только необходимую функцию hide_card(), но не код, вызывающий ее."""
-# 02.02 v1
+# 02.2 v1
 def hide_card(card_number):
     card_number = card_number.replace(' ', '')
     return '*'*12 + card_number[12:]
 
 card = '905 678123 45612 56'
-print(len(hide_card(card)))
+print(hide_card(card))
 
+#%% 02.2 v2
+def hide_card(card_number):
+    return '*'*12 + card_number.replace(' ', '')[-4:]
+
+card = '905 678123 45612 56'
+print(hide_card(card))
