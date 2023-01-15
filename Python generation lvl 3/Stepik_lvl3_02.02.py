@@ -89,3 +89,17 @@ def is_valid(string):
 
 for t in test:
     print(is_valid(t))
+
+
+#%% 02.4 v2
+test = (
+    '4367',
+    '92134',
+    '89abc1',
+    '49 83'
+)
+def is_valid(string):
+    return all([4 <= len(string) <= 6, string.isdigit()])
+
+for t in test:
+    print(is_valid(t))
