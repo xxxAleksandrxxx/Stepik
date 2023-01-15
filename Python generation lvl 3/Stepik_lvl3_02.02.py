@@ -120,7 +120,7 @@ for t in test:
 Примечание 3. Если в функцию ничего не передается, функция ничего не должна выводить.
 
 Примечание 4. В тестирующую систему сдайте программу, содержащую только необходимую функцию print_given(), но не код, вызывающий ее."""
-
+# 02.5 v1
 def print_given(*arg, **kwarg):
     try:
         [print(a, type(a)) for a in arg]
@@ -130,3 +130,12 @@ def print_given(*arg, **kwarg):
 
 # print_given(1, [1, 2, 3], 'three', two=2)
 print_given(b=2, d=4, c=3, a=1)
+
+#%% 02.5 v2
+def print_given(*arg, **kwarg):
+        [print(a, type(a)) for a in arg]
+        [print(k, v, type(v)) for k, v in sorted(kwarg.items())]
+
+print_given(1, [1, 2, 3], 'three', two=2)
+print_given(b=2, d=4, c=3, a=1)
+print_given()
