@@ -47,3 +47,16 @@ def same_parity(numbers):
 
 for t in test:
     print(same_parity(t))
+
+#%% 02.3 v2
+test = (
+    [],
+    [6, 0, 67, -7, 10, -20],
+    [-7, 0, 67, -9, 70, -29, 90]
+)
+
+def same_parity(numbers):
+    return [i for i in numbers if i%2==numbers[0]%2]
+
+for t in test:
+    print(same_parity(t))
