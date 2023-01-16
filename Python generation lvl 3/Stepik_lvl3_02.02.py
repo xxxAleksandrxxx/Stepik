@@ -159,3 +159,57 @@ def convert(string):
     return string.upper() if len(list(filter(lambda x: x.isupper(), string))) > len(list(filter(lambda x: x.islower(), string))) else string.lower()
 
 print(convert('aad567BBBI'))
+
+
+#%% 02.9 - Функция filter_anagrams()
+
+"""Анаграммы — это слова, которые состоят из одинаковых букв. Например:
+
+адаптер — петарда
+адресочек — середочка
+азбука — базука
+аистенок — осетинка
+Реализуйте функцию filter_anagrams(), которая принимает два аргумента в следующем порядке:
+
+word — слово в нижнем регистре
+words — список слов в нижнем регистре
+Функция должна возвращать список, элементами которого являются слова из списка words, которые представляют анаграмму слова word. Если список words пуст или не содержит анаграмм, функция должна вернуть пустой список.
+
+Примечание 1. Слова в возвращаемом функцией списке должны располагаться в своем исходном порядке. 
+
+Примечание 2. Считайте, что слово является анаграммой самого себя.
+
+Примечание 3. В тестирующую систему сдайте программу, содержащую только необходимую функцию filter_anagrams(), но не код, вызывающий ее."""
+
+# 2.9 v1
+
+# def filter_anagrams(word, words):
+#     answer = []
+#     for w in words:
+#         w_copy = w[:]
+#         for alpha in word:
+#             try:
+#                 w_copy = w_copy.replace(alpha, '', 1)
+#             except:
+#                 pass
+#         if len(w_copy) == 0 and len(word)==len(w):
+#             answer.append(w)
+#     return answer
+
+def filter_anagrams(word, words):
+    answer = []
+    for w in words:
+        w_copy = w[:]
+        for alpha in word:
+            w_copy = w_copy.replace(alpha, '', 1)
+        if len(w_copy) == 0 and len(word)==len(w):
+            answer.append(w)
+    return answer
+
+
+# word = 'abba'
+# anagrams = ['aabb', 'abcd', 'bbaa', 'dada']
+# print(filter_anagrams(word, anagrams))
+# print(filter_anagrams('отсечка', ['сеточка', 'стоечка', 'тесачок', 'чесотка']))
+print(filter_anagrams('клоун', ['колдун', 'кулон', 'уклон', 'кол']))
+print(filter_anagrams('768', ['', 'u']))
