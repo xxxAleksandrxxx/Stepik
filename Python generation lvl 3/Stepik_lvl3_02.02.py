@@ -386,3 +386,17 @@ def choose_plural(amount, declensions):
 
 for i in range (40):
     print(choose_plural(i, ('пример', 'примера', 'примеров')))
+
+#%% 2.13 v3
+def choose_plural(amount, declensions):
+    a = str(amount)
+    if a.endswith(('0', '5', '6', '7', '8', '9', '11', '12', '13', '14')):
+        return f'{amount} {declensions[2]}'
+    elif a.endswith('1'):
+        return f'{amount} {declensions[0]}'
+    else:
+        return f'{amount} {declensions[1]}'
+
+for i in range (40):
+    print(choose_plural(i, ('пример', 'примера', 'примеров')))
+
