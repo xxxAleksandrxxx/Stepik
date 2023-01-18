@@ -373,3 +373,16 @@ def choose_plural(amount, declensions):
 # print(choose_plural(21, ('пример', 'примера', 'примеров')))
 for i in range (40):
     print(choose_plural(i, ('пример', 'примера', 'примеров')))
+
+#%% 2.13 v2
+def choose_plural(amount, declensions):
+    a = f'0{amount}'
+    if a[-1] == '1' and a[-2] != '1':
+        return f'{amount} {declensions[0]}'
+    elif a[-1] in '234' and a[-2] != '1':
+        return f'{amount} {declensions[1]}'
+    else:
+        return f'{amount} {declensions[2]}'
+
+for i in range (40):
+    print(choose_plural(i, ('пример', 'примера', 'примеров')))
