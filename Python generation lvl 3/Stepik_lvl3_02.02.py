@@ -412,7 +412,7 @@ numbers — список целых неотрицательных чисел
 Наибольшим из представленных является 321.
 
 Примечание 2. В тестирующую систему сдайте программу, содержащую только необходимую функцию get_biggest(), но не код, вызывающий ее."""
-
+# 2.14 v1
 def get_biggest(numbers=[]):
     if numbers:
         max_len_n = len(str(max(numbers, key=lambda x: len(str(x)))))
@@ -427,4 +427,35 @@ def get_biggest(numbers=[]):
     else:
         return -1
 
+#%% 2.14 v2
+def get_biggest(numbers):
+    if numbers:
+        max_len = len(str(max(numbers)))
+        return int(''.join(map(str, sorted(numbers, key=lambda x: str(x)*max_len, reverse=True))))
+    return -1
 
+
+# Testing
+import pathlib
+t_folder = '/Users/zwar/Downloads/tests_2310080'
+
+# подсчет, сколько всего тестовых файлов (считаем файлы с ответами)
+t_count = 0
+for f in pathlib.Path(t_folder).iterdir():
+    if str(f).endswith('.clue'):
+        t_count += 1
+
+# прогоняем все тесты и выводим решение
+def code_test(t_c, folder):
+    for test in range(1, t_c+1):
+        print('test No', test)
+        t_address = folder + f'/{test}'
+        a_address = folder + f'/{test}.clue'
+        with open(t_address, 'r', encoding='utf-8') as t,\
+            open(a_address, 'r', encoding='utf-8') as a:
+            print('answer:  ', end='')
+            exec(t.readline().strip())
+            print('correct:', a.readline())
+            print()
+
+code_test(t_count, t_folder)
