@@ -562,3 +562,35 @@ for i in range(1, t_count + 1):
         print('answer: ', check_lang_3_letters(letters))
         print('correct:', f_a.readline())
         print()
+
+#%% 2.2.2 v2
+def check_lang_3_letters(l_list):
+    l = ['ru', 'mix', 'mix', 'en']
+    en = 'AaBCcEeHKMOoPpTXxy'
+    return (l[sum(letter in en for letter in l_list)])
+
+# print(check_lang_3_letters([input() for _ in range(3)]))
+
+
+# Testing
+from pathlib import Path
+t_folder = 'tests'
+
+# подсчитываем тесты (по файлам с ответами)
+t_count = 0
+for t in Path(t_folder).iterdir():
+    if str(t).endswith('.clue'):
+        t_count += 1
+
+# тестирование
+for i in range(1, t_count + 1):
+    t = t_folder + f'/{i}'
+    a = t_folder + f'/{i}.clue'
+    with open(t, 'r', encoding='utf-8') as f_t,\
+        open(a, 'r', encoding='utf-8') as f_a:
+        letters = [f_t.readline().strip() for _ in range(3)]
+        print(f'test No {i}')
+        print(f'leters: {letters}')
+        print('answer: ', check_lang_3_letters(letters))
+        print('correct:', f_a.readline())
+        print()
