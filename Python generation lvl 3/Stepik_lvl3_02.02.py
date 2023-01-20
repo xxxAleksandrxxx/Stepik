@@ -497,3 +497,68 @@ for i in range(1, t_count + 1):
         print(min_way(d1, d2, d3))
         print(a.readline())
         print()
+
+
+#%% 2.2.2 - Схожие буквы
+
+"""В русском и английском языках есть буквы, которые выглядят одинаково. 
+Вот список английских букв "AaBCcEeHKMOoPpTXxy", 
+а вот их русские аналоги "АаВСсЕеНКМОоРрТХху". 
+Напишите программу, которая для трёх букв из данных списков букв определяет, русские они, английские или и те и другие (смесь русских и английских букв).
+
+Формат входных данных
+На вход программе подаются три буквы из указанных в условии наборов букв, каждая на отдельной строке.
+
+Формат выходных данных
+Программа должна вывести
+
+ru, если все три буквы русские
+en, если все три буквы английские
+mix, если среди букв есть как русские, так и английские
+Примечание 1. Гарантируется, что введенные три буквы находятся в наборе "AaBCcEeHKMOoPpTXxy" + "АаВСсЕеНКМОоРрТХху" (английские + русские буквы).
+"""
+# 2.2.2 v1
+def check_lang_3_letters(l_list):
+    answer = []
+    for letter in l_list:
+        # print(f'leter: {letter}, number: {ord(letter)}')
+        if 64 < ord(letter) < 91 or 96 < ord(letter) < 123:
+            answer.append('en')
+        elif 1039 < ord(letter) < 1104:
+            answer.append('ru')
+        else:
+            return None
+    if all(map(lambda x: True if x == 'en' else False, answer)):
+        return 'en'
+    elif all(map(lambda x: True if x == 'ru' else False, answer)):
+        return 'ru'
+    elif any(map(lambda x: True if x == 'None' else False, answer)):
+        return None
+    else:
+        return 'mix'
+
+print(check_lang_3_letters([input(), input(), input()]))
+    
+
+# Testing
+from pathlib import Path
+t_folder = 'tests'
+
+# подсчитываем тесты (по файлам с ответами)
+t_count = 0
+for t in Path(t_folder).iterdir():
+    if str(t).endswith('.clue'):
+        t_count += 1
+
+# тестирование
+for i in range(1, t_count + 1):
+    t = t_folder + f'/{i}'
+    a = t_folder + f'/{i}.clue'
+    with open(t, 'r', encoding='utf-8') as f_t,\
+        open(a, 'r', encoding='utf-8') as f_a:
+        letters = [f_t.readline().strip() for _ in range(3)]
+        print(f'test No {i}')
+        print(f'leters: {letters}')
+        print('answer: ', check_lang_3_letters(letters))
+        print('correct:', f_a.readline())
+        print()
