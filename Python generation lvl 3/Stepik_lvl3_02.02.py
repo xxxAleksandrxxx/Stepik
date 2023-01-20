@@ -594,3 +594,50 @@ for i in range(1, t_count + 1):
         print('answer: ', check_lang_3_letters(letters))
         print('correct:', f_a.readline())
         print()
+
+
+#%% 2.2.3 - Переворатор
+
+"""Дана последовательность натуральных чисел от 1 до n. Напишите программу, которая сначала располагает в обратном порядке часть элементов этой последовательности от элемента с номером X до элемента с номером Y, а затем от элемента с номером A до элемента с номером B.
+На вход программе подаются 5 натуральных чисел, разделенных пробелом: n, X, Y, A, B
+Формат выходных данных
+Программа должна сформировать последовательность чисел, согласно условию задачи, и вывести их, разделяя пробелом.
+
+Примечание 1. Нумерация членов последовательности начинается с единицы.
+
+"""
+
+def rotate(st):
+    # print(st)
+    n, x, y, a, b = map(lambda x: int(x), st.split())
+    arr = list(range(n+1))
+    answer = arr[:x] + arr[y:x-1:-1] + arr[y+1:]
+    answer = answer[:a] + answer[b:a-1:-1] + answer[b+1:]
+    return ' '.join(map(str, answer[1:]))
+
+# print(rotate(input()))
+
+
+## testing
+from pathlib import Path
+t_folder = 'tests'
+
+# подсчитываем тесты (по файлам с ответами)
+t_count = 0
+for t in Path(t_folder).iterdir():
+    if str(t).endswith('.clue'):
+        t_count += 1
+
+# тестируем
+for i in range(1, t_count + 1):
+    t = t_folder + f'/{i}'
+    a = t_folder + f'/{i}.clue'
+    with open(t, 'r', encoding='utf-8') as f_t,\
+        open(a, 'r', encoding='utf-8') as f_a:
+        ans_1 = rotate(f_t.readline())
+        ans_0 = f_a.readline().strip()
+        print(f'test No {i}')
+        print('answer ', ans_1)
+        print('correct', ans_0)
+        print(['wrong', 'O.K.'][ans_0 == ans_1])
+        print()
