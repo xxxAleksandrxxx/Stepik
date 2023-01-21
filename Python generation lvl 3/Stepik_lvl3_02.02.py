@@ -759,3 +759,63 @@ with ZipFile(file_name, 'r') as zip_file:
             print('answer: ', func_name(t))  # вызов функции
             print('correct:', a)  # выводим ответ
             print()
+
+
+#%% 2.2.6 - Трудности перевода
+
+"""Зачастую переводить сериалы, не теряя изначальный смысл, невозможно, особенно за счет игр слов. Сумасшедший режиссер хочет снять сериал, в котором бы в целях эксперимента задействовал как можно больше языков, чтобы пользоваться красотой каждого из них. Тем не менее если задействовать слишком много языков, то сериал станет непонятен абсолютно всем, поэтому режиссер достает случайных людей на улице и спрашивает их, какие языки они знают, таким образом он будет использовать языки которые знают все из них.
+
+Напишите программу, которая определяет, какие языки будут использоваться в сериале.
+
+Формат входных данных
+На вход программе в первой строке подается число n — количество людей, которых донимает режиссер. В каждой из следующих n строк через запятую и пробел указывается список языков, которые знает человек.
+
+Формат выходных данных
+Программа должна вывести список языков для сериала в лексикографическом порядке. Если такой список составить нельзя, необходимо вывести текст: 
+Сериал снять не удастся"""
+
+
+def check_lang(list_0:list):
+    answer = set(list_0[0].split(', '))
+    for people in list_0:
+        answer = answer & set(people.split(', '))
+    return ', '.join(sorted(answer)) if answer else 'Сериал снять не удастся'
+
+# list_for_input = [input() for _ in range(int(input()))]
+# print(check_lang(list_for_input))
+
+
+# TESTING
+func_name = check_lang
+file_name = 'tests_2310083.zip'
+folder_name = 'tests'
+
+# открываем zip-файл
+from zipfile import ZipFile
+with ZipFile(f'{folder_name}/{file_name}', 'r') as zip_file:
+    pass
+
+    # zip_file.printdir()  # выводим соедржимое zip-файла
+    
+    # with zip_file.open('1') as f:
+    #     print(f.read().decode('utf-8'))  # выводим содержимое файла 1
+    
+    # подсчитываем к-во тестов
+    t_numbers = int(len(zip_file.infolist()) / 2)
+    
+    # запускаем тесты
+    for i in range(1, t_numbers+1):
+        # открываем файлы с тестом и с ответом
+        with zip_file.open(f'{i}', 'r') as t,\
+            zip_file.open(f'{i}.clue', 'r') as a:
+            t = t.read().decode('utf-8')
+            a = a.read().decode('utf-8')
+            print(f'test No {i}')
+
+            # готовим данные для передачи в функицю
+            list_for_input = [row for row in t.split('\n')][1:]
+
+            # print('input:  ', t)  # выводим входные данные
+            print('answer: ', func_name(list_for_input))  # вызов функции
+            print('correct:', a)  # выводим ответ
+            print()
