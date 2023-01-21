@@ -691,3 +691,63 @@ with ZipFile(file_name, 'r') as zip_file:
             print('answer: ', more_then_one(t))
             print('correct:', a)
             print()
+
+
+#%% 2.2.5 - Максимальная группа
+"""
+Назовем набор различных натуральных чисел группой. Например (13, 4, 22 ,40) Тогда длиной группы будем считать количество чисел в группе. Например, длина группы (13, 4, 22 ,40)=4
+Дана последовательность натуральных чисел от 1 до n включительно. Напишите программу, которая группирует все числа данной последовательности по сумме их цифр и определяет длину группы, содержащей наибольшее количество чисел.
+
+Формат входных данных
+На вход программе подается натуральное число n.
+
+Формат выходных данных
+Программа должна сгруппировать все числа из натуральной последовательности от 1 до n по сумме их цифр и определить длину группы, содержащей наибольшее количество чисел.
+
+Пример: 
+n = 20
+последовательность: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+Сгруппируем полученные числа по сумме их цифр:
+(1, 10), (2, 11, 20), (3, 12), (4, 13), (5, 14), (6, 15), (7, 16), (8, 17), (9, 18), (19)
+Длина группы с наибольшим количеством чисел равна 3
+"""
+
+def group_max_len(st:str):
+    seq = [str(i) for i in range(int(st) + 1)]
+    seq = list(map(lambda x: sum([int(i) for i in x]), seq))
+    answer = dict()
+    for elem in seq:
+        answer[elem] = answer.get(elem, 0) + 1
+    return max(answer.values())
+
+# print(group_max_len(input()))
+# print(group_max_len('20'))
+
+# TESTING
+func_name = group_max_len###
+file_name = 'tests_2959799.zip'
+file_name = f'tests/{file_name}'
+# открываем zip-файл
+from zipfile import ZipFile
+with ZipFile(file_name, 'r') as zip_file:
+    pass
+
+    # zip_file.printdir()  # выводим соедржимое zip-файла
+    
+    # with zip_file.open('1') as f:
+    #     print(f.read().decode('utf-8'))  # содержимое файла 1
+    
+    
+    # подсчитываем к-во тестов
+    t_numbers = int(len(zip_file.infolist()) / 2)
+    for i in range(1, t_numbers+1):
+        # открываем файл с тестом и с ответом
+        with zip_file.open(f'{i}', 'r') as t,\
+            zip_file.open(f'{i}.clue', 'r') as a:
+            t = t.read().decode('utf-8')
+            a = a.read().decode('utf-8')
+            print(f'test No {i}')
+            print('input:  ', t)  # выводим входные данные
+            print('answer: ', func_name(t))  # вызов функции
+            print('correct:', a)  # выводим ответ
+            print()
