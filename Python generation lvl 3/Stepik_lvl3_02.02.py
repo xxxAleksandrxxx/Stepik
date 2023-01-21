@@ -720,11 +720,19 @@ def group_max_len(st:str):
         answer[elem] = answer.get(elem, 0) + 1
     return max(answer.values())
 
+# 2.2.5 v2
+def group_max_len_2(st:str):
+    answer = dict()
+    for i in range(1, int(st) + 1):
+        num_sum = sum(map(lambda x: int(x), str(i)))
+        answer[num_sum] = answer.get(num_sum, 0) + 1
+    return max(answer.values())
+
 # print(group_max_len(input()))
 # print(group_max_len('20'))
 
 # TESTING
-func_name = group_max_len###
+func_name = group_max_len_2###
 file_name = 'tests_2959799.zip'
 file_name = f'tests/{file_name}'
 # открываем zip-файл
