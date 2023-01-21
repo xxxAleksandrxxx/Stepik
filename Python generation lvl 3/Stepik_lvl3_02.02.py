@@ -641,3 +641,53 @@ for i in range(1, t_count + 1):
         print('correct', ans_0)
         print(['wrong', 'O.K.'][ans_0 == ans_1])
         print()
+
+
+#%% 2.2.4 - Более одного
+
+"""Дана последовательность неотрицательных целых чисел. Напишите программу, которая выводит те числа, которые встречаются в данной последовательности более одного раза.
+
+Формат входных данных
+На вход программе подается строка, содержащая целые неотрицательные числа, разделенные пробелом.
+
+Формат выходных данных
+Программа должна вывести те числа, которые встречаются в данной строке более одного раза, разделяя их пробелом. Числа должны быть расположены в порядке возрастания и не должны повторяться.
+
+Примечание 1. Если повторяющихся чисел в исходной строке нет, программа ничего не должна выводить."""
+
+def more_then_one(st:str):
+    answer = dict()
+    for num in st.split():
+        answer[num] = answer.get(num, 0) + 1
+    answer = list(filter(lambda x: answer[x] > 1, answer))
+    return ' '.join(sorted(answer, key=lambda x: int(x)))
+
+# print(more_then_one(input()))
+
+
+# TESTING
+file_name = 'tests_2313029'
+file_name = f'tests/{file_name}.zip'
+# открываем zip-файл
+from zipfile import ZipFile
+with ZipFile(file_name, 'r') as zip_file:
+
+    # zip_file.printdir()  # выводим соедржимое zip-файла
+    
+    # with zip_file.open('1') as f:
+    #     print(f.read().decode('utf-8'))  # содержимое файла 1
+    
+    
+    # подсчитываем к-во тестов
+    t_numbers = int(len(zip_file.infolist()) / 2)
+    for i in range(1, t_numbers+1):
+        # открываем файл с тестом и с ответом
+        with zip_file.open(f'{i}', 'r') as t,\
+            zip_file.open(f'{i}.clue', 'r') as a:
+            t = t.read().decode('utf-8')
+            a = a.read().decode('utf-8')
+            print(f'test No {i}')
+            print('input:  ', t)
+            print('answer: ', more_then_one(t))
+            print('correct:', a)
+            print()
