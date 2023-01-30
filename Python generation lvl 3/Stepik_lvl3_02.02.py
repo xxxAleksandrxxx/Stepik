@@ -933,6 +933,34 @@ for name in names:
 # print('mails_old\n', mails_old)
 # print('mails_new\n', mails_new)
 
+#%% 2.2.8 v2
+t_in = [
+    ['ivan-petrov@beegeek.bzz', 'petr-ivanov@beegeek.bzz', 'ivan-petrov1@beegeek.bzz', 'ivan-ivanov@beegeek.bzz', 'ivan-ivanov1@beegeek.bzz', 'ivan-ivanov2@beegeek.bzz'],
+    ['timyr-guev2@beegeek.bzz', 'anri-tabuev@beegeek.bzz'],
+    ['anri-tabuev1@beegeek.bzz', 'arthur-kharisov3@beegeek.bzz']
+]
+names = [
+    ['ivan-ivanov', 'petr-petrov', 'petr-ivanov'],
+    ['timyr-guev', 'timyr-guev', 'anri-tabuev'],
+    ['anri-tabuev', 'anri-tabuev', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov']
+]
+
+test_n = 2
+t_in = t_in[test_n]
+names = names[test_n]
+print('test No', test_n+1)
+
+# t_in = [input() for _ in range(int(input()))]
+# names = [input() for _ in range(int(input()))]
+for name in names:
+    num = 1
+    new_email = name + '@beegeek.bzz'
+    while new_email in t_in:
+        new_email = name + str(num) + '@beegeek.bzz'
+        num += 1
+    print(new_email)
+    t_in.append(new_email)
+
 
 # %% 2.2.9 - Файлы в файле 🌶️🌶️
 
