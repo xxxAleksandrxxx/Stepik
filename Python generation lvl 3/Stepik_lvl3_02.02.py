@@ -855,3 +855,83 @@ for _ in range(n):
     # print('answer', answer)
     # print()
 print(*answer, sep='\n')
+
+
+#%% 2.2.8 - Корпоративная почта 🌶️
+
+"""В онлайн-школе "BEEGEEK" сотрудникам положена корпоративная почта, которая формируется как <имя-фамилия>@beegeek.bzz, например, timyr-guev@beegeek.bzz. При таком подходе существует проблема тёзок. Для решения такой проблемы было решено приписывать справа номер.
+
+Тогда первый Тимур Гуев получает ящик timyr-guev@beegeek.bzz (без номера), второй — timyr-guev1@beegeek.bzz, третий — timyr-guev2@beegeek.bzz, и так далее.
+
+Вам дан список уже занятых ящиков в порядке их выдачи и имена-фамилии новых сотрудников в заранее подготовленном виде (латиницей с символом - между ними). Напишите программу, которая раздает корпоративные ящики новым сотрудникам школы.
+
+Формат входных данных
+На вход программе в первой строке подается целое неотрицательное число n — количество выданных ящиков. В следующих n строках перечислены сами ящики в порядке выдачи, по одному на строке. На следующей строке задано целое неотрицательное число m — количество новых сотрудников, которым нужно раздать корпоративные ящики. Каждая из последующих m строк представляет собой имя и фамилию сотрудника в подготовленном к использованию формате.
+
+Формат выходных данных
+Программа должна вывести почтовые ящики (m строк) для новых сотрудников в том порядке, в котором они раздавались."""
+
+t_in = [
+    ['ivan-petrov@beegeek.bzz', 'petr-ivanov@beegeek.bzz', 'ivan-petrov1@beegeek.bzz', 'ivan-ivanov@beegeek.bzz', 'ivan-ivanov1@beegeek.bzz', 'ivan-ivanov2@beegeek.bzz'],
+    ['timyr-guev2@beegeek.bzz', 'anri-tabuev@beegeek.bzz'],
+    ['anri-tabuev1@beegeek.bzz', 'arthur-kharisov3@beegeek.bzz']
+]
+names = [
+    ['ivan-ivanov', 'petr-petrov', 'petr-ivanov'],
+    ['timyr-guev', 'timyr-guev', 'anri-tabuev'],
+    ['anri-tabuev', 'anri-tabuev', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov', 'arthur-kharisov']
+]
+
+test_n = 2
+t_in = t_in[test_n]
+names = names[test_n]
+print('test No', test_n+1)
+
+# t_in = [input() for _ in range(int(input()))]
+# names = [input() for _ in range(int(input()))]
+
+def rfind_alfa(text):
+    """ищет индекс первой буквы справа"""
+    letters = '0123456789'
+    poz_alfa = len(text) - 1
+    while poz_alfa >-1 and text[-1] in letters:
+        poz_alfa -= 1
+        text = text[:-1]
+    return poz_alfa
+
+# формируем словарь, связанный со старыми именами
+mails_old = dict()
+for mail in t_in:
+    fio = mail.split('@')[0]
+    number_index = rfind_alfa(fio)
+    if number_index < len(fio) - 1:
+        number = int(fio[number_index + 1:])
+    else:
+        number = 0
+    fio = fio[:number_index + 1]
+    mails_old.setdefault(fio, []).append(number)
+
+# формируем словарь свзяанный с новыми именами
+# и по ходу выводим новые добавленные имена
+mails_new = mails_old.copy()
+for name in names:
+    if name in mails_new:
+        j = 0
+        while j in mails_new[name]:
+            j += 1
+        mails_new.setdefault(name, []).append(j)
+        if mails_new[name][-1] == 0:
+            print(f'{name}@beegeek.bzz')
+        else:
+            print(f'{name}{mails_new[name][-1]}@beegeek.bzz')
+    else:
+        mails_new.setdefault(name, []).append(0)
+        print(f'{name}@beegeek.bzz')
+
+
+# print('test No', test_n)
+# print('mails_old\n', mails_old)
+# print('mails_new\n', mails_new)
+
+
+# %%
