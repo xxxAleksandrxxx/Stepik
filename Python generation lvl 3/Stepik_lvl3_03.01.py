@@ -89,3 +89,19 @@ with ZipFile(file_name, 'r') as z:
     z.printdir()
     with z.open('1.clue', 'r') as f:
         print(f.read().decode('utf-8'))
+
+
+#%% 3.1.11 v2
+from datetime import date
+
+def get_date_range(start, end):
+    return [date.fromordinal(d) for d in range(start.toordinal(), end.toordinal() + 1)]
+
+## TESTING
+from zipfile import ZipFile
+file_name = 'tests_2489842'
+file_name = f'tests/{file_name}.zip'
+with ZipFile(file_name, 'r') as z:
+    z.printdir()
+    with z.open('1.clue', 'r') as f:
+        print(f.read().decode('utf-8'))
