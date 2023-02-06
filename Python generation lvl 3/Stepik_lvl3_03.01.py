@@ -130,4 +130,25 @@ def saturdays_between_two_dates(start, end):
             answer += 1
     return answer
 
+#%% 3.1.12 v2
+from datetime import date
 
+def saturdays_between_two_dates(start, end):
+    start, end = sorted((start.toordinal(), end.toordinal()))
+    return (end - start)//7 + (date.fromordinal(start).isoweekday()%7 + (end - start)%7 >= 6)
+
+
+
+## TESTING
+from zipfile import ZipFile
+file_name = 'tests_3057804.zip'
+file_name = f'tests/{file_name}'
+with ZipFile(file_name, 'r') as z:
+    # z.printdir()
+    test = 4
+    print('\nTest:')
+    with z.open(f'{test}', 'r') as f:
+        print(f.read().decode('utf-8'))
+    print('\nAnswer:')
+    with z.open(f'{test}.clue', 'r') as f:
+        print(f.read().decode('utf-8'))
