@@ -51,3 +51,41 @@ print(get_min_max([]))
 #     # содержимое файла 1
 #     with zip_file.open('2') as f:
 #         print(f.read().decode('utf-8'))
+
+
+#%% 3.1.11 - Функция get_date_range()
+
+"""Реализуйте функцию get_date_range(), которая принимает два аргумента в следующем порядке:
+
+start — начальная дата, тип date
+end — конечная дата, тип date
+Функция get_date_range() должна возвращать список, состоящий из дат (тип date) от start до end включительно. Если start > end, функция должна вернуть пустой список.
+
+Примечание 1. В тестирующую систему сдайте программу, содержащую только необходимую функцию get_date_range(), но не код, вызывающий ее."""
+
+# 3.1.11 v1
+from datetime import date
+
+def get_date_range(start, end):
+    start = start.toordinal()
+    end = end.toordinal()
+    answer = []
+    while start < end + 1:
+        answer.append(date.fromordinal(start))
+        start += 1
+    return answer
+
+date1 = date(2021, 10, 1)
+date2 = date(2021, 10, 5)
+
+print(*get_date_range(date1, date2), sep='\n')
+
+
+## TESTING
+from zipfile import ZipFile
+file_name = 'tests_2489842'
+file_name = f'tests/{file_name}.zip'
+with ZipFile(file_name, 'r') as z:
+    z.printdir()
+    with z.open('1.clue', 'r') as f:
+        print(f.read().decode('utf-8'))
