@@ -190,3 +190,30 @@ print(datetime.fromtimestamp(seconds))
 print(dt.timestamp())
 
 
+#%% 3.3.15
+"""
+Вам доступен список times_of_purchases, содержащий даты (тип datetime), в которые были совершены покупки в некотором интернет-магазине. Дополните приведенный ниже код, чтобы он вывел текст До полудня, если большее число покупок было совершено до полудня, или текст После полудня в противном случае.
+"""
+from datetime import datetime
+
+times_of_purchases = [datetime(2017, 10, 1, 12, 23, 25), datetime(2017, 10, 1, 15, 26, 26), datetime(2017, 10, 1, 15, 42, 57), datetime(2017, 10, 1, 17, 49, 59), datetime(2017, 10, 2, 6, 37, 10), datetime(2017, 10, 2, 6, 42, 53), datetime(2017, 10, 2, 8, 56, 45), datetime(2017, 10, 2, 9, 18, 3), datetime(2017, 10, 2, 12, 23, 48), datetime(2017, 10, 2, 12, 45, 5), datetime(2017, 10, 2, 12, 48, 8), datetime(2017, 10, 2, 12, 10, 54), datetime(2017, 10, 2, 19, 18, 10), datetime(2017, 10, 2, 12, 31, 45), datetime(2017, 10, 3, 20, 57, 10), datetime(2017, 10, 4, 7, 4, 57), datetime(2017, 10, 4, 7, 13, 31), datetime(2017, 10, 4, 7, 13, 42), datetime(2017, 10, 4, 7, 21, 54), datetime(2017, 10, 4, 14, 22, 12), datetime(2017, 10, 4, 14, 50), datetime(2017, 10, 4, 15, 7, 27), datetime(2017, 10, 4, 12, 44, 49), datetime(2017, 10, 4, 12, 46, 41), datetime(2017, 10, 4, 16, 32, 33), datetime(2017, 10, 4, 16, 34, 44), datetime(2017, 10, 4, 16, 46, 59), datetime(2017, 10, 4, 12, 26, 6)]
+
+# for elem in times_of_purchases:
+#     print(str(elem.time()) < '12:00:00')
+
+b = map(lambda x: 'До полудня' if x.time() < datetime(x.year, x.month, x.day, 12, 0, 0).time() else 'После полудня', times_of_purchases)
+
+c = dict()
+for elem in map(lambda x: 'До полудня' if x.time() < datetime(x.year, x.month, x.day, 12, 0, 0).time() else 'После полудня', times_of_purchases):
+    c[elem] = c.get(elem, 0) + 1
+print(max(c))
+
+
+#%% 3.3.15 v2
+
+from datetime import datetime
+
+times_of_purchases = [datetime(2017, 10, 1, 12, 23, 25), datetime(2017, 10, 1, 15, 26, 26), datetime(2017, 10, 1, 15, 42, 57), datetime(2017, 10, 1, 17, 49, 59), datetime(2017, 10, 2, 6, 37, 10), datetime(2017, 10, 2, 6, 42, 53), datetime(2017, 10, 2, 8, 56, 45), datetime(2017, 10, 2, 9, 18, 3), datetime(2017, 10, 2, 12, 23, 48), datetime(2017, 10, 2, 12, 45, 5), datetime(2017, 10, 2, 12, 48, 8), datetime(2017, 10, 2, 12, 10, 54), datetime(2017, 10, 2, 19, 18, 10), datetime(2017, 10, 2, 12, 31, 45), datetime(2017, 10, 3, 20, 57, 10), datetime(2017, 10, 4, 7, 4, 57), datetime(2017, 10, 4, 7, 13, 31), datetime(2017, 10, 4, 7, 13, 42), datetime(2017, 10, 4, 7, 21, 54), datetime(2017, 10, 4, 14, 22, 12), datetime(2017, 10, 4, 14, 50), datetime(2017, 10, 4, 15, 7, 27), datetime(2017, 10, 4, 12, 44, 49), datetime(2017, 10, 4, 12, 46, 41), datetime(2017, 10, 4, 16, 32, 33), datetime(2017, 10, 4, 16, 34, 44), datetime(2017, 10, 4, 16, 46, 59), datetime(2017, 10, 4, 12, 26, 6)]
+
+day_part = [elem.strftime('%p') for elem in times_of_purchases]
+print(('До полудня', 'После полудня')[day_part.count('AM') < day_part.count('PM')])
