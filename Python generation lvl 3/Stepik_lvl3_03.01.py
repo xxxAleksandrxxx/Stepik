@@ -217,3 +217,33 @@ times_of_purchases = [datetime(2017, 10, 1, 12, 23, 25), datetime(2017, 10, 1, 1
 
 day_part = [elem.strftime('%p') for elem in times_of_purchases]
 print(('До полудня', 'После полудня')[day_part.count('AM') < day_part.count('PM')])
+
+
+#%% 3.3.16
+"""
+Вам доступны список dates, содержащий даты, и список times, содержащий времена. Количество элементов в этих списках одинаковое. Дополните приведенный ниже код, чтобы он вывел datetime объекты, полученные путем объединения элементов списков dates и times, находящихся на одинаковых позициях. Полученные объекты должны быть расположены в порядке возрастания секунд, каждый на отдельной строке.
+"""
+
+from datetime import date, time, datetime
+
+dates = [date(1793, 8, 23), date(1410, 3, 11), date(804, 11, 12), date(632, 6, 4), date(295, 1, 23), date(327, 8, 24), date(167, 4, 16), date(229, 1, 24), date(1239, 2, 5), date(1957, 7, 14), date(197, 8, 24), date(479, 9, 6)]
+
+times = [time(7, 33, 27), time(21, 2, 10), time(17, 20, 47), time(20, 8, 59), time(12, 42, 56), time(15, 9, 57), time(17, 47, 9), time(9, 40, 2), time(11, 47, 1), time(17, 27, 10), time(17, 55, 40), time(9, 14, 9)]
+
+dates_and_times = list()
+for i in range(len(dates)):
+    dates_and_times.append(datetime.combine(dates[i], times[i]))
+
+print(*sorted(dates_and_times, key=lambda x: x.second), sep='\n')
+
+
+#%% 3.3.16 v2
+
+from datetime import date, time, datetime
+
+dates = [date(1793, 8, 23), date(1410, 3, 11), date(804, 11, 12), date(632, 6, 4), date(295, 1, 23), date(327, 8, 24), date(167, 4, 16), date(229, 1, 24), date(1239, 2, 5), date(1957, 7, 14), date(197, 8, 24), date(479, 9, 6)]
+
+times = [time(7, 33, 27), time(21, 2, 10), time(17, 20, 47), time(20, 8, 59), time(12, 42, 56), time(15, 9, 57), time(17, 47, 9), time(9, 40, 2), time(11, 47, 1), time(17, 27, 10), time(17, 55, 40), time(9, 14, 9)]
+
+date_and_time = [datetime.combine(d, t) for d, t in zip(dates, times)]
+print(*sorted(date_and_time, key=lambda x: x.second), sep='\n')
