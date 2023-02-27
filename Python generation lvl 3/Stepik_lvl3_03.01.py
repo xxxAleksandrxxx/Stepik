@@ -300,3 +300,68 @@ def g_sec(t_tuple):
     return abs(datetime.strptime(t_tuple[0], '%d.%m.%Y %H:%M:%S') - datetime.strptime(t_tuple[1], '%d.%m.%Y %H:%M:%S'))
 
 print(min(data, key=lambda x: g_sec(data[x])))
+
+
+
+#%% 3.3.18 - Дневник космонавта
+"""
+Вам доступен текстовый файл diary.txt, в который космонавт записывал небольшие отчёты за день. Каждый новый отчёт он мог записать либо в начало файла, либо в середину, либо в конец. Все отчеты разделены между собой пустой строкой. Каждый новый отчёт начинается со строки с датой и временем в формате DD.MM.YYYY; HH:MM, после которой следуют события, произошедшие за указанный день:
+
+Напишите программу, которая расставляет все записи космонавта в хронологическом порядке и выводит полученный результат.
+"""
+
+from datetime import datetime
+
+file = 'tests/diary.txt'
+
+dict_f = dict()
+with open(file, 'r', encoding='utf-8') as f:
+    for line in f:        
+        try:
+            d = datetime.strptime(line, '%d.%m.%Y; %H:%M\n')
+        except:
+            if line != '\n':
+                dict_f.setdefault(d, []).append(line.strip())
+
+l = []
+for k, v in sorted(dict_f.items()):
+    l.append('\n'.join([k.strftime('%d.%m.%Y; %H:%M')] + v))
+text = '\n\n'.join(l)
+print(text)
+
+
+#%% 3.3.18 v2
+from datetime import datetime
+
+file = 'tests/diary.txt'
+
+dict_f = dict()
+with open(file, 'r', encoding='utf-8') as f:
+    for line in f:        
+        try:
+            d = datetime.strptime(line, '%d.%m.%Y; %H:%M\n')
+        except:
+            if line != '\n':
+                dict_f.setdefault(d, []).append(line.strip())
+text = []
+for k, v in sorted(dict_f.items()):
+    text.append('\n'.join([k.strftime('%d.%m.%Y; %H:%M')] + v))
+print('\n\n'.join(text))
+
+
+#%% 3.3.18 v3
+from datetime import datetime
+
+file = 'tests/diary.txt'
+
+dict_f = dict()
+with open(file, 'r', encoding='utf-8') as f:
+    for line in f:        
+        try:
+            d = datetime.strptime(line, '%d.%m.%Y; %H:%M\n')
+        except:
+            if line != '\n':
+                dict_f.setdefault(d, []).append(line.strip())
+for k, v in sorted(dict_f.items()):
+    print('\n'.join([k.strftime('%d.%m.%Y; %H:%M')] + v))
+    print()
