@@ -365,3 +365,100 @@ with open(file, 'r', encoding='utf-8') as f:
 for k, v in sorted(dict_f.items()):
     print('\n'.join([k.strftime('%d.%m.%Y; %H:%M')] + v))
     print()
+
+
+#%% 3.3.19 Функция is_available_date()
+
+""""Во время визита очередного гостя сотрудникам отеля приходится проверять, доступна ли та или иная дата для бронирования номера.
+
+Реализуйте функцию is_available_date(), которая принимает два аргумента в следующем порядке:
+
+booked_dates — список строковых дат, недоступных для бронирования. Элементом списка является либо одиночная дата, либо период (две даты через дефис). Например:
+['04.11.2021', '05.11.2021-09.11.2021']
+date_for_booking — одиночная строковая дата или период (две даты через дефис), на которую гость желает забронировать номер. Например:
+'01.11.2021' или '01.11.2021-04.11.2021'
+Функция is_available_date() должна возвращать True, если дата или период date_for_booking полностью доступна для бронирования. В противном случае функция должна возвращать False.
+
+Примечание 1. Гарантируется, что в периоде левая дата всегда меньше правой.
+
+Примечание 2. В периоде (две даты через дефис) граничные даты включены."""
+
+from datetime import datetime
+
+def dates_to_set(dates_list):
+    if type(dates_list) != list:
+        dates_list = [dates_list]
+    dates_set = set()
+    # print('dates_list', dates_list)
+    for d in dates_list:
+        # print('d', d)
+        try:
+            dates_set.add(datetime.strptime(d, '%d.%m.%Y').date())
+        except:
+            d_start, d_end = [int(datetime.strptime(elem, '%d.%m.%Y').timestamp()) for elem in d.split('-')]
+            sec_in_day = 24*60*60
+            # for day in range(d_start, d_end, sec_in_day):
+            for day in range(d_start, d_end + sec_in_day, sec_in_day):
+                # print('day', datetime.fromtimestamp(day).date())
+                dates_set.add(datetime.fromtimestamp(day).date())
+    return dates_set
+
+def is_available_date(booked_dates, date_for_booking):
+
+    # print()
+    # print('booked_dates')
+    # [print(datetime.strftime(elem, '%d.%m.%Y'), end='  ') for elem in sorted(dates_to_set(booked_dates))]
+    # print()
+    # print('date_for_booking')
+    # [print(datetime.strftime(elem, '%d.%m.%Y'), end='  ') for elem in sorted(dates_to_set(date_for_booking))]
+    # print()
+
+    return dates_to_set(date_for_booking).isdisjoint(dates_to_set(booked_dates))
+
+
+
+
+## TESTING
+from zipfile import ZipFile
+test_f = 'tests_2506745.zip'
+test_f = 'tests/' + test_f
+#
+with ZipFile(test_f, 'r') as z:
+    #
+    # смотрим, что в архиве
+    # z.printdir()
+    #
+    #
+    # # ОДИНОЧНЫЙ ТЕСТ
+    # test_number = 3
+    # # запуск теста
+    # with z.open(str(test_number), 'r') as f:
+    #     print(f'test number: {test_number}')
+    #     for line in f:
+    #         # выводим строку из файла
+    #         print(line.decode('utf-8').strip())
+    #         # выполняем строчку кода из файла
+    #         exec(line.decode('utf-8').strip())
+    # #
+    # # вывод правильного ответа
+    # with z.open(f'{str(test_number)}.clue', 'r') as f:
+    #     print(f.read().decode('utf-8'))
+    #
+    #
+    # ПРОГОН ВСЕХ ТЕСТОВ
+    for i in range(1, 13):
+        test_number = i
+        # запуск теста
+        with z.open(str(test_number), 'r') as f:
+            print(f'test number: {test_number}')
+            for line in f:
+                # выводим строку из файла
+                print(line.decode('utf-8').strip())
+                # выполняем строчку кода из файла
+                # print('my  answer:', end=' ')
+                exec(line.decode('utf-8').strip())
+        #
+        # вывод правильного ответа
+        with z.open(f'{str(test_number)}.clue', 'r') as f:
+            print(f.read().decode('utf-8'))
+        print('\n')
