@@ -54,3 +54,28 @@ all_time = timedelta(days=3)
 smena = timedelta(hours=7, minutes=30)
 print('количество смен в 3-х сутках:', all_time // smena)
 
+##########################
+#задаем дальнейший вывод текста синим цветом
+print("\033[34m", end='')
+##########################
+
+
+a = 87
+print(a)
+# b = input()
+# print('b', b)
+# print("\033[0;34m Dark blue text.\033[1,33m")
+
+print("ERROR")
+
+
+##########################
+# возвращаем цвет текста по умолчанию
+print("\033[0m", end='')
+##########################
+
+# print(f"\x1b[31m{message}\033[48;2;0;0;0m")
+# print("\033[48;2;255;140;60m ORANGE BACKGROUND \033[48;2;0;0;0m")
+# print("\033[34mHello, world!\033[0m")
+# print("\033[34mHello, world!")
+print('Hi Petrovich')
