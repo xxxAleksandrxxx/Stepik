@@ -1,2 +1,2 @@
 # Stepik
-Решение задачек по Python из Stepik
+This repository contains Python study tasks from Stepik
