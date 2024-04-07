@@ -112,12 +112,38 @@
 # Формат входных данных
 # На вход программе подаются год и полное название месяца на английском, разделенные пробелом.
 
-import calendar
+# import calendar
 
-def days_in_month(y_m:str):
-    y, m = y_m.split(' ')
-    m_names = {m: i for i, m in enumerate(calendar.month_name)}
-    return calendar.monthrange(int(y), m_names[m])[1]
+# def days_in_month(y_m:str):
+#     y, m = y_m.split(' ')
+#     m_names = {m: i for i, m in enumerate(calendar.month_name)}
+#     return calendar.monthrange(int(y), m_names[m])[1]
+
+# if __name__ == "__main__":
+#     print(days_in_month(input()))
+
+
+
+
+
+##########################################
+# 3.7.12
+# Функция get_days_in_month()   
+# Реализуйте функцию get_days_in_month(), которая принимает два 
+# аргумента в следующем порядке:
+# year — натуральное число
+# month — полное название месяца на английском
+# Функция должна возвращать отсортированный по возрастанию список 
+# всех дат (тип date) месяца month и года year.
+
+import calendar
+from datetime import date
+
+def all_dates_datetime(y:int, m:str):
+    m_digit = list(calendar.month_name).index(m)
+    date_max = calendar.monthrange(y, m_digit)[1]
+    return [date(y, m_digit, i) for i in range(1, date_max+1)]
 
 if __name__ == "__main__":
-    print(days_in_month(input()))
+    for elem in all_dates_datetime(2021, "December"):
+        print(elem)
