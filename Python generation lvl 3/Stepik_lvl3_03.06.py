@@ -221,12 +221,27 @@
 #     y = [1999, 2000, 2001, 2002]
 #     check_year(y)
 
+# import calendar
+
+# def check_year(year_range):
+#     for year in year_range:
+#         print(calendar.isleap(year))
+
+# if __name__ == "__main__":
+#     y = [int(input()) for _ in range(int(input()))]
+#     check_year(y)
+
+
+
+##########################################
+# 3.7.8
+# Напишите программу, которая выводит календарь на заданные год и месяц.
 import calendar
 
-def check_year(year_range):
-    for year in year_range:
-        print(calendar.isleap(year))
+def prin_calendar_month(y_m:str):
+    y, m = y_m.split(' ')
+    month_dict = {m: i for i, m in enumerate(calendar.month_abbr)}
+    print(calendar.month(int(y), month_dict[m]))
 
 if __name__ == "__main__":
-    y = [int(input()) for _ in range(int(input()))]
-    check_year(y)
+    prin_calendar_month(input())
