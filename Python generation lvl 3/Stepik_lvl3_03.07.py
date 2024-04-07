@@ -60,12 +60,27 @@
 ##########################################
 # 3.7.8
 # Напишите программу, которая выводит календарь на заданные год и месяц.
-import calendar
+# import calendar
 
-def print_calendar_month(y_m:str):
-    y, m = y_m.split(' ')
-    month_dict = {m: i for i, m in enumerate(calendar.month_abbr)}
-    print(calendar.month(int(y), month_dict[m]))
+# def print_calendar_month(y_m:str):
+#     y, m = y_m.split(' ')
+#     month_dict = {m: i for i, m in enumerate(calendar.month_abbr)}
+#     print(calendar.month(int(y), month_dict[m]))
+
+# if __name__ == "__main__":
+#     print_calendar_month(input())
+
+
+##########################################
+# 3.7.9
+# День недели
+# Напишите программу, которая определяет день недели, соответствующий заданной дате.
+import calendar, time
+def week_day(the_date:str, fmt="%Y-%m-%d"):
+    the_date = time.strptime(the_date, fmt)
+    week_days = {i: d_name for i, d_name in enumerate(calendar.day_name)}
+    return week_days[calendar.weekday(the_date.tm_year, the_date.tm_mon, the_date.tm_mday)]
 
 if __name__ == "__main__":
-    print_calendar_month(input())
+    the_date = input()
+    print(week_day(the_date))
