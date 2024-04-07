@@ -106,25 +106,60 @@
 
 ##########################################
 # 3.6.13
+# Which way is faster to create a list?
+# import time
 
+# def for_and_append(n):
+#     my_list = list()
+#     for i in range(n):
+#         my_list.append(i)
+#     return my_list
+
+# def list_comprehension(n):
+#     return [i for i in range(n)]
+
+# def execution_time(func, n):
+#     time_start = time.monotonic()
+#     func(n)
+#     time_end = time.monotonic()
+#     return time_end - time_start
+
+# if __name__ == "__main__":
+#     n = 10000000
+#     for func in [for_and_append, list_comprehension]:
+#         print(execution_time(func, n))
+
+
+
+##########################################
+# 3.6.14
+# Вам доступны три реализации функции, которая принимает в качестве аргумента итерируемый объект и возвращает список, элементами которого являются элементы переданного итерируемого объекта:
+# с использованием цикла for и метода append()
+# с использованием списочного выражения
+# с использованием встроенной функции list()
+# Определите, какая функция быстрее создаст и вернет список на основе итерируемого объекта range(100_000).
 import time
 
-def for_and_append(n):
-    my_list = list()
-    for i in range(n):
-        my_list.append(i)
-    return my_list
+def for_and_append(iter):
+    iter_list = list()
+    for elem in iter:
+        iter_list.append(elem)
+    return iter_list
 
-def list_comprehension(n):
-    return [i for i in range(n)]
+def list_compr(iter):
+    return [elem for elem in iter]
 
-def execution_time(func, n):
+def list_func(iter):
+    return list(iter)
+
+def execution_time(func, arg):
     time_start = time.monotonic()
-    func(n)
+    func(arg)
     time_end = time.monotonic()
     return time_end - time_start
 
 if __name__ == "__main__":
-    n = 10000000
-    for func in [for_and_append, list_comprehension]:
-        print(execution_time(func, n))
+    arg = [i for i in range(10000000)]
+    for func in [for_and_append, list_compr, list_func]:
+        print(func.__name__, end=" ")
+        print(f"{execution_time(func, arg):.4f}")
