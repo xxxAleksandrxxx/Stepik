@@ -94,12 +94,30 @@
 # Количество дней
 # Напишите программу, которая определяет количество дней в заданном месяце.
 
+# import calendar
+
+# def days_in_month(y_m:str):
+#     y, m = map(int, y_m.split(' '))
+#     return calendar.monthrange(y, m)[1]
+
+# if __name__ == "__main__":
+#     print(days_in_month(input()))
+
+
+
+##########################################
+# 3.7.11
+# Количество дней
+# Напишите программу, которая определяет количество дней в заданном месяце.
+# Формат входных данных
+# На вход программе подаются год и полное название месяца на английском, разделенные пробелом.
+
 import calendar
 
 def days_in_month(y_m:str):
-    y, m = map(int, y_m.split(' '))
-    return calendar.monthrange(y, m)[1]
+    y, m = y_m.split(' ')
+    m_names = {m: i for i, m in enumerate(calendar.month_name)}
+    return calendar.monthrange(int(y), m_names[m])[1]
 
 if __name__ == "__main__":
-    print(days_in_month("1977 2"))
-
+    print(days_in_month(input()))
