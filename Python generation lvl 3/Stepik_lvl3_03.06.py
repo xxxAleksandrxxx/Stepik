@@ -138,28 +138,95 @@
 # с использованием списочного выражения
 # с использованием встроенной функции list()
 # Определите, какая функция быстрее создаст и вернет список на основе итерируемого объекта range(100_000).
-import time
+# import time
 
-def for_and_append(iter):
-    iter_list = list()
-    for elem in iter:
-        iter_list.append(elem)
-    return iter_list
+# def for_and_append(iter):
+#     iter_list = list()
+#     for elem in iter:
+#         iter_list.append(elem)
+#     return iter_list
 
-def list_compr(iter):
-    return [elem for elem in iter]
+# def list_compr(iter):
+#     return [elem for elem in iter]
 
-def list_func(iter):
-    return list(iter)
+# def list_func(iter):
+#     return list(iter)
 
-def execution_time(func, arg):
-    time_start = time.monotonic()
-    func(arg)
-    time_end = time.monotonic()
-    return time_end - time_start
+# def execution_time(func, arg):
+#     time_start = time.monotonic()
+#     func(arg)
+#     time_end = time.monotonic()
+#     return time_end - time_start
+
+# if __name__ == "__main__":
+#     arg = [i for i in range(10000000)]
+#     for func in [for_and_append, list_compr, list_func]:
+#         print(func.__name__, end=" ")
+#         print(f"{execution_time(func, arg):.4f}")
+
+
+# import time 
+# time_tuple = (2021, 8, 31, 5, 31, 58, 1, 243, 0)
+# time_obj = time.struct_time(time_tuple)
+# print(time_obj)
+# print(time_obj.tm_year, time_obj[0])
+# print(time_obj.tm_mon, time_obj[1])
+# print(time_obj.tm_mday, time_obj[2])
+
+
+##########################################
+##########################################
+# 3.7
+# import calendar, locale
+# def print_week_days():
+#     for day in calendar.day_name:
+#         print(day.title(), end=" ")
+#     print()
+
+# locale.setlocale(locale.LC_ALL, "ru_RU.UTF-8")
+# print_week_days()
+
+# locale.setlocale(locale.LC_ALL, "")
+# print_week_days()
+
+# import calendar
+# d_list = [day.upper() for day in calendar.day_name]
+# print(*d_list)
+# d_num_list = [getattr(calendar, day) for day in d_list]
+# print(*d_num_list)
+
+
+# import calendar
+# print(*calendar.monthcalendar(2024, 4), sep="\n")
+
+
+# import calendar
+# print(calendar.month(2024, 4))
+
+
+# import calendar
+# print(calendar.calendar(2024))
+
+
+##########################################
+# 3.7.7
+# Напишите программу, которая определяет, является ли год високосным.
+# import calendar
+
+# def check_year(year_range):
+#     for year in year_range:
+#         print(calendar.isleap(year))
+
+# if __name__ == "__main__":
+#     y = [1999, 2000, 2001, 2002]
+#     check_year(y)
+
+import calendar
+
+def check_year(year_range):
+    for year in year_range:
+        print(calendar.isleap(year))
 
 if __name__ == "__main__":
-    arg = [i for i in range(10000000)]
-    for func in [for_and_append, list_compr, list_func]:
-        print(func.__name__, end=" ")
-        print(f"{execution_time(func, arg):.4f}")
+    y = [int(input()) for _ in range(int(input()))]
+    check_year(y)
