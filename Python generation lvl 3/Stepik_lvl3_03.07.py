@@ -71,16 +71,35 @@
 #     print_calendar_month(input())
 
 
+
 ##########################################
 # 3.7.9
 # День недели
 # Напишите программу, которая определяет день недели, соответствующий заданной дате.
-import calendar, time
-def week_day(the_date:str, fmt="%Y-%m-%d"):
-    the_date = time.strptime(the_date, fmt)
-    week_days = {i: d_name for i, d_name in enumerate(calendar.day_name)}
-    return week_days[calendar.weekday(the_date.tm_year, the_date.tm_mon, the_date.tm_mday)]
+
+# import calendar, time
+# def week_day(the_date:str, fmt="%Y-%m-%d"):
+#     the_date = time.strptime(the_date, fmt)
+#     week_days = {i: d_name for i, d_name in enumerate(calendar.day_name)}
+#     return week_days[calendar.weekday(the_date.tm_year, the_date.tm_mon, the_date.tm_mday)]
+
+# if __name__ == "__main__":
+#     the_date = input()
+#     print(week_day(the_date))
+
+
+
+##########################################
+# 3.7.10
+# Количество дней
+# Напишите программу, которая определяет количество дней в заданном месяце.
+
+import calendar
+
+def days_in_month(y_m:str):
+    y, m = map(int, y_m.split(' '))
+    return calendar.monthrange(y, m)[1]
 
 if __name__ == "__main__":
-    the_date = input()
-    print(week_day(the_date))
+    print(days_in_month("1977 2"))
+
