@@ -136,14 +136,95 @@
 # Функция должна возвращать отсортированный по возрастанию список 
 # всех дат (тип date) месяца month и года year.
 
-import calendar
-from datetime import date
+# import calendar
+# from datetime import date
 
-def all_dates_datetime(y:int, m:str):
-    m_digit = list(calendar.month_name).index(m)
-    date_max = calendar.monthrange(y, m_digit)[1]
-    return [date(y, m_digit, i) for i in range(1, date_max+1)]
+# def get_days_in_month(y:int, m:str):
+#     m_digit = list(calendar.month_name).index(m)
+#     date_max = calendar.monthrange(y, m_digit)[1]
+#     return [date(y, m_digit, i) for i in range(1, date_max+1)]
+
+# if __name__ == "__main__":
+#     for elem in get_days_in_month(2021, "December"):
+#         print(elem)
+
+
+
+
+##########################################
+# 3.7.13
+# Функция get_all_mondays()
+# Реализуйте функцию get_all_mondays(), которая принимает один аргумент:
+# year — натуральное число
+# Функция должна возвращать отсортированный по возрастанию список всех 
+# дат (тип date) года year, выпадающих на понедельник.
+
+from datetime import date
+import calendar
+def get_all_mondays(the_year):
+    '''
+    check all the dates in the given year and return sorted list
+    of Monday dates
+    '''
+    date_list = [date(the_year, m, d) for m in range(1, 13) for d in range(1, calendar.monthrange(the_year, m)[1] + 1) if calendar.weekday(the_year, m, d) == 0]
+    return date_list
+
+
+def get_all_mondays2(year):
+    mondays = []
+    for month in range(1, 13):
+        for week in calendar.monthcalendar(year, month):
+            monday = week[0]
+            if monday:
+                mondays.append(date(year, month, monday))
+    return mondays
+
+from datetime import timedelta, date
+def get_all_mondays3(y):
+    weekday1 = date(y, 1, 1).weekday()
+    if weekday1 != 0:
+        monday_date = date(y, 1, 8 -  weekday1)
+    else:
+        monday_date = date(y, 1, 1)
+    mondays = list()
+    while monday_date.year == y:
+        mondays.append(monday_date)
+        monday_date += timedelta(days=7)
+    return mondays
+    
+
+def get_all_mondays4(y):
+    weekday1 = date(y, 1, 1).weekday()
+    if weekday1 != 0:
+        monday_date = date(y, 1, 8 -  weekday1)
+    else:
+        monday_date = date(y, 1, 1)
+    mondays = [monday_date + timedelta(days=i) for i in range(0, 367, 7) if (monday_date + timedelta(days=i)).year == y]
+    return mondays
+
+
+
+def execution_time(func, arg):
+    import time
+    t_start = time.monotonic()
+    for _ in range(10000):
+        func(arg)
+    t_end = time.monotonic()
+    print(f"{func.__name__:<18} {t_end - t_start:.2f}")
+
 
 if __name__ == "__main__":
-    for elem in all_dates_datetime(2021, "December"):
-        print(elem)
+    the_year = 2024
+
+    # f1 = get_all_mondays(the_year)
+    # f2 = get_all_mondays2(the_year)
+    # f3 = get_all_mondays3(the_year)
+    # f4 = get_all_mondays4(the_year)
+    # print("f1 == f2:", f1 == f2)
+    # print("f1 == f3:", f1 == f3)
+    # print("f1 == f4:", f1 == f4)
+
+    for func in [get_all_mondays, get_all_mondays2, get_all_mondays3, get_all_mondays4]:
+        execution_time(func, the_year)
+
+# print(len([date(the_year, m, d) for m in range(1, 13) for d in range(1, calendar.monthrange(the_year, m)[1] + 1)]
