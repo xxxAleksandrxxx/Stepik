@@ -339,24 +339,104 @@
 # Программа должна вывести введенный блок кода, предварительно удалив 
 # из него все строки которые содержат в себе только комментарии.
 
+# import sys
+
+# def no_comments(the_code=sys.stdin):
+#     return "\n".join([line for line in the_code if not line.strip().startswith("#")])
+
+# if __name__ == "__main__":
+#     t = '''digit = int(input())
+# s = input()
+# for i in s:
+#     #комментирую потому что прикольно
+
+#     if 97 > ord(i) - digit:
+#         temp = ord(i) - digit + 26
+#         print(chr(temp), end='')   #вывод
+#     else:
+#         #ахаха
+#         temp = ord(i) - digit
+#         print(chr(temp), end='')'''.split("\n")
+#     print(no_comments(t))
+
+
+
+
+######################
+# 4.1.16
+# Панорамное агентство
+# По чатам одного немалоизвестного мессенджера начали появляться новости 
+# сомнительного содержания. Оказалось, что некий молодежный клуб решил 
+# подшутить, распространяя всякие глупости. Однако подобное хулиганство 
+# мешает доверчивым людям, особенно пенсионного возраста, поэтому группа 
+# независимых программистов решила разработать бота, который мог бы 
+# оценить степень достоверности новости, а также отнести её к какой-либо 
+# категории.
+# Напишите программу, которая выводит все новости заданной категории, 
+# располагая их по возрастанию степени достоверности.
+
 import sys
 
-def no_comments(the_code=sys.stdin):
-    return "\n".join([line for line in the_code if not line.strip().startswith("#")])
+def get_news1(the_news=sys.stdin):
+    data = []
+    for line in the_news:
+        if " / " in line:
+            data.append(line.strip().split(" / "))
+        else:
+            category = line.strip()
+    data_filtered = [n for n, c, _ in sorted(data, key=lambda x: (x[2], x[0])) if c == category]
+    return data_filtered
 
+
+# красивый способ сортировки!
+def get_news2(the_news=sys.stdin):
+    events, priority_tag = {}, None
+
+    for line in the_news:
+        line = line.strip().split(' / ')
+        if len(line) > 1:
+            event, tag, score = line
+            events.setdefault(tag, []).append((score, event))
+        else:
+            priority_tag = line[0]
+    result = []
+    for _, event in sorted(events[priority_tag]):
+        result.append(event)
+    return result
+
+
+
+def get_news3(the_news=sys.stdin):
+    news = [i.strip().split(' / ') for i in the_news]
+    filtered = filter(lambda x: x[1] == news[-1][0], news[:-1])
+
+    return (i[0] for i in sorted(filtered, key=lambda x: (float(x[2]), x[0])))
+
+
+def execution_time(func, arg, n):
+    import time
+    t0 = time.monotonic()
+    for _ in range(n):
+        func(arg)
+    t1 = time.monotonic()
+    print(f"{func.__name__:<18} {t1-t0:.2f}")
+
+# if __name__ == "__main__":
+#     for elem in get_news():
+#         print(elem)
+
+# test purpose 
 if __name__ == "__main__":
-    t = '''digit = int(input())
-s = input()
-for i in s:
-    #комментирую потому что прикольно
-
-    if 97 > ord(i) - digit:
-        temp = ord(i) - digit + 26
-        print(chr(temp), end='')   #вывод
-    else:
-        #ахаха
-        temp = ord(i) - digit
-        print(chr(temp), end='')'''.split("\n")
-    print(no_comments(t))
-
-
+    t = '''На рейсах Поражения второй пилот будет исполнять обязанности бортпроводника / Авиация / 0.3
+Огурец исключит из своих рядов членов, не проголосовавших за Единую Арстоцку на выборах / Политика / 0.8
+Орбистанские точки общепита будут закрыты для вакцинированных граждан / Общество / 0.7
+Джорджи Костава получил членский билет Независимого Кобрастана / Политика / 0.0
+В Колечии повысят призывной возраст до 40 лет / Политика / 1.0
+Всем гражданам Антегрии въезд в Арстоцку запрещен / Политика / 0.8
+Политика'''.split("\n")
+    funcs = [get_news1, get_news2, get_news3]
+    for f in funcs:
+        execution_time(f, t, 1000000)
+#     for elem in get_news(t):
+#         print(elem)
+    
