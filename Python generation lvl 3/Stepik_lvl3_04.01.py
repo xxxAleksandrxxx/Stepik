@@ -278,46 +278,85 @@
 # Программа должна вывести единственное число — количество строк в 
 # введенном коде, которые содержат в себе только комментарии.
 
-import sys
+# import sys
 
-def count_comments(the_code=sys.stdin):
-    comment_counter = 0
-    for line in the_code:
-        if line.strip().startswith("#"):
-            comment_counter += 1
-    return comment_counter
+# def count_comments(the_code=sys.stdin):
+#     comment_counter = 0
+#     for line in the_code:
+#         if line.strip().startswith("#"):
+#             comment_counter += 1
+#     return comment_counter
+
+# # if __name__ == "__main__":
+#     # print(count_comments())
+
+
+# def count_comments2(the_code=sys.stdin):
+#     return sum(line.lstrip().startswith('#') for line in the_code)
+
+
+
+# def execution_time(func, arg, n):
+#     import time
+#     t0 = time.monotonic()
+#     for _ in range(n):
+#         func(arg)
+#     t1 = time.monotonic()
+#     print(f"{func.__name__:<18} {t1 - t0:.2f}")
+
+
+
 
 # if __name__ == "__main__":
-    # print(count_comments())
+
+#     t = '''s = str(input())
+# k = 0
+# #подсчитываем количество цифр
+# for i in range(len(s)):
+#     #проверяем каждый символ
+#     if s[i] in '0123456789': #проверяем, является ли элемент строки цифрой
+#         k += 1
+# print(k)'''.split('\n')
+    
+#     funcs = [count_comments, count_comments2]
+#     for f in funcs:
+#         execution_time(f, t, 10000000)
 
 
-def count_comments2(the_code=sys.stdin):
-    return sum(line.lstrip().startswith('#') for line in the_code)
 
 
+######################
+# 4.1.15
+# Без комментариев
+# Дан блок кода на языке Python. Напишите программу, которая удаляет 
+# все строки в данном коде, которые содержат в себе только комментарии. 
+# Если в строке помимо комментария имеется что-то еще, то такую строку 
+# учитывать не нужно.
+# Формат входных данных
+# На вход программе подается произвольное количество строк, в 
+# совокупности представляющих блок кода на языке Python.
+# Формат выходных данных
+# Программа должна вывести введенный блок кода, предварительно удалив 
+# из него все строки которые содержат в себе только комментарии.
 
-def execution_time(func, arg, n):
-    import time
-    t0 = time.monotonic()
-    for _ in range(n):
-        func(arg)
-    t1 = time.monotonic()
-    print(f"{func.__name__:<18} {t1 - t0:.2f}")
+import sys
 
-
-
+def no_comments(the_code=sys.stdin):
+    return "\n".join([line for line in the_code if not line.strip().startswith("#")])
 
 if __name__ == "__main__":
+    t = '''digit = int(input())
+s = input()
+for i in s:
+    #комментирую потому что прикольно
 
-    t = '''s = str(input())
-k = 0
-#подсчитываем количество цифр
-for i in range(len(s)):
-    #проверяем каждый символ
-    if s[i] in '0123456789': #проверяем, является ли элемент строки цифрой
-        k += 1
-print(k)'''.split('\n')
-    
-    funcs = [count_comments, count_comments2]
-    for f in funcs:
-        execution_time(f, t, 10000000)
+    if 97 > ord(i) - digit:
+        temp = ord(i) - digit + 26
+        print(chr(temp), end='')   #вывод
+    else:
+        #ахаха
+        temp = ord(i) - digit
+        print(chr(temp), end='')'''.split("\n")
+    print(no_comments(t))
+
+
