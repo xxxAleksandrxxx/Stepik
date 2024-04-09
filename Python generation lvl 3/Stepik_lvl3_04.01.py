@@ -375,42 +375,175 @@
 # Напишите программу, которая выводит все новости заданной категории, 
 # располагая их по возрастанию степени достоверности.
 
+# import sys
+
+# def get_news1(the_news=sys.stdin):
+#     data = []
+#     for line in the_news:
+#         if " / " in line:
+#             data.append(line.strip().split(" / "))
+#         else:
+#             category = line.strip()
+#     data_filtered = [n for n, c, _ in sorted(data, key=lambda x: (x[2], x[0])) if c == category]
+#     return data_filtered
+
+
+# # красивый способ сортировки!
+# def get_news2(the_news=sys.stdin):
+#     events, priority_tag = {}, None
+
+#     for line in the_news:
+#         line = line.strip().split(' / ')
+#         if len(line) > 1:
+#             event, tag, score = line
+#             events.setdefault(tag, []).append((score, event))
+#         else:
+#             priority_tag = line[0]
+#     result = []
+#     for _, event in sorted(events[priority_tag]):
+#         result.append(event)
+#     return result
+
+
+
+# def get_news3(the_news=sys.stdin):
+#     news = [i.strip().split(' / ') for i in the_news]
+#     filtered = filter(lambda x: x[1] == news[-1][0], news[:-1])
+
+#     return (i[0] for i in sorted(filtered, key=lambda x: (float(x[2]), x[0])))
+
+
+# def execution_time(func, arg, n):
+#     import time
+#     t0 = time.monotonic()
+#     for _ in range(n):
+#         func(arg)
+#     t1 = time.monotonic()
+#     print(f"{func.__name__:<18} {t1-t0:.2f}")
+
+# # if __name__ == "__main__":
+# #     for elem in get_news():
+# #         print(elem)
+
+# # test purpose 
+# if __name__ == "__main__":
+#     t = '''На рейсах Поражения второй пилот будет исполнять обязанности бортпроводника / Авиация / 0.3
+# Огурец исключит из своих рядов членов, не проголосовавших за Единую Арстоцку на выборах / Политика / 0.8
+# Орбистанские точки общепита будут закрыты для вакцинированных граждан / Общество / 0.7
+# Джорджи Костава получил членский билет Независимого Кобрастана / Политика / 0.0
+# В Колечии повысят призывной возраст до 40 лет / Политика / 1.0
+# Всем гражданам Антегрии въезд в Арстоцку запрещен / Политика / 0.8
+# Политика'''.split("\n")
+#     funcs = [get_news1, get_news2, get_news3]
+#     for f in funcs:
+#         execution_time(f, t, 1000000)
+# #     for elem in get_news(t):
+# #         print(elem)
+
+
+
+######################
+# 4.1.17
+# Это точно Python?
+# Дана последовательность дат. Напишите программу, которая определяет, в 
+# каком порядке расположены даты в данной последовательности.
+# Формат входных данных
+# На вход программе подается произвольное количество строк (две или более), 
+# в каждой строке записана дата в формате DD.MM.YYYY.
+# Формат выходных данных
+# Программа должны вывести текст:
+# ASC, если даты в введенной последовательности расположены строго в порядке возрастания
+# DESC, если даты в введенной последовательности расположены строго в порядке убывания
+# MIX, если даты в введенной последовательности расположены ни в порядке возрастания, ни в порядке убывания
+
 import sys
 
-def get_news1(the_news=sys.stdin):
-    data = []
-    for line in the_news:
-        if " / " in line:
-            data.append(line.strip().split(" / "))
+# my solution -  оказалось самым лучим! 
+def check_order1(the_dates=sys.stdin):
+    '''
+    input mostly from stdin but cold be a list of strings
+    date format DD.MM.YYYY
+    '''
+    # print("Func1")
+    flag_increase = True
+    flag_decrease = True
+    if type(the_dates) == list:
+        date_0 = the_dates[0]
+        the_dates = the_dates[1:]
+    else:
+        date_0 = the_dates.readline()
+    date_0 = date_0[6:10] + date_0[2:6] + date_0[:2]# YYYY.MM.DD
+    for elem in the_dates:
+        date_1 = elem[6:10] + elem[2:6] + elem[:2]  # YYYY.MM.DD
+        if date_1 > date_0:
+            flag_decrease = False
+        elif date_1 < date_0:
+            flag_increase = False
+        elif date_1 == date_0:
+            flag_increase = False
+            flag_decrease = False
+            break
+        date_0 = date_1
+    if flag_increase == True and flag_decrease == False:
+        return "ASC"
+    elif flag_increase == False and flag_decrease == True:
+        return "DESC"
+    else:
+        return "MIX"
+    
+
+# other learners 
+from datetime import datetime
+def check_order2(the_dates=sys.stdin):
+    # print("Func2")
+    is_asc = is_desc = True
+    dates = [datetime.strptime(line.strip(), '%d.%m.%Y') for line in the_dates]
+    for prev_date, cur_date in zip(dates[:-1], dates[1:]):
+        if prev_date >= cur_date and is_asc:
+            is_asc = False
+        if prev_date <= cur_date and is_desc:
+            is_desc = False
+    if is_asc:
+        return 'ASC'
+    elif is_desc:
+        return 'DESC'
+    else:
+        return 'MIX'
+
+
+# other learners 
+def check_order3(the_dates=sys.stdin):
+    # print("Func3")
+    dates = [datetime.strptime(line.strip(), '%d.%m.%Y') for line in the_dates]
+    if sorted(list(set(dates))) == dates:
+        return('ASC')
+    elif sorted(list(set(dates)), reverse=True) == dates:
+        return('DESC')
+    else:
+        return('MIX')
+
+
+# other learners 
+from collections import deque
+def check_order4(the_dates=sys.stdin):
+    # print("Func4")
+    dq, record = deque(maxlen=2), set()
+    for dt in the_dates:
+        dq.append(datetime.strptime(dt.strip(), '%d.%m.%Y'))
+        if len(dq) != 2:
+            continue
+        if dq[0] < dq[1]:
+            record.add('ASC')
+        elif dq[0] > dq[1]:
+            record.add('DESC')
         else:
-            category = line.strip()
-    data_filtered = [n for n, c, _ in sorted(data, key=lambda x: (x[2], x[0])) if c == category]
-    return data_filtered
+            record.add('')
+        if len(record) == 2:
+            return('MIX')
+            break
 
-
-# красивый способ сортировки!
-def get_news2(the_news=sys.stdin):
-    events, priority_tag = {}, None
-
-    for line in the_news:
-        line = line.strip().split(' / ')
-        if len(line) > 1:
-            event, tag, score = line
-            events.setdefault(tag, []).append((score, event))
-        else:
-            priority_tag = line[0]
-    result = []
-    for _, event in sorted(events[priority_tag]):
-        result.append(event)
-    return result
-
-
-
-def get_news3(the_news=sys.stdin):
-    news = [i.strip().split(' / ') for i in the_news]
-    filtered = filter(lambda x: x[1] == news[-1][0], news[:-1])
-
-    return (i[0] for i in sorted(filtered, key=lambda x: (float(x[2]), x[0])))
+    else:
+        return(record)
 
 
 def execution_time(func, arg, n):
@@ -421,22 +554,35 @@ def execution_time(func, arg, n):
     t1 = time.monotonic()
     print(f"{func.__name__:<18} {t1-t0:.2f}")
 
-# if __name__ == "__main__":
-#     for elem in get_news():
-#         print(elem)
 
-# test purpose 
+# if __name__ == "__main__":
+#     d = '''14.06.2022
+# 20.06.2022
+# 21.06.2022
+# 17.01.2031
+# 18.11.2031
+# 19.11.2031
+# 23.11.2031
+# 01.01.2033
+# 01.11.2043
+# 05.07.2051
+# 05.07.2051'''.split('\n')
+#     print(check_order1(d))
+
+
+
 if __name__ == "__main__":
-    t = '''На рейсах Поражения второй пилот будет исполнять обязанности бортпроводника / Авиация / 0.3
-Огурец исключит из своих рядов членов, не проголосовавших за Единую Арстоцку на выборах / Политика / 0.8
-Орбистанские точки общепита будут закрыты для вакцинированных граждан / Общество / 0.7
-Джорджи Костава получил членский билет Независимого Кобрастана / Политика / 0.0
-В Колечии повысят призывной возраст до 40 лет / Политика / 1.0
-Всем гражданам Антегрии въезд в Арстоцку запрещен / Политика / 0.8
-Политика'''.split("\n")
-    funcs = [get_news1, get_news2, get_news3]
+    funcs = [check_order1, check_order2, check_order3, check_order4]
+    d = '''14.06.2022
+20.06.2022
+21.06.2022
+17.01.2031
+18.11.2031
+19.11.2031
+23.11.2031
+01.01.2033
+01.11.2043
+05.07.2051
+05.07.2051'''.split('\n')
     for f in funcs:
-        execution_time(f, t, 1000000)
-#     for elem in get_news(t):
-#         print(elem)
-    
+        execution_time(f, d, 100000)
