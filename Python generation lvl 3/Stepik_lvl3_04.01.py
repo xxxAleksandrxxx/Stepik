@@ -607,196 +607,196 @@
 # Геометрическая прогрессия, если введенная последовательность чисел является геометрической прогрессией
 # Не прогрессия, если введенная последовательность чисел не является прогрессией
 
-import sys
+# import sys
 
-def check_sequence(the_numbers=sys.stdin):
-    flag_aryth = True
-    flag_geom = True
+# def check_sequence(the_numbers=sys.stdin):
+#     flag_aryth = True
+#     flag_geom = True
 
-    num_0 = float(sys.stdin.readline().strip())
-    num_1 = float(sys.stdin.readline().strip())
-    d_aryth = num_1 - num_0
-    q_geom = num_1 / num_0
-    # aryth = num_1 + d_aryth
-    # geom = num_1 * q_geom
-    aryth = num_1
-    geom = num_1
+#     num_0 = float(sys.stdin.readline().strip())
+#     num_1 = float(sys.stdin.readline().strip())
+#     d_aryth = num_1 - num_0
+#     q_geom = num_1 / num_0
+#     # aryth = num_1 + d_aryth
+#     # geom = num_1 * q_geom
+#     aryth = num_1
+#     geom = num_1
 
-    # print("num_0", num_0)
-    # print("num_1", num_1)
-    # print("d_aryth", d_aryth)
-    # print("q_geom", q_geom)
-    # print("aryth", aryth)
-    # print("geom", geom)
+#     # print("num_0", num_0)
+#     # print("num_1", num_1)
+#     # print("d_aryth", d_aryth)
+#     # print("q_geom", q_geom)
+#     # print("aryth", aryth)
+#     # print("geom", geom)
 
-    for elem in sys.stdin:
-        num = float(elem.strip())
+#     for elem in sys.stdin:
+#         num = float(elem.strip())
 
-        # print("in loop: num=", num)
+#         # print("in loop: num=", num)
 
-        if num != aryth + d_aryth:
-            flag_aryth = False
-        if num != geom * q_geom:
-            flag_geom = False
-        if flag_aryth:
-            aryth += d_aryth
-        if flag_geom:
-            geom *= q_geom
+#         if num != aryth + d_aryth:
+#             flag_aryth = False
+#         if num != geom * q_geom:
+#             flag_geom = False
+#         if flag_aryth:
+#             aryth += d_aryth
+#         if flag_geom:
+#             geom *= q_geom
         
-        # print("in loop: flag_aryth=", flag_aryth)
-        # print("in loop: flag_geom=", flag_geom)
+#         # print("in loop: flag_aryth=", flag_aryth)
+#         # print("in loop: flag_geom=", flag_geom)
 
-        if flag_aryth == False and flag_geom == False:
-            break
-        # aryth += d_aryth
-        # geom *= q_geom
+#         if flag_aryth == False and flag_geom == False:
+#             break
+#         # aryth += d_aryth
+#         # geom *= q_geom
 
-        # print("in loop: aryth=", aryth)
-        # print("in loop: geom=", geom)
-        # print()
+#         # print("in loop: aryth=", aryth)
+#         # print("in loop: geom=", geom)
+#         # print()
 
-    if not flag_aryth and not flag_geom:
-        return "Не прогрессия"
-    elif flag_aryth:
-        return "Арифметическая прогрессия"
-    else:
-        return "Геометрическая прогрессия"
-
-
-# if __name__ == "__main__":
-#     print(check_sequence())
+#     if not flag_aryth and not flag_geom:
+#         return "Не прогрессия"
+#     elif flag_aryth:
+#         return "Арифметическая прогрессия"
+#     else:
+#         return "Геометрическая прогрессия"
 
 
-# for testing
+# # if __name__ == "__main__":
+# #     print(check_sequence())
+
+
+# # for testing
 
 
 
 
-#___________
-def is_arithmetic_progression(seq: list) -> bool:
-    for i in range(1, len(seq)-1):
-        if seq[i-1] + seq[i+1] != 2 * seq[i]:
-            return False
-    return True
+# #___________
+# def is_arithmetic_progression(seq: list) -> bool:
+#     for i in range(1, len(seq)-1):
+#         if seq[i-1] + seq[i+1] != 2 * seq[i]:
+#             return False
+#     return True
 
-def is_geometric_progression(seq: list) -> bool:
-    for i in range(1, len(seq)-1):
-        if seq[i-1] * seq[i+1] != seq[i] ** 2:
-            return False
-    return True
+# def is_geometric_progression(seq: list) -> bool:
+#     for i in range(1, len(seq)-1):
+#         if seq[i-1] * seq[i+1] != seq[i] ** 2:
+#             return False
+#     return True
 
-def check_sequence2():
-    numbers = list(map(int, sys.stdin))
-    if is_arithmetic_progression(numbers):
-        return "Арифметическая прогрессия"
-    elif is_geometric_progression(numbers):
-        return "Геометрическая прогрессия"
-    else:
-        return "Не прогрессия"
-#___________
+# def check_sequence2():
+#     numbers = list(map(int, sys.stdin))
+#     if is_arithmetic_progression(numbers):
+#         return "Арифметическая прогрессия"
+#     elif is_geometric_progression(numbers):
+#         return "Геометрическая прогрессия"
+#     else:
+#         return "Не прогрессия"
+# #___________
     
 
 
-#___________
-def check_sequence2():
-    n1, n2 = [int(sys.stdin.readline()) for _ in range(2)]
+# #___________
+# def check_sequence2():
+#     n1, n2 = [int(sys.stdin.readline()) for _ in range(2)]
 
-    for num in sys.stdin:
-        if ((int(num) - n2) != (n2 - n1)) and (int(num) / n2) != (n2 / n1):
-            result = 'Не прогрессия'
-            break
-        elif int(num) - n2 == n2 - n1:
-            result = 'Арифметическая прогрессия'
-            n1, n2 = n2, int(num)
-        elif int(num) / n2 == n2 / n1:
-            result = 'Геометрическая прогрессия'
-            n1, n2 = n2, int(num)
-    return (result)
-#___________
-
-
-#___________
-def check_sequence3():
-    from sys import stdin
-
-    nums = [int(n) for n in stdin]
-    nums1 = map(lambda a, b: b - a, nums, nums[1:])
-    nums2 = map(lambda a, b: b / a, nums, nums[1:])
-
-    if len(set(nums1)) == 1:
-        return ('Арифметическая прогрессия')
-    elif len(set(nums2)) == 1:
-        return ('Геометрическая прогрессия')
-    else:
-        return ('Не прогрессия')    
-#___________
+#     for num in sys.stdin:
+#         if ((int(num) - n2) != (n2 - n1)) and (int(num) / n2) != (n2 / n1):
+#             result = 'Не прогрессия'
+#             break
+#         elif int(num) - n2 == n2 - n1:
+#             result = 'Арифметическая прогрессия'
+#             n1, n2 = n2, int(num)
+#         elif int(num) / n2 == n2 / n1:
+#             result = 'Геометрическая прогрессия'
+#             n1, n2 = n2, int(num)
+#     return (result)
+# #___________
 
 
-#___________
-def check_sequence4():
-    current_number = multr = summr = None
+# #___________
+# def check_sequence3():
+#     from sys import stdin
 
-    for new_num in sys.stdin:
-        new_num = int(new_num)
+#     nums = [int(n) for n in stdin]
+#     nums1 = map(lambda a, b: b - a, nums, nums[1:])
+#     nums2 = map(lambda a, b: b / a, nums, nums[1:])
+
+#     if len(set(nums1)) == 1:
+#         return ('Арифметическая прогрессия')
+#     elif len(set(nums2)) == 1:
+#         return ('Геометрическая прогрессия')
+#     else:
+#         return ('Не прогрессия')    
+# #___________
+
+
+# #___________
+# def check_sequence4():
+#     current_number = multr = summr = None
+
+#     for new_num in sys.stdin:
+#         new_num = int(new_num)
         
-        if current_number is None:
-            current_number = new_num
-            continue
-        if new_num <= current_number:
-            return('Не прогрессия')
-            break
-        if multr is None:
-            multr = new_num / current_number
-            summr = new_num - current_number
-            current_number = new_num
-            continue
+#         if current_number is None:
+#             current_number = new_num
+#             continue
+#         if new_num <= current_number:
+#             return('Не прогрессия')
+#             break
+#         if multr is None:
+#             multr = new_num / current_number
+#             summr = new_num - current_number
+#             current_number = new_num
+#             continue
         
-        if summr and new_num - current_number != summr:
-            summr = False
-        if multr and new_num / current_number != multr:
-            multr = False
-        if multr == summr == False:
-            return('Не прогрессия')
-            break
+#         if summr and new_num - current_number != summr:
+#             summr = False
+#         if multr and new_num / current_number != multr:
+#             multr = False
+#         if multr == summr == False:
+#             return('Не прогрессия')
+#             break
 
-        current_number = new_num
+#         current_number = new_num
 
-    else:
-        return('Арифметическая' if summr else 'Геометрическая', 'прогрессия')
-
-
-
-# Run tests 
-def execution_time(func, arg, n):
-    import time
-    from io import StringIO
-    t0 = time.monotonic()
-    for _ in range(n):
-        input_io = StringIO(arg)
-        sys.stdin = input_io
-        result = func()
-    t1 = time.monotonic()
-    print(f"{func.__name__:<20} {t1 - t0:.2f}   result: {result}")
+#     else:
+#         return('Арифметическая' if summr else 'Геометрическая', 'прогрессия')
 
 
 
-if __name__ == "__main__":
-    # from io import StringIO  # to take control of sys.stdin and send to it test data
+# # Run tests 
+# def execution_time(func, arg, n):
+#     import time
+#     from io import StringIO
+#     t0 = time.monotonic()
+#     for _ in range(n):
+#         input_io = StringIO(arg)
+#         sys.stdin = input_io
+#         result = func()
+#     t1 = time.monotonic()
+#     print(f"{func.__name__:<20} {t1 - t0:.2f}   result: {result}")
 
-    test_data = '''15
-30
-60
-120
-240
-480
-960
-1920
-'''
+
+
+# if __name__ == "__main__":
+#     # from io import StringIO  # to take control of sys.stdin and send to it test data
+
+#     test_data = '''15
+# 30
+# 60
+# 120
+# 240
+# 480
+# 960
+# 1920
+# '''
    
-    # input_io = StringIO(test_data)
-    # sys.stdin = input_io
-    funcs = [check_sequence, check_sequence2, check_sequence3, check_sequence4]
-    for f in funcs:
-        execution_time(f, test_data, 1000000)
+#     # input_io = StringIO(test_data)
+#     # sys.stdin = input_io
+#     funcs = [check_sequence, check_sequence2, check_sequence3, check_sequence4]
+#     for f in funcs:
+#         execution_time(f, test_data, 1000000)
 
 
