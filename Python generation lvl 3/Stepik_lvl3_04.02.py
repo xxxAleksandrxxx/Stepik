@@ -151,24 +151,118 @@
 # Примечание 4. При открытии файла используйте явное указание кодировки 
 # UTF-8.
 
-import csv
+# import csv
 
-def goods_cheaper(file_csv):
-	with open(file_csv, 'r', encoding='utf-8') as f:
-		data = list(csv.DictReader(f, delimiter=';'))
-	list_cheaper = []
-	for line in data[1:]:
-		if int(line['old_price']) > int(line['new_price']):
-			list_cheaper.append(line['name'])
-	return list_cheaper
+# def goods_cheaper(file_csv):
+# 	with open(file_csv, 'r', encoding='utf-8') as f:
+# 		data = list(csv.DictReader(f, delimiter=';'))
+# 	list_cheaper = []
+# 	for line in data[1:]:
+# 		if int(line['old_price']) > int(line['new_price']):
+# 			list_cheaper.append(line['name'])
+# 	return list_cheaper
 
 
-if __name__ == "__main__":
-	file_csv = 'sales.csv'
-	goods = goods_cheaper(file_csv)
-	for g in goods:
-		print(g)
+# if __name__ == "__main__":
+# 	file_csv = 'sales.csv'
+# 	goods = goods_cheaper(file_csv)
+# 	for g in goods:
+# 		print(g)
 		
 
 
+#######################
+# 4.2.13
+# Средняя зарплата
+# Вам доступен файл salary_data.csv, который содержит анонимную 
+# информацию о зарплатах сотрудников в различных компаниях. В первом 
+# столбце записано название компании, а во втором — зарплата очередного 
+# сотрудника:
+# company_name;salary
+# Atos;135000
+# ХайТэк;24400
+# Philax;128600
+# Инлайн Груп;43900
+# IBS;70600
+# Oracle;131600
+# Atos;91000
+# ...
+# Напишите программу, которая упорядочивает компании по возрастанию 
+# средней зарплаты ее сотрудников и выводит их названия, каждое на 
+# отдельной строке. Если две компании имеют одинаковые средние зарплаты, 
+# они должны быть расположены в лексикографическом порядке их названий.
+# Примечание 1. Средняя зарплата компании определяется как отношение 
+# суммы всех зарплат к их количеству.
+# Примечание 2. Разделителем в файле salary_data.csv является точка с 
+# запятой, при этом кавычки не используются.
+# Примечание 3. Указанный файл доступен по ссылке. Ответ на задачу 
+# доступен по ссылке.
+# Примечание 4. Начальная часть ответа выглядит так:
+# Информзащита
+# Форс
+# OFT group
+# # ...
 
+
+
+
+import csv
+
+
+# На удивление, самое быстрое решение.
+def average_salaries(file):
+    with open(file, encoding='utf-8') as f:
+        data = list(csv.reader(f, delimiter=';'))[1:]
+    average_d = dict()
+    for row in data:
+        count, sum, average = average_d.get(row[0], [0, 0, 0])
+        count += 1
+        sum += int(row[1])
+        average = sum / count
+        average_d[row[0]] = [count, sum, average]
+    average_sorted = sorted(average_d.keys(), key = lambda x: (average_d[x][2], x))
+    return average_sorted
+
+
+def average_salaries2(file):
+    with open(file, encoding='utf-8') as f:
+        data = list(csv.reader(f, delimiter=';'))
+    average = dict()
+    for name, salary in data[1:]:
+        average[name] = average.get(name, []) + [int(salary)]
+    average_sorted = sorted(average, key=lambda x: (sum(average[x]) / len(average[x]), x))
+    return average_sorted
+
+def average_salaries3(file):
+    d = {}
+    with open(file, encoding='utf-8') as f:
+        rows = list(csv.reader(f, delimiter=';'))
+        for key, value in rows[1:]:
+            d[key] = d.get(key, []) + [int(value)]
+        d_sort = sorted(d, key=lambda x: (sum(d[x]) / len(d[x]), x))
+        return d_sort
+
+
+def execution_time(func, arg, n=10):
+    import time
+    t0 = time.monotonic()
+    for _ in range(n):
+        func(arg)
+    t1 = time.monotonic()
+    print(f'{func.__name__:<20} {t1-t0:.2f}')
+
+
+if __name__ == "__main__":
+    file = '/Users/aduz/Documents/_study/Stepik/Python generation lvl 3/etc/salary_data.csv'
+    # answer = average_salaries(file)
+    funcs = (average_salaries, average_salaries2, average_salaries3)
+    for func in funcs:
+        execution_time(func, file, n=1000)
+
+
+# if __name__ == "__main__":
+#     import os
+#     import urllib.request
+#     # file = os.getcwd() + '/etc/products.csv'
+#     file = '/Users/aduz/Documents/_study/Stepik/Python generation lvl 3/etc/salary_data.csv'
+#     answer = average_salaries(file)
