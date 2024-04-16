@@ -206,63 +206,124 @@
 
 
 
-import csv
+# import csv
 
 
-# На удивление, самое быстрое решение.
-def average_salaries(file):
-    with open(file, encoding='utf-8') as f:
-        data = list(csv.reader(f, delimiter=';'))[1:]
-    average_d = dict()
-    for row in data:
-        count, sum, average = average_d.get(row[0], [0, 0, 0])
-        count += 1
-        sum += int(row[1])
-        average = sum / count
-        average_d[row[0]] = [count, sum, average]
-    average_sorted = sorted(average_d.keys(), key = lambda x: (average_d[x][2], x))
-    return average_sorted
+# # На удивление, самое быстрое решение.
+# def average_salaries(file):
+#     with open(file, encoding='utf-8') as f:
+#         data = list(csv.reader(f, delimiter=';'))[1:]
+#     average_d = dict()
+#     for row in data:
+#         count, sum, average = average_d.get(row[0], [0, 0, 0])
+#         count += 1
+#         sum += int(row[1])
+#         average = sum / count
+#         average_d[row[0]] = [count, sum, average]
+#     average_sorted = sorted(average_d.keys(), key = lambda x: (average_d[x][2], x))
+#     return average_sorted
 
 
-def average_salaries2(file):
-    with open(file, encoding='utf-8') as f:
-        data = list(csv.reader(f, delimiter=';'))
-    average = dict()
-    for name, salary in data[1:]:
-        average[name] = average.get(name, []) + [int(salary)]
-    average_sorted = sorted(average, key=lambda x: (sum(average[x]) / len(average[x]), x))
-    return average_sorted
+# def average_salaries2(file):
+#     with open(file, encoding='utf-8') as f:
+#         data = list(csv.reader(f, delimiter=';'))
+#     average = dict()
+#     for name, salary in data[1:]:
+#         average[name] = average.get(name, []) + [int(salary)]
+#     average_sorted = sorted(average, key=lambda x: (sum(average[x]) / len(average[x]), x))
+#     return average_sorted
 
-def average_salaries3(file):
-    d = {}
-    with open(file, encoding='utf-8') as f:
-        rows = list(csv.reader(f, delimiter=';'))
-        for key, value in rows[1:]:
-            d[key] = d.get(key, []) + [int(value)]
-        d_sort = sorted(d, key=lambda x: (sum(d[x]) / len(d[x]), x))
-        return d_sort
-
-
-def execution_time(func, arg, n=10):
-    import time
-    t0 = time.monotonic()
-    for _ in range(n):
-        func(arg)
-    t1 = time.monotonic()
-    print(f'{func.__name__:<20} {t1-t0:.2f}')
+# def average_salaries3(file):
+#     d = {}
+#     with open(file, encoding='utf-8') as f:
+#         rows = list(csv.reader(f, delimiter=';'))
+#         for key, value in rows[1:]:
+#             d[key] = d.get(key, []) + [int(value)]
+#         d_sort = sorted(d, key=lambda x: (sum(d[x]) / len(d[x]), x))
+#         return d_sort
 
 
-if __name__ == "__main__":
-    file = '/Users/aduz/Documents/_study/Stepik/Python generation lvl 3/etc/salary_data.csv'
-    # answer = average_salaries(file)
-    funcs = (average_salaries, average_salaries2, average_salaries3)
-    for func in funcs:
-        execution_time(func, file, n=1000)
+# def execution_time(func, arg, n=10):
+#     import time
+#     t0 = time.monotonic()
+#     for _ in range(n):
+#         func(arg)
+#     t1 = time.monotonic()
+#     print(f'{func.__name__:<20} {t1-t0:.2f}')
 
 
 # if __name__ == "__main__":
-#     import os
-#     import urllib.request
-#     # file = os.getcwd() + '/etc/products.csv'
 #     file = '/Users/aduz/Documents/_study/Stepik/Python generation lvl 3/etc/salary_data.csv'
-#     answer = average_salaries(file)
+#     # answer = average_salaries(file)
+#     funcs = (average_salaries, average_salaries2, average_salaries3)
+#     for func in funcs:
+#         execution_time(func, file, n=1000)
+
+
+# # if __name__ == "__main__":
+# #     import os
+# #     import urllib.request
+# #     # file = os.getcwd() + '/etc/products.csv'
+# #     file = '/Users/aduz/Documents/_study/Stepik/Python generation lvl 3/etc/salary_data.csv'
+# #     answer = average_salaries(file)
+
+
+
+#######################
+# 4.2.14
+# Сортировка по столбцу
+# Вам доступен файл deniro.csv, каждый столбец которого содержит либо 
+# только числа, либо строковые значения:
+# Machete,2010,72
+# Marvin's Room,1996,80
+# Raging Bull,1980,97
+# ...
+# Напишите программу, которая сортирует содержимое данного файла по 
+# указанному столбцу. Причем данные должны быть отсортированы в порядке 
+# возрастания чисел, если столбец содержит числа, и в лексикографическом 
+# порядке слов, если столбец содержит слова.
+# Формат входных данных
+# На вход программе подается натуральное число — номер столбца файла 
+# deniro.csv.
+# Формат выходных данных
+# Программа должна отсортировать содержимое файла deniro.csv по введенному 
+# столбцу и вывести полученный результат в исходном формате.
+# Примечание 1. Нумерация столбцов начинается с единицы.
+# Примечание 2. Например, если бы файл deniro.csv имел вид:
+# red,4
+# blue,3
+# green,28
+# purple,1
+# и его требовалось отсортировать по второму столбцу (в порядке 
+# возрастания чисел), то программа должна была бы вывести:
+# purple,1
+# blue,3
+# red,4
+# green,28
+# Примечание 3. Если две какие-либо строки имеют одинаковые значения в 
+# столбцах, то следует сохранить их исходный порядок следования.
+# Примечание 4. Разделителем в файле deniro.csv является запятая, при 
+# этом кавычки не используются.
+
+import csv
+
+def sheet_sorted(file, column=1):
+    column -= 1
+    # with open(file, 'r', encoding='utf-8') as f:
+    #     data = list(csv.reader(f, delimiter=','))
+    # if data[0][column].isnumeric():
+    #     data_sorted = sorted(data, key=lambda x: int(x[column]))
+    # else:
+    #     data_sorted = sorted(data, key=lambda x: x[column])
+    # return data_sorted
+    with open(file, 'r') as f:
+        for row in f:
+            print(row)
+    
+
+
+if __name__ == "__main__":
+    file = "etc/deniro.csv"
+    d = sheet_sorted(file, 3)
+    # for row in d: 
+    #     print(*row, sep=",")
