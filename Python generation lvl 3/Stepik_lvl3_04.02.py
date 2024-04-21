@@ -305,25 +305,120 @@
 # Примечание 4. Разделителем в файле deniro.csv является запятая, при 
 # этом кавычки не используются.
 
-import csv
+# import csv
 
-def sheet_sorted(file, column=1):
-    column -= 1
-    # with open(file, 'r', encoding='utf-8') as f:
-    #     data = list(csv.reader(f, delimiter=','))
-    # if data[0][column].isnumeric():
-    #     data_sorted = sorted(data, key=lambda x: int(x[column]))
-    # else:
-    #     data_sorted = sorted(data, key=lambda x: x[column])
-    # return data_sorted
-    with open(file, 'r') as f:
-        for row in f:
-            print(row)
+# def sheet_sorted(file, column=1):
+#     column -= 1
+#     with open(file, 'r', encoding='utf-8') as f:
+#         data = list(csv.reader(f, delimiter=','))
+#     if data[0][column].isnumeric():
+#         data_sorted = sorted(data, key=lambda x: int(x[column]))
+#     else:
+#         data_sorted = sorted(data, key=lambda x: x[column])
+#     return data_sorted
+    
+
+# if __name__ == "__main__":
+#     file = "etc/deniro.csv"
+#     c = int(input())
+#     d = sheet_sorted(file, c)
+#     for row in d: 
+#         print(*row, sep=",")
+
+
+
+#######################
+# 4.2.15
+# Функция csv_columns()
+# Реализуйте функцию csv_columns(), которая принимает один аргумент:
+# filename — название csv файла, например, data.csv
+# Функция должна возвращать словарь, в котором ключом является название 
+# столбца файла filename, а значением — список элементов этого столбца.
+# Примечание 1. Гарантируется, что в передаваемом в функцию файле 
+# разделителем является запятая, при этом кавычки не используются.
+# Примечание 2. Гарантируется, что у передаваемого в функцию файла первая 
+# строка содержит названия столбцов.
+# Примечание 3. Например, если бы файл exam.csv имел вид:
+# name,grade
+# Timur,5
+# Arthur,4
+# Anri,5
+# то следующий вызов функции csv_columns():
+# csv_columns('exam.csv')
+# должен был бы вернуть:
+# {'name': ['Timur', 'Arthur', 'Anri'], 'grade': ['5', '4', '5']}
+# Примечание 4. Ключи в словаре, а также элементы в списках должны 
+# располагаться в своем исходном порядке.
+# Примечание 5. В тестирующую систему сдайте программу, содержащую только 
+# необходимую функцию csv_columns(), но не код, вызывающий ее.
+
+# import csv
+
+# def csv_columns(filename, dlm=','):
+#     with open(filename, 'r', encoding="utf-8") as f:
+#         headers = [header.strip() for header in f.readline().split(dlm)]
+#         data = list((csv.reader(f, delimiter=dlm)))
+#         m = len(data[0])
+#         n = len(data)
+#         data_columns = [[data[i][j] for i in range(n)] for j in range(m)]
+#         csv_columns = {k: v for k, v in zip(headers, data_columns)}
+#         return csv_columns
+
+# if __name__ == "__main__":
+#     file = "etc/text.csv"
+#     d = csv_columns(file)
+#     print(d['name'])
+
+
+# import csv
+
+# def csv_columns1(filename, dlm=','):
+#     with open(filename, 'r', encoding="utf-8") as f:
+#         headers = [header.strip() for header in f.readline().split(dlm)]
+#         data = list((csv.reader(f, delimiter=dlm)))
+#         m = len(data[0])
+#         n = len(data)
+#         data_columns = [[data[i][j] for i in range(n)] for j in range(m)]
+#         csv_columns = {k: v for k, v in zip(headers, data_columns)}
+#         return csv_columns
+    
+
+# def csv_columns2(filename, dlm=','):
+#     with open(filename, 'r', encoding='utf-8') as f:
+#         data = csv.reader(f, delimiter=dlm)
+#         headers = next(data)
+#         data_columns = {h: [] for h in headers}
+#         for row in data:
+#             for j, value in enumerate(row):
+#                 data_columns[headers[j]].append(value)
+#         return data_columns
+
+
+# def csv_columns3(filename, dlm=','):
+#     with open(filename, 'r', encoding='utf-8') as f:
+#         data = csv.DictReader(f, delimiter=dlm)
+#         data_columns = {header: [row[header] for row in data] for header in data.fieldnames}
+#         return data_columns
     
 
 
-if __name__ == "__main__":
-    file = "etc/deniro.csv"
-    d = sheet_sorted(file, 3)
-    # for row in d: 
-    #     print(*row, sep=",")
+
+# def execution_time(func, arg, n=100):
+#     import time
+#     t0 = time.monotonic()
+#     for _ in range(n):
+#         func(arg)
+#     t1 = time.monotonic()
+#     print(f"{func.__name__:<20} {t1-t0:.2f}")
+
+
+
+
+
+# if __name__ == "__main__":
+#     file = "etc/text.csv"
+#     funcs = [csv_columns1, csv_columns2, csv_columns3]
+#     for func in funcs:
+#         execution_time(func, file, 100000)
+
+
