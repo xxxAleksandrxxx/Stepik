@@ -496,19 +496,63 @@
 # Примечание 5. При открытии файла используйте явное указание кодировки UTF-8.
 
 
+# import csv
+
+# def print_wifi_points(file):
+#     with open(file, "r", encoding="utf-8") as f:
+#         data = list(csv.DictReader(f, delimiter=";"))
+#     wifi_points = dict()
+#     for record in data:
+#         district = record["district"]
+#         wifi_points[district] = wifi_points.get(district, 0) + int(record["number_of_access_points"])
+#     for district in sorted(wifi_points, key=lambda k: (-wifi_points[k], k)):
+#         print(f"{district}: {wifi_points[district]}")
+
+
+# if __name__ == "__main__":
+#     file = "etc/wifi.csv"
+#     print_wifi_points(file)
+
+
+
+#######################
+# 4.2.17
+# Последний день на Титанике
+# Вам доступен файл titanic.csv, который содержит данные о пассажирах, присутствовавших на борту парохода Титаник. В первом столбце указана единица, если пассажир выжил, и ноль в противном случае, во втором столбце записано полное имя пассажира, в третьем — пол, в четвертом — возраст:
+# survived;name;sex;age
+# 0;Mr. Owen Harris Braund;male;22
+# 1;Mrs. John Bradley (Florence Briggs Thayer) Cumings;female;38
+# ...
+# Напишите программу, которая выводит имена выживших пассажиров, которым было менее
+# 18
+# 18 лет, каждое на отдельной строке. Причем сначала должны быть расположены имена всех пассажиров мужского пола, а затем — женского, имена же непосредственно в мужском и женском списках должны быть расположены в своем исходном порядке.
+# Примечание 1. Разделителем в файле titanic.csv является точка с запятой, при этом кавычки не используются.
+# Примечание 2. Указанный файл доступен по ссылке. Ответ на задачу доступен по ссылке.
+# Примечание 3. Часть ответа выглядит так:
+# Master. Gerios Moubarek
+# Master. Alden Gates Caldwell
+# ...
+# Master. Harold Theodor Johnson
+# Mrs. Nicholas (Adele Achem) Nasser
+# Miss. Marguerite Rut Sandstrom
+# ...
+# Примечание 4. При открытии файла используйте явное указание кодировки UTF-8.
+
 import csv
 
-def print_wifi_points(file):
+def print_teens(file):
     with open(file, "r", encoding="utf-8") as f:
         data = list(csv.DictReader(f, delimiter=";"))
-    wifi_points = dict()
+    females = []
     for record in data:
-        district = record["district"]
-        wifi_points[district] = wifi_points.get(district, 0) + int(record["number_of_access_points"])
-    for district in sorted(wifi_points, key=lambda k: (-wifi_points[k], k)):
-        print(f"{district}: {wifi_points[district]}")
-
+        if float(record["age"]) < 18 and record["survived"] == "1":
+            if record["sex"] == "male":
+                print(record["name"])
+            else:
+                females.append(record["name"])
+    for female in females:
+        print(female)
 
 if __name__ == "__main__":
-    file = "etc/wifi.csv"
-    print_wifi_points(file)
+    file = "etc/titanic.csv"
+    print_teens(file)
