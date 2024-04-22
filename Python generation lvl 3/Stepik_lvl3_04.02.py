@@ -536,23 +536,100 @@
 # Mrs. Nicholas (Adele Achem) Nasser
 # Miss. Marguerite Rut Sandstrom
 # ...
-# Примечание 4. При открытии файла используйте явное указание кодировки UTF-8.
+# # Примечание 4. При открытии файла используйте явное указание кодировки UTF-8.
+
+# import csv
+
+# def print_teens(file):
+#     with open(file, "r", encoding="utf-8") as f:
+#         data = list(csv.DictReader(f, delimiter=";"))
+#     females = []
+#     for record in data:
+#         if float(record["age"]) < 18 and record["survived"] == "1":
+#             if record["sex"] == "male":
+#                 print(record["name"])
+#             else:
+#                 females.append(record["name"])
+#     for female in females:
+#         print(female)
+
+# if __name__ == "__main__":
+#     file = "etc/titanic.csv"
+#     print_teens(file)
+
+
+
+
+#######################
+# 4.2.19
+# Лог-файл
+# Вам доступен файл name_log.csv, в котором находятся логи изменения имени пользователя. В первом столбце записано измененное имя пользователя, во втором — адрес электронной почты, в третьем — дата и время изменения. При этом email пользователь менять не может, только имя:
+# username,email,dtime
+# rare_charles6,charlesthompson@inbox.ru,15/11/2021 08:15
+# busy_patricia5,patriciasmith@bk.ru,07/11/2021 08:07
+# ...
+# Напишите программу, которая отбирает из файла name_log.csv только самые свежие записи для каждого пользователя и записывает их в файл new_name_log.csv. В файле new_name_log.csv первой строкой должны быть заголовки столбцов такие же, как в файле name_log.csv. Логи в итоговом файле должны быть расположены в лексикографическом порядке названий электронных ящиков пользователей.
+# Примечание 1. Для части пользователей в исходном файле запись только одна, и тогда в итоговый файл следует записать только ее, для некоторых пользователей есть несколько записей с разными именами.
+# Например, пользователь с электронной почтой c3po@gmail.com несколько раз менял имя:
+# C=3PO,c3po@gmail.com,16/11/2021 17:10
+# C3PO,c3po@gmail.com,16/11/2021 17:15
+# C-3PO,c3po@gmail.com,16/11/2021 17:24
+# Из этих трех записей в итоговый файл должна быть записана только одна — самая свежая:
+# C-3PO,c3po@gmail.com,16/11/2021 17:24
+# Примечание 2. Разделителем в файле name_log.csv является запятая, при этом кавычки не используются.
+# Примечание 3. Указанный файл доступен по ссылке. Ответ на задачу доступен по ссылке.
+# Примечание 4. Начальная часть файла new_name_log.csv выглядит так:
+# username,email,dtime
+# angry-barbara2,barbaraanderson@bk.ru,17/11/2021 01:17
+# dead-barbara6,barbarabrown@rambler.ru,27/11/2021 08:27
+# busy_barbara7,barbaradavis@aol.com,24/11/2021 08:24
+# ..
+# Примечание 5. При открытии файла используйте явное указание кодировки UTF-8.
 
 import csv
+from datetime import datetime
 
-def print_teens(file):
+def write_updated_data(file, file_new, fmt="%d/%m/%Y %H:%M"):
+    header = ["username", "email", "dtime"]
     with open(file, "r", encoding="utf-8") as f:
-        data = list(csv.DictReader(f, delimiter=";"))
-    females = []
+        data = list(csv.DictReader(f, delimiter=","))
+    data_updated = dict()
     for record in data:
-        if float(record["age"]) < 18 and record["survived"] == "1":
-            if record["sex"] == "male":
-                print(record["name"])
-            else:
-                females.append(record["name"])
-    for female in females:
-        print(female)
+        email = record["email"]
+        dtime = datetime.strptime(record["dtime"], fmt)
+        if email in data_updated:
+            if dtime > data_updated[email]["dtime"]:
+                data_updated[email]["dtime"] = dtime
+                data_updated[email]["username"] = record["username"]
+        else:
+            data_updated[email] = data_updated.get(email, {"username": record["username"],
+                                                            "email": record["email"],
+                                                            "dtime": dtime})
+    with open(file_new, "w", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=header, delimiter=",")
+        writer.writeheader()
+        for k, v in sorted(data_updated.items()):
+            writer.writerow({"username": v["username"],
+                             "email": v["email"],
+                             "dtime": datetime.strftime(v["dtime"], format=fmt)
+                            })
+
+
+# better solution:
+# Уникальные записи по емейлу - словарь с ключём емайл, сохранить 
+# последнюю по дате запись - она должна попасть в словарь последней и 
+# перезаписать все предыдущие.
+def write_updated_data2(file, file_new, fmt="%d/%m/%Y %H:%M"):
+    with open(file, "r", encoding="utf-8") as f:
+        header, *rows = csv.reader(f, delimiter=",")
+    data = {i[1]: i for i in sorted(rows, key=lambda x: datetime.strptime(x[2], fmt))}
+    with open(file_new, "w", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(header)
+        writer.writerows(sorted(data.values(), key=lambda x: x[1]))
+
 
 if __name__ == "__main__":
-    file = "etc/titanic.csv"
-    print_teens(file)
+    file = "etc/name_log.csv"
+    file_new = "etc/new_name_log.csv"
+    write_updated_data2(file, file_new)
