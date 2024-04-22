@@ -447,26 +447,68 @@
 # Примечание 4. При открытии файла используйте явное указание кодировки UTF-8.
 
 
-import csv
+# import csv
 
-def count_domains(data_file, domains_file):
-    """
-    Reads csv database, counts number of domains, writes new csv file with results
-    """
-    with open(data_file, "r", encoding="utf-8") as f:
-        data = list(csv.DictReader(f, delimiter=","))
-    domain_counter = dict()
-    for record in data:
-        domain = record["email"].split("@")[1]
-        domain_counter[domain] = domain_counter.get(domain, 0) + 1
-    with open(domains_file, "w", encoding="utf-8") as f:
-        writer = csv.writer(f, delimiter=',')
-        writer.writerow(["domain", "count"])
-        for k in sorted(domain_counter, key=lambda x: (domain_counter[x], x)):
-            writer.writerow([k, domain_counter[k]])
+# def count_domains(data_file, domains_file):
+#     """
+#     Reads csv database, counts number of domains, writes new csv file with results
+#     """
+#     with open(data_file, "r", encoding="utf-8") as f:
+#         data = list(csv.DictReader(f, delimiter=","))
+#     domain_counter = dict()
+#     for record in data:
+#         domain = record["email"].split("@")[1]
+#         domain_counter[domain] = domain_counter.get(domain, 0) + 1
+#     with open(domains_file, "w", encoding="utf-8") as f:
+#         writer = csv.writer(f, delimiter=',')
+#         writer.writerow(["domain", "count"])
+#         for k in sorted(domain_counter, key=lambda x: (domain_counter[x], x)):
+#             writer.writerow([k, domain_counter[k]])
         
 
+# if __name__ == "__main__":
+#     data_file = "etc/data.csv"
+#     domains_file = "etc/domain_usage.csv"
+#     count_domains(data_file, domains_file)
+
+
+
+
+#######################
+# 4.2.17
+# Wi-Fi Москвы
+# Вам доступен файл wifi.csv, который содержит данные о городском Wi-Fi Москвы. В первом столбце записано название округа, во втором — название района, в третьем — адрес, в четвертом — количество точек доступа по этому адресу:
+# adm_area;district;location;number_of_access_points
+# Центральный административный округ;район Якиманка;город Москва, улица Серафимовича, дом 5/16;5
+# Центральный административный округ;район Якиманка;город Москва, Болотная набережная, дом 11, строение 1;2
+# ...
+# Напишите программу, которая определяет количество точек доступа в каждом районе Москвы и выводит названия всех районов, для каждого указывая соответствующее количество точек доступа, каждое на отдельной строке, в следующем формате
+# <название района>: <количество точек доступа>
+# Названия районов должны быть расположены в порядке убывания количества точек доступа, при совпадении количества точек доступа — в лексикографическом порядке.
+# Примечание 1. Разделителем в файле wifi.csv является точка с запятой, при этом кавычки не используются.
+# Примечание 2. При сортировке названия районов должны быть использованы именно в том виде, в котором они указаны в исходном файле. Выполнять какие-либо дополнительные преобразования не нужно.
+# Примечание 3. Указанный файл доступен по ссылке. Ответ на задачу доступен по ссылке.
+# Примечание 4. Начальная часть ответа выглядит так:
+# Тверской район: 480
+# район Хамовники: 386
+# Пресненский район: 349
+# ..
+# Примечание 5. При открытии файла используйте явное указание кодировки UTF-8.
+
+
+import csv
+
+def print_wifi_points(file):
+    with open(file, "r", encoding="utf-8") as f:
+        data = list(csv.DictReader(f, delimiter=";"))
+    wifi_points = dict()
+    for record in data:
+        district = record["district"]
+        wifi_points[district] = wifi_points.get(district, 0) + int(record["number_of_access_points"])
+    for district in sorted(wifi_points, key=lambda k: (-wifi_points[k], k)):
+        print(f"{district}: {wifi_points[district]}")
+
+
 if __name__ == "__main__":
-    data_file = "etc/data.csv"
-    domains_file = "etc/domain_usage.csv"
-    count_domains(data_file, domains_file)
+    file = "etc/wifi.csv"
+    print_wifi_points(file)
