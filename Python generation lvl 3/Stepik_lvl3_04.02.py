@@ -733,33 +733,33 @@
 # 2001,22,20,20,27,...
 # ...Примечание 5. При открытии файла используйте явное указание кодировки UTF-8.
 
-from itertools import zip_longest
+# from itertools import zip_longest
 
-import csv
+# import csv
 
-def write_sorted(file_in, file_out):
-    with open(file_in, "r", encoding="utf-8") as f:
-        data = list(csv.DictReader(f, delimiter=","))
-    headers = list(data[0].keys())
-    headers = [headers[0]] + sorted(headers[1:], key=lambda x: (int(x.split("-")[0]), x.split("-")[1]))
-    # print(headers)
-    with open(file_out, "w", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=headers, delimiter=",")
-        writer.writeheader()
-        writer.writerows(data)
-
-
-def del_last_newline(file_out):
-    with open(file_out, "rb+") as f:
-        f.seek(-2, 2)
-        f.truncate()
+# def write_sorted(file_in, file_out):
+#     with open(file_in, "r", encoding="utf-8") as f:
+#         data = list(csv.DictReader(f, delimiter=","))
+#     headers = list(data[0].keys())
+#     headers = [headers[0]] + sorted(headers[1:], key=lambda x: (int(x.split("-")[0]), x.split("-")[1]))
+#     # print(headers)
+#     with open(file_out, "w", encoding="utf-8") as f:
+#         writer = csv.DictWriter(f, fieldnames=headers, delimiter=",")
+#         writer.writeheader()
+#         writer.writerows(data)
 
 
-if __name__ == "__main__":
-    file_in = "etc/student_counts.csv"
-    file_out = "etc/sorted_student_counts.csv"
-    write_sorted(file_in, file_out)
-    del_last_newline(file_out)
+# def del_last_newline(file_out):
+#     with open(file_out, "rb+") as f:
+#         f.seek(-2, 2)
+#         f.truncate()
+
+
+# if __name__ == "__main__":
+#     file_in = "etc/student_counts.csv"
+#     file_out = "etc/sorted_student_counts.csv"
+#     write_sorted(file_in, file_out)
+#     del_last_newline(file_out)
 
     # # check the result
     # f_answer = "etc/clue_grades.txt"
@@ -769,3 +769,61 @@ if __name__ == "__main__":
     #         print(len(record_answer))
     #         print(record == record_answer)
     #         print()
+
+
+
+#######################
+# # 4.2.21
+# Голодный студент 🌶️
+# Дима очень хочет поесть, но денег у него мало. Помогите ему определить самый дешевый продукт, а также магазин, в котором он продается. Вам доступен файл prices.csv, который содержит информацию о ценах продуктов в различных магазинах. В первом столбце записано название магазина, а в последующих — цена на соответствующий товар в этом магазине:
+# Магазин;Творог;Гречка;Рис;Бородинский хлеб;Яблоки;Пельмени;Овсяное печенье;Спагетти;Печеная фасоль;Мороженое;Фарш;Вареники;Картофель;Батончик
+# Пятерочка;69;133;129;83;141;90;72;123;149;89;88;106;54;84
+# Магнит;102;87;95;75;109;112;97;82;101;134;69;61;141;79
+# ...
+# Напишите программу, которая определяет и выводит самый дешевый продукт и название магазина, в котором он продается, в следующем формате:
+# <название продукта>: <название магазина>
+# Если имеется несколько самых дешевых товаров, то следует вывести тот товар, чье название меньше в лексикографическом сравнении. Если один товар продается в нескольких магазинах по одной минимальной цене, то следует вывести тот магазин, чье название меньше в лексикографическом сравнении.
+# Примечание 1. Разделителем в файле prices.csv является точка с запятой, при этом кавычки не используются.
+# Примечание 2. Указанный файл доступен по ссылке. 
+# https://stepik.org/media/attachments/lesson/518491/prices.csv
+# Ответ на задачу доступен по ссылке.
+# https://stepik.org/media/attachments/lesson/518491/clue_hungry_student.txt
+# Примечание 3. Пример вывода:
+# Клубничный йогурт: ВкусВилл
+# Примечание 4. При открытии файла используйте явное указание кодировки UTF-8.
+
+import csv
+
+def find_cheap_food(file):
+    cheap_food = dict()
+    the_cheapest = list()
+    with open(file, "r", encoding="utf-8") as f:
+        data = csv.DictReader(f, delimiter=";")
+        headers = data.fieldnames
+        for record in data:
+            shop = record.pop(headers[0])
+            goods = sorted(record, key=lambda x: int(record[x]))
+            cheap_food.setdefault(shop, dict())[goods[0]] = record[goods[0]]
+    for shop, product in cheap_food.items():
+        name = list(product.keys())[0]
+        price = list(product.values())[0]
+        the_cheapest.append([price, name, shop])
+    the_cheapest = sorted(the_cheapest, key=lambda x: (x[0], x[1], x[2]))
+    print(f"{the_cheapest[0][1]}: {the_cheapest[0][2]}")
+
+
+# Better solution
+def find_cheap_food2(file):
+    with open(file, "r", encoding="utf-8") as f:
+        headers, *data = csv.reader(f, delimiter=";")
+    cheapest=list()
+    for record in data:
+        for i in range(1, len(headers)):
+            cheapest.append((record[i], headers[i], record[0]))
+    _, name, shop = sorted(cheapest, key=lambda x: (int(x[0]), x[1], x[2]))[0]
+    print(f"{name}: {shop}")
+
+
+if __name__ == "__main__":
+    file = "etc/prices.csv"
+    find_cheap_food2(file)
