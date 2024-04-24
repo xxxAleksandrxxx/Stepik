@@ -586,50 +586,123 @@
 # ..
 # Примечание 5. При открытии файла используйте явное указание кодировки UTF-8.
 
+# import csv
+# from datetime import datetime
+
+# def write_updated_data(file, file_new, fmt="%d/%m/%Y %H:%M"):
+#     header = ["username", "email", "dtime"]
+#     with open(file, "r", encoding="utf-8") as f:
+#         data = list(csv.DictReader(f, delimiter=","))
+#     data_updated = dict()
+#     for record in data:
+#         email = record["email"]
+#         dtime = datetime.strptime(record["dtime"], fmt)
+#         if email in data_updated:
+#             if dtime > data_updated[email]["dtime"]:
+#                 data_updated[email]["dtime"] = dtime
+#                 data_updated[email]["username"] = record["username"]
+#         else:
+#             data_updated[email] = data_updated.get(email, {"username": record["username"],
+#                                                             "email": record["email"],
+#                                                             "dtime": dtime})
+#     with open(file_new, "w", encoding="utf-8") as f:
+#         writer = csv.DictWriter(f, fieldnames=header, delimiter=",")
+#         writer.writeheader()
+#         for k, v in sorted(data_updated.items()):
+#             writer.writerow({"username": v["username"],
+#                              "email": v["email"],
+#                              "dtime": datetime.strftime(v["dtime"], format=fmt)
+#                             })
+
+
+# # better solution:
+# # Уникальные записи по емейлу - словарь с ключём емайл, сохранить 
+# # последнюю по дате запись - она должна попасть в словарь последней и 
+# # перезаписать все предыдущие.
+# def write_updated_data2(file, file_new, fmt="%d/%m/%Y %H:%M"):
+#     with open(file, "r", encoding="utf-8") as f:
+#         header, *rows = csv.reader(f, delimiter=",")
+#     data = {i[1]: i for i in sorted(rows, key=lambda x: datetime.strptime(x[2], fmt))}
+#     with open(file_new, "w", encoding="utf-8") as f:
+#         writer = csv.writer(f)
+#         writer.writerow(header)
+#         writer.writerows(sorted(data.values(), key=lambda x: x[1]))
+
+
+# if __name__ == "__main__":
+#     file = "etc/name_log.csv"
+#     file_new = "etc/new_name_log.csv"
+#     write_updated_data2(file, file_new)
+
+
+
+
+#######################
+# 4.2.19
+# Проще, чем кажется 🌶️
+# Рассмотрим следующий текстовый фрагмент:
+# ball,color,purple
+# ball,size,4
+# ball,notes,it's round
+# cup,color,blue
+# cup,size,1
+# cup,notes,none
+# Каждая строка этого фрагмента содержит три значения через запятую: имя объекта, свойство этого объекта, значение свойства. Например, в первой строке указан объект ball, имеющий свойство color, значение которого равно purple. Также у объекта ball есть свойства size и notes, имеющие значения 4 и it's round соответственно. Помимо объекта ball имеется объект cup, имеющий те же свойства и в том же количестве. Дадим этим объектам общее название object и сгруппируем строки данного текстового фрагмента по первому столбцу:
+# object,color,size,notes
+# ball,purple,4,it's round
+# cup,blue,1,none
+# Мы получили запись в привычном CSV формате, в котором в первом столбце указывается имя объекта, а в последующих — значения соответствующих свойств этого объекта.
+# Реализуйте функцию condense_csv(), которая принимает два аргумента в следующем формате:
+# filename — название csv файла, например, data.csv; формат содержимого файла аналогичен формату текстового фрагмента, рассмотренного в условии задачи: каждая строка файла содержит три значения через запятую, а именно имя объекта, свойство этого объекта, значение свойства; все объекты имеют равные свойства и в равных количествах
+# id_name — общее название для объектов
+# Функция должна привести содержимое файла в привычный CSV формат, сгруппировав строки по первому столбцу и назвав первый столбец id_name. Полученный результат функция должна записать в файл condensed.csv.
+# Примечание 1. Например, если бы файл data.csv имел следующий вид:
+# 01,Title,Ran So Hard the Sun Went Down
+# 02,Title,Honky Tonk Heroes (Like Me)
+# то вызов функции condense_csv():
+# condense_csv('data.csv', id_name='ID')
+# должен был бы создать файл condensed.csv со следующим содержанием:
+# ID,Title
+# 01,Ran So Hard the Sun Went Down
+# 02,Honky Tonk Heroes (Like Me)
+# Примечание 2. Гарантируется, что в передаваемом в функцию csv файле разделителем является запятая, при этом кавычки не используются.
+# Примечание 3. При открытии файла используйте явное указание кодировки UTF-8.
+# Примечание 4. В тестирующую систему сдайте программу, содержащую только необходимую функцию condense_csv(), но не код, вызывающий ее.
+# Примечание 5. Тестовые данные доступны по ссылкам:
+# Архив с тестами - https://stepik.org/media/attachments/lesson/518491/tests_3069917.zip
+# GitHub - https://github.com/python-generation/Professional/tree/main/Module_4/Module_4.2/Module_4.2.20
+
 import csv
-from datetime import datetime
 
-def write_updated_data(file, file_new, fmt="%d/%m/%Y %H:%M"):
-    header = ["username", "email", "dtime"]
-    with open(file, "r", encoding="utf-8") as f:
-        data = list(csv.DictReader(f, delimiter=","))
-    data_updated = dict()
-    for record in data:
-        email = record["email"]
-        dtime = datetime.strptime(record["dtime"], fmt)
-        if email in data_updated:
-            if dtime > data_updated[email]["dtime"]:
-                data_updated[email]["dtime"] = dtime
-                data_updated[email]["username"] = record["username"]
-        else:
-            data_updated[email] = data_updated.get(email, {"username": record["username"],
-                                                            "email": record["email"],
-                                                            "dtime": dtime})
-    with open(file_new, "w", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=header, delimiter=",")
+def condense_csv(filename, id_name, file_out="condensed.csv", delimiter=","):
+    with open(filename, "r", encoding="utf-8") as f:
+        data_in = list(csv.reader(f, delimiter=","))
+    data_out = dict()
+    for record in data_in:
+        id, k, v = record
+        data_out.setdefault(id, {id_name: id})[k] = v
+    with open(file_out, "w", encoding="utf-8") as f:
+        # headers = data_out[list(data_out.keys())[0]].keys()
+        headers = data_out[id]   # better solution: we already have initialised id, so just use it
+        writer = csv.DictWriter(f, fieldnames=headers)
         writer.writeheader()
-        for k, v in sorted(data_updated.items()):
-            writer.writerow({"username": v["username"],
-                             "email": v["email"],
-                             "dtime": datetime.strftime(v["dtime"], format=fmt)
-                            })
+        # for v in data_out.values():
+        #     writer.writerow(v)
+        writer.writerows(data_out.values())  # shorter version
 
 
-# better solution:
-# Уникальные записи по емейлу - словарь с ключём емайл, сохранить 
-# последнюю по дате запись - она должна попасть в словарь последней и 
-# перезаписать все предыдущие.
-def write_updated_data2(file, file_new, fmt="%d/%m/%Y %H:%M"):
-    with open(file, "r", encoding="utf-8") as f:
-        header, *rows = csv.reader(f, delimiter=",")
-    data = {i[1]: i for i in sorted(rows, key=lambda x: datetime.strptime(x[2], fmt))}
-    with open(file_new, "w", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        writer.writerow(header)
-        writer.writerows(sorted(data.values(), key=lambda x: x[1]))
+def prepare_data_in(file_in):
+    text = '''01,Title,Ran So Hard the Sun Went Down
+02,Title,Honky Tonk Heroes (Like Me)'''
+    with open(file_in, "w", encoding="utf-8") as f:
+        f.write(text)
+    
+        
 
 
 if __name__ == "__main__":
-    file = "etc/name_log.csv"
-    file_new = "etc/new_name_log.csv"
-    write_updated_data2(file, file_new)
+    file_in = "etc/data_in.csv"
+    file_out = "etc/condensed.csv"
+    id_name = "ID"
+    prepare_data_in(file_in)
+    condense_csv(file_in, id_name, file_out)
