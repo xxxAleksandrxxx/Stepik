@@ -88,19 +88,44 @@
 # Реализуйте функцию is_correct_json(), которая принимает один аргумент string 
 # Функция должна возвращать True, если строка string удовлетворяет формату JSON, или False в противном случае.
 
-import json
+# import json
 
-def is_correct_json(string):
-    """
-    Check whether the given string satisfies the JSON format
-    """
-    try: 
-        json.loads(s=string)
-        return True
-    except:
-        return False
+# def is_correct_json(string):
+#     """
+#     Check whether the given string satisfies the JSON format
+#     """
+#     try: 
+#         json.loads(s=string)
+#         return True
+#     except:
+#         return False
+
+# if __name__ == "__main__":
+#     st = '{"name": "Barsik", "age": 7, "meal": "Wiskas"}'
+#     st = '{"name": "Barsik", "age": 7, "meal": "Wiskas"}'
+#     print(is_correct_json(st))
+
+
+# #######################
+# 4.4.6
+# Напишите программу, которая принимает на вход описание одного объекта в формате JSON и выводит все пары ключ-значение этого объекта.
+
+import json
+import sys
+
+def print_k_v_pairs(str_json):
+    for k, v in json.loads(s=str_json).items():
+        print(f"{k}: ", end="")
+        print(v) if type(v)!=list else print(*v, sep=", ")
+
+# better solution
+def print_k_v_pairs2(str_json):
+    for k, v in json.loads(s=str_json).items():
+        print(f"{k}: ", end="")
+        print(v) if not isinstance(v, list) else print(*v, sep=", ")
+
+
 
 if __name__ == "__main__":
-    st = '{"name": "Barsik", "age": 7, "meal": "Wiskas"}'
-    st = '{"name": "Barsik", "age": 7, "meal": "Wiskas"}'
-    print(is_correct_json(st))
+    st = sys.stdin.read()
+    print_k_v_pairs2(st)
