@@ -64,19 +64,43 @@
 # #######################
 # 4.4.4
 # преобразовать словарь specs в строку в формате JSON и вывести ее с отступами в три пробела, не заменяя кириллические символы на их коды
+# import json
+
+# specs = {
+#          'Модель': 'AMD Ryzen 5 5600G',
+#          'Год релиза': 2021,
+#          'Сокет': 'AM4',
+#          'Техпроцесс': '7 нм',
+#          'Ядро': 'Cezanne',
+#          'Объем кэша L2': '3 МБ',
+#          'Объем кэша L3': '16 МБ',
+#          'Базовая частота': '3900 МГц'
+#         }
+
+# specs_json = json.dumps(specs, ensure_ascii=False, indent="   ")
+
+# print(specs_json)
+
+
+
+# #######################
+# 4.4.4
+# Реализуйте функцию is_correct_json(), которая принимает один аргумент string 
+# Функция должна возвращать True, если строка string удовлетворяет формату JSON, или False в противном случае.
+
 import json
 
-specs = {
-         'Модель': 'AMD Ryzen 5 5600G',
-         'Год релиза': 2021,
-         'Сокет': 'AM4',
-         'Техпроцесс': '7 нм',
-         'Ядро': 'Cezanne',
-         'Объем кэша L2': '3 МБ',
-         'Объем кэша L3': '16 МБ',
-         'Базовая частота': '3900 МГц'
-        }
+def is_correct_json(string):
+    """
+    Check whether the given string satisfies the JSON format
+    """
+    try: 
+        json.loads(s=string)
+        return True
+    except:
+        return False
 
-specs_json = json.dumps(specs, ensure_ascii=False, indent="   ")
-
-print(specs_json)
+if __name__ == "__main__":
+    st = '{"name": "Barsik", "age": 7, "meal": "Wiskas"}'
+    st = '{"name": "Barsik", "age": 7, "meal": "Wiskas"}'
+    print(is_correct_json(st))
