@@ -38,24 +38,45 @@
 # 4.4.3
 # объединить словари club1, club2 и club3 в список и записать полученную структуру данных в файл data.json, указав в качестве отступов три символа пробела.
 
+# import json
+
+# club1 = {"name": "FC Byern Munchen", "country": "Germany", "founded": 1900,
+#          "trainer": "Julian Nagelsmann", "goalkeeper": "M. Neuer", "league_position": 1}
+
+# club2 = {"name": "FC Barcelona", "country": "Spain", "founded": 1899,
+#          "trainer": "Xavier Creus", "goalkeeper": "M. Ter Stegen", "league_position": 7}
+
+# club3 = {"name": "FC Manchester United", "country": "England", "founded": 1878,
+#          "trainer": "Michael Carrick", "goalkeeper": "D. De Gea", "league_position": 8}
+
+# def combine_dics(file, dics):
+#     data_combined = [d for d in dics]
+#     # print(data_combined)
+#     with open(file, "w", encoding="utf-8") as f:
+#         json.dump(obj=data_combined, fp=f, indent="   ")
+
+# if __name__ == "__main__":
+#     file = "etc/data.json"
+#     dics = [club1, club2, club3]
+#     combine_dics(file, dics)
+
+
+# #######################
+# 4.4.4
+# преобразовать словарь specs в строку в формате JSON и вывести ее с отступами в три пробела, не заменяя кириллические символы на их коды
 import json
 
-club1 = {"name": "FC Byern Munchen", "country": "Germany", "founded": 1900,
-         "trainer": "Julian Nagelsmann", "goalkeeper": "M. Neuer", "league_position": 1}
+specs = {
+         'Модель': 'AMD Ryzen 5 5600G',
+         'Год релиза': 2021,
+         'Сокет': 'AM4',
+         'Техпроцесс': '7 нм',
+         'Ядро': 'Cezanne',
+         'Объем кэша L2': '3 МБ',
+         'Объем кэша L3': '16 МБ',
+         'Базовая частота': '3900 МГц'
+        }
 
-club2 = {"name": "FC Barcelona", "country": "Spain", "founded": 1899,
-         "trainer": "Xavier Creus", "goalkeeper": "M. Ter Stegen", "league_position": 7}
+specs_json = json.dumps(specs, ensure_ascii=False, indent="   ")
 
-club3 = {"name": "FC Manchester United", "country": "England", "founded": 1878,
-         "trainer": "Michael Carrick", "goalkeeper": "D. De Gea", "league_position": 8}
-
-def combine_dics(file, dics):
-    data_combined = [d for d in dics]
-    # print(data_combined)
-    with open(file, "w", encoding="utf-8") as f:
-        json.dump(obj=data_combined, fp=f, indent="   ")
-
-if __name__ == "__main__":
-    file = "etc/data.json"
-    dics = [club1, club2, club3]
-    combine_dics(file, dics)
+print(specs_json)
