@@ -110,22 +110,133 @@
 # 4.4.6
 # Напишите программу, которая принимает на вход описание одного объекта в формате JSON и выводит все пары ключ-значение этого объекта.
 
+# import json
+# import sys
+
+# def print_k_v_pairs(str_json):
+#     for k, v in json.loads(s=str_json).items():
+#         print(f"{k}: ", end="")
+#         print(v) if type(v)!=list else print(*v, sep=", ")
+
+# # better solution
+# def print_k_v_pairs2(str_json):
+#     for k, v in json.loads(s=str_json).items():
+#         print(f"{k}: ", end="")
+#         print(v) if not isinstance(v, list) else print(*v, sep=", ")
+
+
+
+# if __name__ == "__main__":
+#     st = sys.stdin.read()
+#     print_k_v_pairs2(st)
+
+
+# #######################
+# 4.4.7
+# Разные типы
+# Вам доступен файл data.json, содержащий список различных объектов:
+# [
+#    "nwkWXma",
+#    null,
+#    {
+#       "ISgHT": "dIUbf"
+#    },
+#    "Pzt",
+#    "BXcbGVTE",
+#    ...
+# ]
+# Напишите программу, которая создает список, элементами которого являются объекты из списка, содержащегося в файле data.json, измененные по следующим правилам:
+# если объект является строкой, в его конец добавляется восклицательный знак
+# если объект является числом, он увеличивается на единицу
+# если объект является логическим значением, он инвертируется
+# если объект является списком, он удваивается
+# если объект является JSON-объектом (словарем), в него добавляется новая пара "newkey": null
+# если объект является пустым значением (null), он не добавляется
+# Полученный список программа должна записать в файл updated_data.json.
+
 import json
-import sys
 
-def print_k_v_pairs(str_json):
-    for k, v in json.loads(s=str_json).items():
-        print(f"{k}: ", end="")
-        print(v) if type(v)!=list else print(*v, sep=", ")
+def create_list(file_from, file_to):
+    with open(file_from, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    crazy_list = list()
+    for elem in data:
+        if isinstance(elem, str):
+            crazy_list.append(elem + "!")
+        if type(elem) == int or type(elem) == float:
+            crazy_list.append(elem+1)
+        if isinstance(elem, bool):
+            crazy_list.append(not elem)
+        if isinstance(elem, list):
+            crazy_list.append(elem*2)
+        if isinstance(elem, dict):
+            elem.update({"newkey": None})
+            crazy_list.append(elem)
+    with open(file_to, "w", encoding="utf-8") as f:
+        json.dump(obj=crazy_list, fp=f)
 
-# better solution
-def print_k_v_pairs2(str_json):
-    for k, v in json.loads(s=str_json).items():
-        print(f"{k}: ", end="")
-        print(v) if not isinstance(v, list) else print(*v, sep=", ")
+
+def create_list2(file_from, file_to):
+    opers = {'str': lambda x: x + '!', 
+            'int': lambda x: x + 1, 
+            'float': lambda x: x + 1, 
+            'bool': lambda x: not x, 
+            'list': lambda x: x * 2, 
+            'dict': lambda x: x | {'newkey': None}}
+    with open(file_from, encoding='utf8') as fi, open(file_to, 'w', encoding='utf8') as fo:
+        json.dump([opers[type(i).__name__](i) for i in json.load(fi) if type(i).__name__ in opers], fo, indent=3)
 
 
+def create_list3(file_from, file_to):
+    with open(file_from, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    crazy_list = list()
+    for elem in data:
+        elem_type = type(elem)
+        if elem_type == str:
+            crazy_list.append(elem + "!")
+        if elem_type == int or elem_type == float:
+            crazy_list.append(elem+1)
+        if elem_type == bool:
+            crazy_list.append(not elem)
+        if elem_type == list:
+            crazy_list.append(elem*2)
+        if elem_type ==  dict:
+            elem.update({"newkey": None})
+            crazy_list.append(elem)
+    with open(file_to, "w", encoding="utf-8") as f:
+        json.dump(obj=crazy_list, fp=f)
+
+
+def create_list4(file_from, file_to):
+    transormations={
+        str: lambda x: x + "!",
+        int: lambda x: x + 1,
+        bool: lambda x: not x,
+        list: lambda x: x * 2,
+        dict: lambda x: x | {"newkey": None}
+    }
+    with open(file_from, "r", encoding="utf-8") as f_from, open(file_to, "w", encoding="utf-8") as f_to:
+        data = json.load(f_from)
+        # call transformation function with the original element as an argument
+        data_updated = [transormations[type(elem)](elem) for elem in data if type(elem) in transormations]
+        json.dump(obj=data_updated, fp=f_to)  # adding indent=3 slows down the function
+
+
+def execution_time(func, *args, n=10000):
+    from time import monotonic
+    t0 = monotonic()
+    for _ in range(n):
+        func(*args)
+    t1 = monotonic()
+    print(f"{func.__name__:<20} {t1-t0:.2f}")
 
 if __name__ == "__main__":
-    st = sys.stdin.read()
-    print_k_v_pairs2(st)
+    file_from = "etc/data.json"
+    file_to = "etc/updated_data.json"
+    # create_list4(file_from, file_to)
+
+    funcs = [create_list, create_list2, create_list3, create_list4]
+    # funcs = [create_list2, create_list]
+    for func in funcs:
+        execution_time(func, file_from, file_to)
