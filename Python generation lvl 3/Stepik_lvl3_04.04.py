@@ -284,40 +284,92 @@
 
 
 
+# # #######################
+# # 4.4.9
+# # Вам доступен файл people.json, содержащий список JSON-объектов. Причем у различных объектов может быть различное количество ключей:
+# # Напишите программу, которая добавляет в каждый JSON-объект из данного списка все недостающие ключи, присваивая этим ключам значение null. Ключ считается недостающим, если он присутствует в каком-либо другом объекте, но отсутствует в данном. Программа должна создать список с обновленными JSON-объектами и записать его в файл updated_people.json
+
+# import json
+
+# def restore_data(file_in, file_out):
+#     with \
+#     open(file_in, "r", encoding="utf-8") as f_in, \
+#     open(file_out, "w", encoding="utf-8") as f_out:
+#         data_in = json.load(fp=f_in)
+#         keys = set()
+#         for elem in data_in:
+#             keys.update(elem.keys())
+#         data_out = list()
+#         for elem in data_in:
+#             keys_missed = keys - elem.keys()
+#             data_out.append(elem | {k: None for k in keys_missed})
+#         json.dump(fp=f_out, obj=data_out, indent=4)
+
+
+# # better solution
+# def restore_data2(file_in, file_out):
+#     with \
+#     open(file_in, encoding='utf8') as fi, \
+#     open(file_out, 'w') as fo:
+#         people = json.load(fi)
+#         d = {k: None for i in people for k in i.keys()}
+#         json.dump(obj=[d | i for i in people], fp=fo, indent=4)
+
+
+
+# def exectution_time(func, *args, n=100):
+#     from time import monotonic
+#     t0 = monotonic()
+#     for _ in range(n):
+#         func(*args)
+#     t1 = monotonic()
+#     print(f"{func.__name__:<20} {t1-t0:.2f}")
+
+
+# if __name__ == "__main__":
+#     file_in = "etc/people.json"
+#     file_out = "etc/updated_people.json"
+#     restore_data2(file_in, file_out)
+#     # funcs = [restore_data, restore_data2]
+#     # for func in funcs:
+#     #     exectution_time(func, file_in, file_out)
+
+
+
 # #######################
-# 4.4.9
-# Вам доступен файл people.json, содержащий список JSON-объектов. Причем у различных объектов может быть различное количество ключей:
-# Напишите программу, которая добавляет в каждый JSON-объект из данного списка все недостающие ключи, присваивая этим ключам значение null. Ключ считается недостающим, если он присутствует в каком-либо другом объекте, но отсутствует в данном. Программа должна создать список с обновленными JSON-объектами и записать его в файл updated_people.json
+# 4.4.10
+# Вам доступен файл countries.json, содержащий список JSON-объектов c информацией о странах и исповедуемых в них религиях
+# Напишите программу, которая создает единственный JSON-объект, имеющий в качестве ключа название религии, а в качестве значения — список стран, в которых исповедуется данная религия. Полученный JSON-объект программа должна записать в файл religion.json
 
 import json
 
-def restore_data(file_in, file_out):
+def ॐ(file_in, file_out):
     with \
     open(file_in, "r", encoding="utf-8") as f_in, \
     open(file_out, "w", encoding="utf-8") as f_out:
         data_in = json.load(fp=f_in)
-        keys = set()
+        data_out = {}
         for elem in data_in:
-            keys.update(elem.keys())
-        data_out = list()
-        for elem in data_in:
-            keys_missed = keys - elem.keys()
-            data_out.append(elem | {k: None for k in keys_missed})
+            k = elem["religion"]
+            v = elem["country"]
+            data_out[k] = data_out.get(k, []) + [v]
+        data_out = {k: data_out.get(k, []) + [v]}
         json.dump(fp=f_out, obj=data_out, indent=4)
 
 
-# better solution
-def restore_data2(file_in, file_out):
+# the best solution
+from collections import defaultdict
+def ॐ2(file_in, file_out):
     with \
-    open(file_in, encoding='utf8') as fi, \
-    open(file_out, 'w') as fo:
-        people = json.load(fi)
-        d = {k: None for i in people for k in i.keys()}
-        json.dump(obj=[d | i for i in people], fp=fo, indent=4)
+    open(file_in, "r", encoding="utf-8") as f_in, \
+    open(file_out, "w", encoding="utf-8") as f_out:
+        data_in = json.load(fp=f_in)
+        data_out = defaultdict(list)
+        [data_out[elem["religion"]].append(elem["country"]) for elem in data_in]
+        json.dump(fp=f_out, obj=data_out, indent=4)
 
 
-
-def exectution_time(func, *args, n=100):
+def execution_time(func, *args, n=1000):
     from time import monotonic
     t0 = monotonic()
     for _ in range(n):
@@ -325,11 +377,10 @@ def exectution_time(func, *args, n=100):
     t1 = monotonic()
     print(f"{func.__name__:<20} {t1-t0:.2f}")
 
-
 if __name__ == "__main__":
-    file_in = "etc/people.json"
-    file_out = "etc/updated_people.json"
-    restore_data2(file_in, file_out)
-    # funcs = [restore_data, restore_data2]
-    # for func in funcs:
-    #     exectution_time(func, file_in, file_out)
+    file_in = "etc/countries.json"
+    file_out = "etc/religion.json"
+    # ॐ2(file_in, file_out)
+    funcs = [ॐ, ॐ2]
+    for func in funcs:
+        execution_time(func, file_in, file_out)
