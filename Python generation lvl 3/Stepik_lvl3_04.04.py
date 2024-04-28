@@ -248,35 +248,88 @@
 
 
 
+# # #######################
+# # 4.4.8
+# # Объединение объектов
+# # Вам доступны два файла data1.json и data2.json, каждый из которых содержит по единственному JSON-объекту:
+# # {
+# #    "Holly-Anne": [
+# #       33,
+# #       "failed"
+# #    ],
+# #    "Caty": [
+# #       36,
+# #       "failed"
+# #    ],
+# #    ...
+# # }
+# # Напишите программу, которая объединяет два данных JSON-объекта в один JSON-объект, причем если пары из первого и второго объектов имеют совпадающие ключи, то значение следует взять из второго объекта. Полученный JSON-объект программа должна записать в файл data_merge.json.
+
+# import json
+
+# def merge_json(file_1, file_2, file_out):
+#     with \
+#     open(file_1, "r", encoding="utf-8") as f1, \
+#     open(file_2, "r", encoding="utf-8") as f2, \
+#     open(file_out, "w", encoding="utf-8") as f_out:
+#         data_out = json.load(fp=f1) | json.load(fp=f2)
+#         json.dump(fp=f_out, obj=data_out, indent=4)
+
+# if __name__ == "__main__":
+#     file_1 = "etc/data1.json"
+#     file_2 = "etc/data2.json"
+#     file_out = "etc/data_merge.json"
+#     merge_json(file_1, file_2, file_out)
+
+
+
+
 # #######################
-# 4.4.8
-# Объединение объектов
-# Вам доступны два файла data1.json и data2.json, каждый из которых содержит по единственному JSON-объекту:
-# {
-#    "Holly-Anne": [
-#       33,
-#       "failed"
-#    ],
-#    "Caty": [
-#       36,
-#       "failed"
-#    ],
-#    ...
-# }
-# Напишите программу, которая объединяет два данных JSON-объекта в один JSON-объект, причем если пары из первого и второго объектов имеют совпадающие ключи, то значение следует взять из второго объекта. Полученный JSON-объект программа должна записать в файл data_merge.json.
+# 4.4.9
+# Вам доступен файл people.json, содержащий список JSON-объектов. Причем у различных объектов может быть различное количество ключей:
+# Напишите программу, которая добавляет в каждый JSON-объект из данного списка все недостающие ключи, присваивая этим ключам значение null. Ключ считается недостающим, если он присутствует в каком-либо другом объекте, но отсутствует в данном. Программа должна создать список с обновленными JSON-объектами и записать его в файл updated_people.json
 
 import json
 
-def merge_json(file_1, file_2, file_out):
+def restore_data(file_in, file_out):
     with \
-    open(file_1, "r", encoding="utf-8") as f1, \
-    open(file_2, "r", encoding="utf-8") as f2, \
+    open(file_in, "r", encoding="utf-8") as f_in, \
     open(file_out, "w", encoding="utf-8") as f_out:
-        data_out = json.load(fp=f1) | json.load(fp=f2)
+        data_in = json.load(fp=f_in)
+        keys = set()
+        for elem in data_in:
+            keys.update(elem.keys())
+        data_out = list()
+        for elem in data_in:
+            keys_missed = keys - elem.keys()
+            data_out.append(elem | {k: None for k in keys_missed})
         json.dump(fp=f_out, obj=data_out, indent=4)
 
+
+# better solution
+def restore_data2(file_in, file_out):
+    with \
+    open(file_in, encoding='utf8') as fi, \
+    open(file_out, 'w') as fo:
+        people = json.load(fi)
+        d = {k: None for i in people for k in i.keys()}
+        json.dump(obj=[d | i for i in people], fp=fo, indent=4)
+
+
+
+def exectution_time(func, *args, n=100):
+    from time import monotonic
+    t0 = monotonic()
+    for _ in range(n):
+        func(*args)
+    t1 = monotonic()
+    print(f"{func.__name__:<20} {t1-t0:.2f}")
+
+
 if __name__ == "__main__":
-    file_1 = "etc/data1.json"
-    file_2 = "etc/data2.json"
-    file_out = "etc/data_merge.json"
-    merge_json(file_1, file_2, file_out)
+    file_in = "etc/people.json"
+    file_out = "etc/updated_people.json"
+    restore_data2(file_in, file_out)
+    # funcs = [restore_data, restore_data2]
+    # for func in funcs:
+    #     exectution_time(func, file_in, file_out)
