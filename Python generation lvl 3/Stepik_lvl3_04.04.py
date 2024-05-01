@@ -487,20 +487,101 @@
 # Тимур планирует пойти в бассейн. Среди всех бассейнов ему подходят те, которые открыты в понедельник в период с 10:00 до 12:00. Также ему нравится плавать по длинным дорожкам, поэтому из всех работающих в это время бассейнов нужно выбрать бассейн с наибольшей длиной дорожки, при равных значениях — c наибольшей шириной.
 # Вам доступен файл pools.json, содержащий список JSON-объектов, которые представляют данные о крытых плавательных бассейнах
 
-import json
+# import json
 
-def swiming_choice1(file_in, day="Понедельник", t0="10:00", t1="12:00"):
-    with open(file_in, "r", encoding="utf-8") as f:
-        data = json.load(fp=f)
-    swiming_pools = []
-    for sp in data:
-        if day in sp["WorkingHoursSummer"]:
-            t_open, t_close = sp["WorkingHoursSummer"][day].split("-")
-            if t_open <= t0 and t_close >= t1:
-                swiming_pools.append([sp["DimensionsSummer"]["Length"], sp["DimensionsSummer"]["Width"], sp["Address"]])
-    for elem in sorted(swiming_pools, reverse=True)[:1]:
-        print(f"{elem[0]}x{elem[1]}\n{elem[2]}")
+# def swiming_choice1(file_in, day="Понедельник", t0="10:00", t1="12:00"):
+#     with open(file_in, "r", encoding="utf-8") as f:
+#         data = json.load(fp=f)
+#     swiming_pools = []
+#     for sp in data:
+#         if day in sp["WorkingHoursSummer"]:
+#             t_open, t_close = sp["WorkingHoursSummer"][day].split("-")
+#             if t_open <= t0 and t_close >= t1:
+#                 swiming_pools.append([sp["DimensionsSummer"]["Length"], sp["DimensionsSummer"]["Width"], sp["Address"]])
+#     for elem in sorted(swiming_pools, reverse=True)[:1]:
+#         print(f"{elem[0]}x{elem[1]}\n{elem[2]}")
+
+# if __name__ == "__main__":
+#     file_in = "etc/pools.json"
+#     swiming_choice1(file_in)
+
+
+# #######################
+# 4.4.14
+# Результаты экзамена
+# Вам доступен файл exam_results.csv, который содержит информацию о прошедшем экзамене в некотором учебном заведении. В первом столбце записано имя студента, во втором — фамилия, в третьем — оценка за экзамен, в четвертом — дата и время сдачи в формате YYYY-MM-DD HH:MM:SS, в пятом — адрес электронной почты:
+
+import csv, json
+
+def best_grade1(file_in, file_out):
+    """
+    find best grade and appropriate date for each student
+    sort by emails
+    """
+    with \
+    open(file_in, "r", encoding="utf-8") as f_in, \
+    open(file_out, "w", encoding="utf-8") as f_out:
+        data = csv.DictReader(f_in, delimiter=",")
+        students = dict()
+        for elem in data:
+            mail = (elem["email"])
+            if mail not in students:
+                students[mail] = {"name": elem["name"], "surname": elem["surname"], "best_score": int(elem["score"]), "date_and_time": elem["date_and_time"], "email": elem["email"]}
+            if int(elem["score"]) >= students[mail]["best_score"]:
+                students[mail]["best_score"] = int(elem["score"])
+                if elem["date_and_time"] > students[mail]["date_and_time"]:
+                    students[mail]["date_and_time"] = elem["date_and_time"]
+        # json.dump(fp=f_out, obj=[students[elem] for elem in sorted(students)], indent=4)
+
+
+def best_grade2(file_in, file_out):
+    result = {}
+    with open('etc/exam_results.csv', encoding='utf-8') as ex_r:
+        rows = csv.DictReader(ex_r)  # 1
+        for row in rows:
+            row['best_score'] = int(row.pop('score'))  # 2
+            r = result.get(row['email'], row)  # 3
+            best_row = max(r, row, key=lambda item: (item['best_score'], item['date_and_time']))  # 4
+            result[row['email']] = best_row  # 5 
+    with open('best_scores.json', 'w', encoding='utf-8') as bs:
+        out = sorted(result.values(), key=lambda item: item['email'])  # 6
+        # json.dump(out, bs, indent=3)  # 7
+
+
+def check_result(f1, f2):
+    with \
+    open(f1, "r", encoding="utf-8") as f_1, \
+    open(f2, "r", encoding="utf-8") as f_2:
+        d_1 = json.load(fp=f_1)
+        d_2 = json.load(fp=f_2)
+    print("correct" if d_1 == d_2 else "wrong")
+    # for el_1, el_2 in zip(d_1, d_2):
+    #     print(el_1)
+    #     print(el_2)
+    #     print(el_1 == el_2)
+    #     print()
+
+
+def execution_time(func, *args, n=10*4):
+    from time import monotonic
+    t0 = monotonic()
+    for _ in range(n):
+        func(*args)
+    t1 = monotonic()
+    print(f"{func.__name__:<15} {t1-t0:.2f}")
+
+
+
 
 if __name__ == "__main__":
-    file_in = "etc/pools.json"
-    swiming_choice1(file_in)
+    file_in = "etc/exam_results.csv"
+    file_out = "etc/best_scores.json"
+    # best_grade2(file_in, file_out)
+
+    # file_answer = "etc/clue_exam_results.txt"
+    # check_result(file_out, file_answer)
+
+    funcs = [best_grade1, best_grade2]
+    for func in funcs:
+        execution_time(func, file_in, file_out, n=10**4)
+        
