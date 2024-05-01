@@ -395,46 +395,87 @@
 # Парк, озелененная городская территория «Лианозовский парк культуры и отдыха»;Северо-Восточный административный округ;район Лианозово;Угличская улица, дом 13
 # Напишите программу, создающую JSON-объект, ключом в котором является административный округ, а значением — JSON-объект, в котором, в свою очередь, ключом является название района, относящийся к этому административному округу, а значением — список адресов всех площадок в этом районе. Полученный JSON-объект программа должна записать в файл addresses.json
 
+# import csv, json
+
+# def districs1(file_in, file_out):
+#     with \
+#     open(file_in, "r", encoding="utf-8") as f_in, \
+#     open(file_out, "w", encoding="utf-8") as f_out:
+#         data = csv.reader(f_in, delimiter=";")
+#         header = next(data)
+#         data_out = dict()
+#         for _, adm, dist, addr in data:
+#             if adm not in data_out:
+#                 data_out[adm] = dict()
+#             if dist not in data_out[adm]:
+#                 data_out[adm][dist] = list()
+#             data_out[adm][dist].append(addr)
+#         # json.dump(fp=f_out, obj=data_out, ensure_ascii=False, indent=4)
+
+
+# def districs2(file_in, file_out):
+#     with \
+#     open(file_in, "r", encoding="utf-8") as f_in, \
+#     open(file_out, "w", encoding="utf-8") as f_out:
+#         _, *data = csv.reader(f_in, delimiter=";")
+#         data_out = dict()
+#         [data_out.setdefault(record[1], {}).setdefault(record[2], []).append(record[3]) for record in data]
+#         # json.dump(fp=f_out, obj=data_out, ensure_ascii=False, indent=4)
+
+
+# def execution_time(func, *args, n=10**5):
+#     from time import monotonic
+#     t0 = monotonic()
+#     for _ in range(n):
+#         func(*args)
+#     t1 = monotonic()
+#     print(f"{func.__name__:<20} {t1-t0:.2f}")
+
+# if __name__ == "__main__":
+#     file_in = "etc/playgrounds.csv"
+#     file_out = "etc/addresses.json"
+#     # districs2(file_in, file_out)
+#     funcs = [districs1, districs2]
+#     for func in funcs:
+#         execution_time(func, file_in, file_out)
+
+
+# #######################
+# 4.4.12
 import csv, json
 
-def districs1(file_in, file_out):
+def write_data(file_in, file_out):
     with \
     open(file_in, "r", encoding="utf-8") as f_in, \
     open(file_out, "w", encoding="utf-8") as f_out:
-        data = csv.reader(f_in, delimiter=";")
-        header = next(data)
-        data_out = dict()
-        for _, adm, dist, addr in data:
-            if adm not in data_out:
-                data_out[adm] = dict()
-            if dist not in data_out[adm]:
-                data_out[adm][dist] = list()
-            data_out[adm][dist].append(addr)
-        # json.dump(fp=f_out, obj=data_out, ensure_ascii=False, indent=4)
+        data_in = json.load(fp=f_in)
+        headers = ["name", "phone"]
+        data_out = [[elem["name"], elem["phone"]] for elem in data_in if elem["age"]>=18 and elem["progress"]>=75]
+        csv_writer = csv.writer(f_out, delimiter=",")
+        csv_writer.writerow(headers)
+        csv_writer.writerows(sorted(data_out))
 
 
-def districs2(file_in, file_out):
-    with \
-    open(file_in, "r", encoding="utf-8") as f_in, \
-    open(file_out, "w", encoding="utf-8") as f_out:
-        _, *data = csv.reader(f_in, delimiter=";")
-        data_out = dict()
-        [data_out.setdefault(record[1], {}).setdefault(record[2], []).append(record[3]) for record in data]
-        # json.dump(fp=f_out, obj=data_out, ensure_ascii=False, indent=4)
+def check_result(res_1, res_2):
+    # for f, d in zip([res_1, res_2], [d_1, d_2]):
+    with open(res_1, "r", encoding="utf-8") as f_1:
+        d_1 = [row.strip() for row in f_1]
+    with open(res_2, "r", encoding="utf-8") as f_2:
+        d_2 = [row.strip() for row in f_2]
 
+    print("results")
+    print(d_2)
+    for a, b in zip(d_1, d_2):
+        print(a)
+        print(b)
+        print(a==b)
+        print()
 
-def execution_time(func, *args, n=10**5):
-    from time import monotonic
-    t0 = monotonic()
-    for _ in range(n):
-        func(*args)
-    t1 = monotonic()
-    print(f"{func.__name__:<20} {t1-t0:.2f}")
-
+    # with open(res):
 if __name__ == "__main__":
-    file_in = "etc/playgrounds.csv"
-    file_out = "etc/addresses.json"
-    # districs2(file_in, file_out)
-    funcs = [districs1, districs2]
-    for func in funcs:
-        execution_time(func, file_in, file_out)
+    file_in = "etc/students.json"
+    file_out = "etc/data.csv"
+    write_data(file_in, file_out)
+    res_1 = file_out
+    res_2 = "etc/clue_students.txt"
+    check_result(res_1, res_2)
