@@ -341,35 +341,89 @@
 # Вам доступен файл countries.json, содержащий список JSON-объектов c информацией о странах и исповедуемых в них религиях
 # Напишите программу, которая создает единственный JSON-объект, имеющий в качестве ключа название религии, а в качестве значения — список стран, в которых исповедуется данная религия. Полученный JSON-объект программа должна записать в файл religion.json
 
-import json
+# import json
 
-def ॐ(file_in, file_out):
+# def ॐ(file_in, file_out):
+#     with \
+#     open(file_in, "r", encoding="utf-8") as f_in, \
+#     open(file_out, "w", encoding="utf-8") as f_out:
+#         data_in = json.load(fp=f_in)
+#         data_out = {}
+#         for elem in data_in:
+#             k = elem["religion"]
+#             v = elem["country"]
+#             data_out[k] = data_out.get(k, []) + [v]
+#         data_out = {k: data_out.get(k, []) + [v]}
+#         json.dump(fp=f_out, obj=data_out, indent=4)
+
+
+# # the best solution
+# from collections import defaultdict
+# def ॐ2(file_in, file_out):
+#     with \
+#     open(file_in, "r", encoding="utf-8") as f_in, \
+#     open(file_out, "w", encoding="utf-8") as f_out:
+#         data_in = json.load(fp=f_in)
+#         data_out = defaultdict(list)
+#         [data_out[elem["religion"]].append(elem["country"]) for elem in data_in]
+#         json.dump(fp=f_out, obj=data_out, indent=4)
+
+
+# def execution_time(func, *args, n=1000):
+#     from time import monotonic
+#     t0 = monotonic()
+#     for _ in range(n):
+#         func(*args)
+#     t1 = monotonic()
+#     print(f"{func.__name__:<20} {t1-t0:.2f}")
+
+# if __name__ == "__main__":
+#     file_in = "etc/countries.json"
+#     file_out = "etc/religion.json"
+#     # ॐ2(file_in, file_out)
+#     funcs = [ॐ, ॐ2]
+#     for func in funcs:
+#         execution_time(func, file_in, file_out)
+
+
+
+# #######################
+# 4.4.11
+# Спортивные площадки
+# Вам доступен файл playgrounds.csv с информацией о спортивных площадках Москвы. В первом столбце записан тип площадки,  во втором — административный округ, в третьем — название района, в четвертом — адрес:
+# ObjectName;AdmArea;District;Address
+# Парк, озелененная городская территория «Лианозовский парк культуры и отдыха»;Северо-Восточный административный округ;район Лианозово;Угличская улица, дом 13
+# Напишите программу, создающую JSON-объект, ключом в котором является административный округ, а значением — JSON-объект, в котором, в свою очередь, ключом является название района, относящийся к этому административному округу, а значением — список адресов всех площадок в этом районе. Полученный JSON-объект программа должна записать в файл addresses.json
+
+import csv, json
+
+def districs1(file_in, file_out):
     with \
     open(file_in, "r", encoding="utf-8") as f_in, \
     open(file_out, "w", encoding="utf-8") as f_out:
-        data_in = json.load(fp=f_in)
-        data_out = {}
-        for elem in data_in:
-            k = elem["religion"]
-            v = elem["country"]
-            data_out[k] = data_out.get(k, []) + [v]
-        data_out = {k: data_out.get(k, []) + [v]}
-        json.dump(fp=f_out, obj=data_out, indent=4)
+        data = csv.reader(f_in, delimiter=";")
+        header = next(data)
+        data_out = dict()
+        for _, adm, dist, addr in data:
+            if adm not in data_out:
+                data_out[adm] = dict()
+            if dist not in data_out[adm]:
+                data_out[adm][dist] = list()
+            data_out[adm][dist].append(addr)
+        # json.dump(fp=f_out, obj=data_out, ensure_ascii=False, indent=4)
 
 
-# the best solution
-from collections import defaultdict
-def ॐ2(file_in, file_out):
+def districs2(file_in, file_out):
     with \
     open(file_in, "r", encoding="utf-8") as f_in, \
     open(file_out, "w", encoding="utf-8") as f_out:
-        data_in = json.load(fp=f_in)
-        data_out = defaultdict(list)
-        [data_out[elem["religion"]].append(elem["country"]) for elem in data_in]
-        json.dump(fp=f_out, obj=data_out, indent=4)
+        _, *data = csv.reader(f_in, delimiter=";")
+        data_out = dict()
+        [data_out.setdefault(record[1], {}).setdefault(record[2], []).append(record[3]) for record in data]
+        # json.dump(fp=f_out, obj=data_out, ensure_ascii=False, indent=4)
 
 
-def execution_time(func, *args, n=1000):
+def execution_time(func, *args, n=10**5):
     from time import monotonic
     t0 = monotonic()
     for _ in range(n):
@@ -378,9 +432,9 @@ def execution_time(func, *args, n=1000):
     print(f"{func.__name__:<20} {t1-t0:.2f}")
 
 if __name__ == "__main__":
-    file_in = "etc/countries.json"
-    file_out = "etc/religion.json"
-    # ॐ2(file_in, file_out)
-    funcs = [ॐ, ॐ2]
+    file_in = "etc/playgrounds.csv"
+    file_out = "etc/addresses.json"
+    # districs2(file_in, file_out)
+    funcs = [districs1, districs2]
     for func in funcs:
         execution_time(func, file_in, file_out)
