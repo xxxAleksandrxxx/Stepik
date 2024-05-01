@@ -442,40 +442,65 @@
 
 # #######################
 # 4.4.12
-import csv, json
+# import csv, json
 
-def write_data(file_in, file_out):
-    with \
-    open(file_in, "r", encoding="utf-8") as f_in, \
-    open(file_out, "w", encoding="utf-8") as f_out:
-        data_in = json.load(fp=f_in)
-        headers = ["name", "phone"]
-        data_out = [[elem["name"], elem["phone"]] for elem in data_in if elem["age"]>=18 and elem["progress"]>=75]
-        csv_writer = csv.writer(f_out, delimiter=",")
-        csv_writer.writerow(headers)
-        csv_writer.writerows(sorted(data_out))
+# def write_data(file_in, file_out):
+#     with \
+#     open(file_in, "r", encoding="utf-8") as f_in, \
+#     open(file_out, "w", encoding="utf-8") as f_out:
+#         data_in = json.load(fp=f_in)
+#         headers = ["name", "phone"]
+#         data_out = [[elem["name"], elem["phone"]] for elem in data_in if elem["age"]>=18 and elem["progress"]>=75]
+#         csv_writer = csv.writer(f_out, delimiter=",")
+#         csv_writer.writerow(headers)
+#         csv_writer.writerows(sorted(data_out))
 
 
-def check_result(res_1, res_2):
-    # for f, d in zip([res_1, res_2], [d_1, d_2]):
-    with open(res_1, "r", encoding="utf-8") as f_1:
-        d_1 = [row.strip() for row in f_1]
-    with open(res_2, "r", encoding="utf-8") as f_2:
-        d_2 = [row.strip() for row in f_2]
+# def check_result(res_1, res_2):
+#     # for f, d in zip([res_1, res_2], [d_1, d_2]):
+#     with open(res_1, "r", encoding="utf-8") as f_1:
+#         d_1 = [row.strip() for row in f_1]
+#     with open(res_2, "r", encoding="utf-8") as f_2:
+#         d_2 = [row.strip() for row in f_2]
 
-    print("results")
-    print(d_2)
-    for a, b in zip(d_1, d_2):
-        print(a)
-        print(b)
-        print(a==b)
-        print()
+#     print("results")
+#     print(d_2)
+#     for a, b in zip(d_1, d_2):
+#         print(a)
+#         print(b)
+#         print(a==b)
+#         print()
 
-    # with open(res):
+#     # with open(res):
+# if __name__ == "__main__":
+#     file_in = "etc/students.json"
+#     file_out = "etc/data.csv"
+#     write_data(file_in, file_out)
+#     res_1 = file_out
+#     res_2 = "etc/clue_students.txt"
+#     check_result(res_1, res_2)
+
+
+# #######################
+# 4.4.13
+# Бассейны
+# Тимур планирует пойти в бассейн. Среди всех бассейнов ему подходят те, которые открыты в понедельник в период с 10:00 до 12:00. Также ему нравится плавать по длинным дорожкам, поэтому из всех работающих в это время бассейнов нужно выбрать бассейн с наибольшей длиной дорожки, при равных значениях — c наибольшей шириной.
+# Вам доступен файл pools.json, содержащий список JSON-объектов, которые представляют данные о крытых плавательных бассейнах
+
+import json
+
+def swiming_choice1(file_in, day="Понедельник", t0="10:00", t1="12:00"):
+    with open(file_in, "r", encoding="utf-8") as f:
+        data = json.load(fp=f)
+    swiming_pools = []
+    for sp in data:
+        if day in sp["WorkingHoursSummer"]:
+            t_open, t_close = sp["WorkingHoursSummer"][day].split("-")
+            if t_open <= t0 and t_close >= t1:
+                swiming_pools.append([sp["DimensionsSummer"]["Length"], sp["DimensionsSummer"]["Width"], sp["Address"]])
+    for elem in sorted(swiming_pools, reverse=True)[:1]:
+        print(f"{elem[0]}x{elem[1]}\n{elem[2]}")
+
 if __name__ == "__main__":
-    file_in = "etc/students.json"
-    file_out = "etc/data.csv"
-    write_data(file_in, file_out)
-    res_1 = file_out
-    res_2 = "etc/clue_students.txt"
-    check_result(res_1, res_2)
+    file_in = "etc/pools.json"
+    swiming_choice1(file_in)
