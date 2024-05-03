@@ -511,77 +511,125 @@
 # Результаты экзамена
 # Вам доступен файл exam_results.csv, который содержит информацию о прошедшем экзамене в некотором учебном заведении. В первом столбце записано имя студента, во втором — фамилия, в третьем — оценка за экзамен, в четвертом — дата и время сдачи в формате YYYY-MM-DD HH:MM:SS, в пятом — адрес электронной почты:
 
-import csv, json
+# import csv, json
 
-def best_grade1(file_in, file_out):
-    """
-    find best grade and appropriate date for each student
-    sort by emails
-    """
-    with \
-    open(file_in, "r", encoding="utf-8") as f_in, \
-    open(file_out, "w", encoding="utf-8") as f_out:
-        data = csv.DictReader(f_in, delimiter=",")
-        students = dict()
-        for elem in data:
-            mail = (elem["email"])
-            if mail not in students:
-                students[mail] = {"name": elem["name"], "surname": elem["surname"], "best_score": int(elem["score"]), "date_and_time": elem["date_and_time"], "email": elem["email"]}
-            if int(elem["score"]) >= students[mail]["best_score"]:
-                students[mail]["best_score"] = int(elem["score"])
-                if elem["date_and_time"] > students[mail]["date_and_time"]:
-                    students[mail]["date_and_time"] = elem["date_and_time"]
-        # json.dump(fp=f_out, obj=[students[elem] for elem in sorted(students)], indent=4)
-
-
-def best_grade2(file_in, file_out):
-    result = {}
-    with open('etc/exam_results.csv', encoding='utf-8') as ex_r:
-        rows = csv.DictReader(ex_r)  # 1
-        for row in rows:
-            row['best_score'] = int(row.pop('score'))  # 2
-            r = result.get(row['email'], row)  # 3
-            best_row = max(r, row, key=lambda item: (item['best_score'], item['date_and_time']))  # 4
-            result[row['email']] = best_row  # 5 
-    with open('best_scores.json', 'w', encoding='utf-8') as bs:
-        out = sorted(result.values(), key=lambda item: item['email'])  # 6
-        # json.dump(out, bs, indent=3)  # 7
+# def best_grade1(file_in, file_out):
+#     """
+#     find best grade and appropriate date for each student
+#     sort by emails
+#     """
+#     with \
+#     open(file_in, "r", encoding="utf-8") as f_in, \
+#     open(file_out, "w", encoding="utf-8") as f_out:
+#         data = csv.DictReader(f_in, delimiter=",")
+#         students = dict()
+#         for elem in data:
+#             mail = (elem["email"])
+#             if mail not in students:
+#                 students[mail] = {"name": elem["name"], "surname": elem["surname"], "best_score": int(elem["score"]), "date_and_time": elem["date_and_time"], "email": elem["email"]}
+#             if int(elem["score"]) >= students[mail]["best_score"]:
+#                 students[mail]["best_score"] = int(elem["score"])
+#                 if elem["date_and_time"] > students[mail]["date_and_time"]:
+#                     students[mail]["date_and_time"] = elem["date_and_time"]
+#         # json.dump(fp=f_out, obj=[students[elem] for elem in sorted(students)], indent=4)
 
 
-def check_result(f1, f2):
-    with \
-    open(f1, "r", encoding="utf-8") as f_1, \
-    open(f2, "r", encoding="utf-8") as f_2:
-        d_1 = json.load(fp=f_1)
-        d_2 = json.load(fp=f_2)
-    print("correct" if d_1 == d_2 else "wrong")
-    # for el_1, el_2 in zip(d_1, d_2):
-    #     print(el_1)
-    #     print(el_2)
-    #     print(el_1 == el_2)
-    #     print()
+# def best_grade2(file_in, file_out):
+#     result = {}
+#     with open('etc/exam_results.csv', encoding='utf-8') as ex_r:
+#         rows = csv.DictReader(ex_r)  # 1
+#         for row in rows:
+#             row['best_score'] = int(row.pop('score'))  # 2
+#             r = result.get(row['email'], row)  # 3
+#             best_row = max(r, row, key=lambda item: (item['best_score'], item['date_and_time']))  # 4
+#             result[row['email']] = best_row  # 5 
+#     with open('best_scores.json', 'w', encoding='utf-8') as bs:
+#         out = sorted(result.values(), key=lambda item: item['email'])  # 6
+#         # json.dump(out, bs, indent=3)  # 7
 
 
-def execution_time(func, *args, n=10*4):
-    from time import monotonic
-    t0 = monotonic()
-    for _ in range(n):
-        func(*args)
-    t1 = monotonic()
-    print(f"{func.__name__:<15} {t1-t0:.2f}")
+# def check_result(f1, f2):
+#     with \
+#     open(f1, "r", encoding="utf-8") as f_1, \
+#     open(f2, "r", encoding="utf-8") as f_2:
+#         d_1 = json.load(fp=f_1)
+#         d_2 = json.load(fp=f_2)
+#     print("correct" if d_1 == d_2 else "wrong")
+#     # for el_1, el_2 in zip(d_1, d_2):
+#     #     print(el_1)
+#     #     print(el_2)
+#     #     print(el_1 == el_2)
+#     #     print()
+
+
+# def execution_time(func, *args, n=10*4):
+#     from time import monotonic
+#     t0 = monotonic()
+#     for _ in range(n):
+#         func(*args)
+#     t1 = monotonic()
+#     print(f"{func.__name__:<15} {t1-t0:.2f}")
 
 
 
+
+# if __name__ == "__main__":
+#     file_in = "etc/exam_results.csv"
+#     file_out = "etc/best_scores.json"
+#     # best_grade2(file_in, file_out)
+
+#     # file_answer = "etc/clue_exam_results.txt"
+#     # check_result(file_out, file_answer)
+
+#     funcs = [best_grade1, best_grade2]
+#     for func in funcs:
+#         execution_time(func, file_in, file_out, n=10**4)
+        
+
+
+# #######################
+# 4.4.15
+# Общественное питание 😥
+# Вам доступен файл food_services.json, содержащий список JSON-объектов, которые представляют данные о заведениях общественного питания:
+# Под «заведением» будем подразумевать один JSON-объект из этого списка. У заведения имеются следующие атрибуты:
+# Name — название 
+# IsNetObject — да\нет в зависимости от того, является ли заведение сетевым
+# OperatingCompany — название сети
+# TypeObject — вид (кафе, столовая, ресторан и т.д.)
+# AdmArea — административная зона
+# District — район
+# Address — полный адрес
+# SeatsCount — количество мест
+# Напишите программу, которая:
+# определяет район Москвы, в котором находится больше всего заведений, и выводит название этого района и количество заведений в нем
+# определяет сеть с самым большим числом заведений и выводит название этой сети и количество заведений этой сети
+# Полученные значения программа должна вывести в следующем формате:
+# <район>: <количество заведений>
+# <название сети>: <количество заведений>
+
+import json
+
+def top_fb(file_in):
+    with open(file_in, "r", encoding="utf-8") as f:
+        data = json.load(fp=f)
+    districts = dict()
+    chains = dict()
+    for elem in data:
+        districts[elem["District"]] = districts.get(elem["District"], 0) + 1
+        chains[elem["OperatingCompany"]] = chains.get(elem["OperatingCompany"], 0) + 1
+    
+    for elem in sorted(districts, key=lambda x: districts[x])[-1:]:
+        print(f"{elem}: {districts[elem]}")
+    for elem in sorted(chains, key=lambda x: chains[x])[-2:-1]:
+        print(f"{elem}: {chains[elem]}")
+
+
+def top_fb2(file_in):
+    with open(file_in, "r", encoding="utf-8") as f:
+        data = json.load(fp=f)
+    districts = dict()
+    chains = dict()
 
 if __name__ == "__main__":
-    file_in = "etc/exam_results.csv"
-    file_out = "etc/best_scores.json"
-    # best_grade2(file_in, file_out)
-
-    # file_answer = "etc/clue_exam_results.txt"
-    # check_result(file_out, file_answer)
-
-    funcs = [best_grade1, best_grade2]
-    for func in funcs:
-        execution_time(func, file_in, file_out, n=10**4)
-        
+    file_in = "etc/food_services.json"
+    top_fb(file_in)
