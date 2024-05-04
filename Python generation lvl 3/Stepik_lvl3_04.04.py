@@ -607,29 +607,77 @@
 # <район>: <количество заведений>
 # <название сети>: <количество заведений>
 
+# import json
+
+# def top_fb(file_in):
+#     with open(file_in, "r", encoding="utf-8") as f:
+#         data = json.load(fp=f)
+#     districts = dict()
+#     chains = dict()
+#     for elem in data:
+#         districts[elem["District"]] = districts.get(elem["District"], 0) + 1
+#         chains[elem["OperatingCompany"]] = chains.get(elem["OperatingCompany"], 0) + 1
+    
+#     for elem in sorted(districts, key=lambda x: districts[x])[-1:]:
+#         print(f"{elem}: {districts[elem]}")
+#     for elem in sorted(chains, key=lambda x: chains[x])[-2:-1]:
+#         print(f"{elem}: {chains[elem]}")
+
+
+# def top_fb2(file_in):
+#     with open(file_in, "r", encoding="utf-8") as f:
+#         data = json.load(fp=f)
+#     districts = dict()
+#     chains = dict()
+
+# if __name__ == "__main__":
+#     file_in = "etc/food_services.json"
+#     top_fb(file_in)
+
+
+
+# #######################
+# 4.4.16
+
 import json
 
-def top_fb(file_in):
+def max_seats1(file_in):
     with open(file_in, "r", encoding="utf-8") as f:
         data = json.load(fp=f)
-    districts = dict()
-    chains = dict()
-    for elem in data:
-        districts[elem["District"]] = districts.get(elem["District"], 0) + 1
-        chains[elem["OperatingCompany"]] = chains.get(elem["OperatingCompany"], 0) + 1
-    
-    for elem in sorted(districts, key=lambda x: districts[x])[-1:]:
-        print(f"{elem}: {districts[elem]}")
-    for elem in sorted(chains, key=lambda x: chains[x])[-2:-1]:
-        print(f"{elem}: {chains[elem]}")
+    max_seats = {}
+    for record in data:
+        # print(record["TypeObject"])
+        if record["TypeObject"] not in max_seats:
+            max_seats[record["TypeObject"]] = ["", 0]
+        if record["SeatsCount"] > max_seats[record["TypeObject"]][1]:
+            max_seats[record["TypeObject"]] = [record["Name"], record["SeatsCount"]]
+    for elem in sorted(max_seats):
+        # print(f"{elem}: {max_seats[elem][0]}, {max_seats[elem][1]}")
+        pass
 
 
-def top_fb2(file_in):
-    with open(file_in, "r", encoding="utf-8") as f:
-        data = json.load(fp=f)
-    districts = dict()
-    chains = dict()
+def max_seats2(file_in):
+    with open(file_in, 'r', encoding='utf-8') as f1:
+        data = json.load(f1)
+        d = {i['TypeObject']: f"{i['Name']}, {i['SeatsCount']}" for i
+            in sorted(data, key=lambda x:(x['TypeObject'], x['SeatsCount']))}
+        for item in d.items():
+            # print(f'{item[0]}: {item[1]}')
+            pass
+
+
+def execution_time(func, *args, n=1000):
+    from time import monotonic
+    t0 = monotonic()
+    for _ in range(n):
+        func(*args)
+    t1 = monotonic()
+    print(f"{func.__name__:<20} {t1-t0:.2f}")
 
 if __name__ == "__main__":
     file_in = "etc/food_services.json"
-    top_fb(file_in)
+    # max_seats2(file_in)
+
+    funcs = [max_seats1, max_seats2]
+    for func in funcs:
+        execution_time(func, file_in, n=10*4)
