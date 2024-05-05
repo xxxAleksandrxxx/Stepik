@@ -183,16 +183,50 @@
 # 4.5.19
 # Вам доступен набор различных файлов, названия которых представлены в списке file_names. Дополните приведенный ниже код, чтобы он создал архив files.zip и добавил в него все файлы из данного списка.
 
+# from zipfile import ZipFile
+
+# def write_zip(file_out, files_list):
+#     with ZipFile(file_out, "w") as zf:
+#         for f in files_list:
+#             zf.write(f)
+
+# if __name__ == "__main__":
+#     zip_file = "files.zip"
+#     file_names = ['how to prove.pdf', 'fipi_demo_2022.pdf', 'Hollow Knight Silksong.exe',
+#               'code.jpeg', 'stepik.png', 'readme.txt', 'shopping_list.txt',
+#               'Alexandra Savior – Crying All the Time.mp3', 'homework.py', 'test.py']
+#     write_zip(zip_file, file_names)
+
+
+
+# #######################
+# 4.5.20
+# Вам доступен набор различных файлов, названия которых представлены в списке file_names. Также вам доступен архив files.zip. Дополните приведенный ниже код, чтобы он добавил в архив files.zip только те файлы из списка file_names, объем которых не превышает 100 байт.
+
+from os.path import getsize
 from zipfile import ZipFile
 
-def write_zip(file_out, files_list):
-    with ZipFile(file_out, "w") as zf:
+def add_to_zip1(zip_file, files_list):
+    with ZipFile(zip_file, "a") as zf:
         for f in files_list:
-            zf.write(f)
+            if getsize(f) <= 100:
+                zf.write(f)
+
+
+def calc_file_size(file_name):
+    with open(file_name, "r+b") as f:
+        f.seek(0, 2)
+        return f.tell()
+
+def add_to_zip2(zip_file, files_list):
+    with ZipFile(zip_file, "a") as zf:
+        for f in files_list:
+            if calc_file_size(f) <= 100:
+                zf.write(f)
 
 if __name__ == "__main__":
     zip_file = "files.zip"
     file_names = ['how to prove.pdf', 'fipi_demo_2022.pdf', 'Hollow Knight Silksong.exe',
               'code.jpeg', 'stepik.png', 'readme.txt', 'shopping_list.txt',
               'Alexandra Savior – Crying All the Time.mp3', 'homework.py', 'test.py']
-    write_zip(zip_file, file_names)
+    add_to_zip2(zip_file, file_names)
