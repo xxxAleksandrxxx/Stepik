@@ -139,14 +139,38 @@
 # Избранные
 # Вам доступен архив workbook.zip, содержащий различные папки и файлы. Напишите программу, которая выводит названия файлов из этого архива, которые были созданы или изменены позднее 2021-11-30 14:22:00. Названия файлов должны быть расположены в лексикографическом порядке, каждое на отдельной строке.
 
+# from zipfile import ZipFile
+# import os
+
+# def print_files_after(file_in, the_date=(2021, 11, 30, 14, 22, 0)):
+#     with ZipFile(file_in, "r") as zf:
+#         info = zf.infolist()
+#     print(*sorted([os.path.basename(elem.filename) for elem in info if not elem.is_dir() and elem.date_time > the_date]), sep="\n")
+
+# if __name__ == "__main__":
+#     file_in = "etc/workbook.zip"
+#     print_files_after(file_in)
+
+
+
+# #######################
+# 4.5.18
+# Форматированный вывод
+# Вам доступен архив workbook.zip, содержащий различные папки и файлы. Напишите программу, которая выводит названия всех файлов из этого архива в лексикографическом порядке, указывая для каждого его дату изменения, а также объем до и после сжатия
+
 from zipfile import ZipFile
 import os
 
-def print_files_after(file_in, the_date=(2021, 11, 30, 14, 22, 0)):
+def print_zip(file_in):
     with ZipFile(file_in, "r") as zf:
         info = zf.infolist()
-    print(*sorted([os.path.basename(elem.filename) for elem in info if not elem.is_dir() and elem.date_time > the_date]), sep="\n")
+    for elem in sorted([f for f in info if not f.is_dir()], key=lambda x: os.path.basename(x.filename)):
+        print(os.path.basename(elem.filename))
+        print(f"  Дата модификации файла: {elem.date_time[0]:04d}-{elem.date_time[1]:02d}-{elem.date_time[2]:02d} {elem.date_time[3]:02d}:{elem.date_time[4]:02d}:{elem.date_time[5]:02d}")
+        print(f"  Объем исходного файла: {elem.file_size} байт(а)")
+        print(f"  Объем сжатого файла: {elem.compress_size} байт(а)")
+        print()
 
 if __name__ == "__main__":
     file_in = "etc/workbook.zip"
-    print_files_after(file_in)
+    print_zip(file_in)
