@@ -241,16 +241,97 @@
 # *args — переменное количество позиционных аргументов, каждый из которых является названием некоторого файла
 # Функция должна извлекать файлы *args из архива zip_name в папку с программой. Если в функцию не передано ни одного названия файла для извлечения, то функция должна извлечь все файлы из архива.
 
-from zipfile import ZipFile
+# from zipfile import ZipFile
 
-def extract_this(zip_name, *f_names):
-    with ZipFile(zip_name, "r") as zf:
-        if f_names:
-            for f in f_names:
-                zf.extract(f)
-        else:
-            zf.extractall()
+# def extract_this(zip_name, *f_names):
+#     with ZipFile(zip_name, "r") as zf:
+#         if f_names:
+#             for f in f_names:
+#                 zf.extract(f)
+#         else:
+#             zf.extractall()
+
+# if __name__ == "__main__":
+#     # extract_this('workbook.zip', 'earth.jpg', 'exam.txt')
+#     extract_this('workbook.zip')
+
+
+
+# #######################
+# 4.5.22
+# Вам доступен архив data.zip, содержащий различные папки и файлы. Среди них есть несколько JSON файлов, каждый из которых содержит информацию о каком-либо футболисте
+# Напишите программу, которая обрабатывает только данные JSON файлы и выводит имена и фамилии футболистов, выступающих за футбольный клуб Arsenal. Футболисты должны быть расположены в лексикографическом порядке имен, а при совпадении — в лексикографическом порядке фамилий, каждый на отдельной строке.
+# Обратите внимание, что наличие у файла расширения .json не гарантирует, что он является корректным текстовым файлом в формате JSON.
+
+from zipfile import ZipFile
+import json
+
+def print_team1(file_zip, the_team="Arsenal", the_keys={"first_name", "last_name", "team", "position"}):
+    players = []
+    with ZipFile(file_zip, "r") as zf:
+        for f in zf.infolist():
+            if f.filename.endswith(".json"):
+                with zf.open(f) as f_json:
+                    try:
+                        data = json.loads(f_json.read().decode("utf-8"))
+                        if data.keys() == the_keys:
+                            if data["team"] == the_team:
+                                players.append((data["first_name"], data["last_name"]))
+                    except:
+                        continue
+    # for name, s_name in sorted(players, key=lambda x: (x[0], x[1])):
+    #     print(name, s_name)
+    a = [f"{name} {s_name}" for name, s_name in sorted(players, key=lambda x: (x[0], x[1]))]
+    return a
+
+
+def print_team2(file_zip, the_team="Arsenal", the_keys={"first_name", "last_name", "team", "position"}):
+    players = []
+    with ZipFile(file_zip, "r") as zf:
+        for f in zf.infolist():
+            if f.filename.endswith(".json"):
+                with zf.open(f) as f_json:
+                    try:
+                        data = json.loads(f_json.read().decode("utf-8"))
+                        if data.keys() == the_keys and data["team"] == the_team:
+                            players.append((data["first_name"], data["last_name"]))
+                    except:
+                        continue
+    # for name, s_name in sorted(players, key=lambda x: (x[0], x[1])):
+    #     print(name, s_name)
+    a = [f"{name} {s_name}" for name, s_name in sorted(players, key=lambda x: (x[0], x[1]))]
+    return a
+
+
+def print_team3(file_zip, the_team="Arsenal", the_keys={"first_name", "last_name", "team", "position"}):
+    def jsloads(z, n):
+        try:
+            with z.open(n) as f:
+                return json.loads(f.read().decode('utf-8'))
+        except:
+            return {'team': ''}
+
+    with ZipFile(file_zip) as z:
+        names = [n for n in z.namelist() if n[-5:] == '.json']
+        n = {i['first_name'] + ' ' + i['last_name'] for n in names for i in [jsloads(z, n)] if i['team'] == 'Arsenal'}
+        # print(*sorted(n), sep='\n')	
+        a = sorted(n)
+        return a
+
+
+from time import monotonic
+def execution_time(func, *args, n=1000):
+    t0 = monotonic()
+    for _ in range(n):
+        func(*args)
+    t1 = monotonic()
+    print(f"{func.__name__:<20} {t1-t0:.2f}")
+
 
 if __name__ == "__main__":
-    # extract_this('workbook.zip', 'earth.jpg', 'exam.txt')
-    extract_this('workbook.zip')
+    file_zip = "etc/data.zip"
+    # print(print_team3(file_zip))
+    funcs = [print_team1, print_team2, print_team3]
+    for func in funcs:
+        execution_time(func, file_zip)
+
