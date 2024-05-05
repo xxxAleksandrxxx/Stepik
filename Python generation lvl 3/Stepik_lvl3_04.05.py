@@ -1,5 +1,6 @@
 # #######################
 # 4.5.14
+# Количество файлов
 # Вам доступен архив workbook.zip, содержащий различные папки и файлы. Напишите программу, которая выводит единственное число — количество файлов в этом архиве.
 # from zipfile import ZipFile
 
@@ -50,6 +51,7 @@
 
 # #######################
 # 4.5.15
+# Объем файлов
 # Вам доступен архив workbook.zip, содержащий различные папки и файлы. Напишите программу, которая выводит суммарный объем файлов этого архива в сжатом и не сжатом видах в байтах,
 
 # from zipfile import ZipFile
@@ -158,19 +160,39 @@
 # Форматированный вывод
 # Вам доступен архив workbook.zip, содержащий различные папки и файлы. Напишите программу, которая выводит названия всех файлов из этого архива в лексикографическом порядке, указывая для каждого его дату изменения, а также объем до и после сжатия
 
-from zipfile import ZipFile
-import os
+# from zipfile import ZipFile
+# import os
 
-def print_zip(file_in):
-    with ZipFile(file_in, "r") as zf:
-        info = zf.infolist()
-    for elem in sorted([f for f in info if not f.is_dir()], key=lambda x: os.path.basename(x.filename)):
-        print(os.path.basename(elem.filename))
-        print(f"  Дата модификации файла: {elem.date_time[0]:04d}-{elem.date_time[1]:02d}-{elem.date_time[2]:02d} {elem.date_time[3]:02d}:{elem.date_time[4]:02d}:{elem.date_time[5]:02d}")
-        print(f"  Объем исходного файла: {elem.file_size} байт(а)")
-        print(f"  Объем сжатого файла: {elem.compress_size} байт(а)")
-        print()
+# def print_zip(file_in):
+#     with ZipFile(file_in, "r") as zf:
+#         info = zf.infolist()
+#     for elem in sorted([f for f in info if not f.is_dir()], key=lambda x: os.path.basename(x.filename)):
+#         print(os.path.basename(elem.filename))
+#         print(f"  Дата модификации файла: {elem.date_time[0]:04d}-{elem.date_time[1]:02d}-{elem.date_time[2]:02d} {elem.date_time[3]:02d}:{elem.date_time[4]:02d}:{elem.date_time[5]:02d}")
+#         print(f"  Объем исходного файла: {elem.file_size} байт(а)")
+#         print(f"  Объем сжатого файла: {elem.compress_size} байт(а)")
+#         print()
+
+# if __name__ == "__main__":
+#     file_in = "etc/workbook.zip"
+#     print_zip(file_in)
+
+
+
+# #######################
+# 4.5.19
+# Вам доступен набор различных файлов, названия которых представлены в списке file_names. Дополните приведенный ниже код, чтобы он создал архив files.zip и добавил в него все файлы из данного списка.
+
+from zipfile import ZipFile
+
+def write_zip(file_out, files_list):
+    with ZipFile(file_out, "w") as zf:
+        for f in files_list:
+            zf.write(f)
 
 if __name__ == "__main__":
-    file_in = "etc/workbook.zip"
-    print_zip(file_in)
+    zip_file = "files.zip"
+    file_names = ['how to prove.pdf', 'fipi_demo_2022.pdf', 'Hollow Knight Silksong.exe',
+              'code.jpeg', 'stepik.png', 'readme.txt', 'shopping_list.txt',
+              'Alexandra Savior – Crying All the Time.mp3', 'homework.py', 'test.py']
+    write_zip(zip_file, file_names)
