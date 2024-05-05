@@ -263,75 +263,116 @@
 # Напишите программу, которая обрабатывает только данные JSON файлы и выводит имена и фамилии футболистов, выступающих за футбольный клуб Arsenal. Футболисты должны быть расположены в лексикографическом порядке имен, а при совпадении — в лексикографическом порядке фамилий, каждый на отдельной строке.
 # Обратите внимание, что наличие у файла расширения .json не гарантирует, что он является корректным текстовым файлом в формате JSON.
 
+# from zipfile import ZipFile
+# import json
+
+# def print_team1(file_zip, the_team="Arsenal", the_keys={"first_name", "last_name", "team", "position"}):
+#     players = []
+#     with ZipFile(file_zip, "r") as zf:
+#         for f in zf.infolist():
+#             if f.filename.endswith(".json"):
+#                 with zf.open(f) as f_json:
+#                     try:
+#                         data = json.loads(f_json.read().decode("utf-8"))
+#                         if data.keys() == the_keys:
+#                             if data["team"] == the_team:
+#                                 players.append((data["first_name"], data["last_name"]))
+#                     except:
+#                         continue
+#     # for name, s_name in sorted(players, key=lambda x: (x[0], x[1])):
+#     #     print(name, s_name)
+#     a = [f"{name} {s_name}" for name, s_name in sorted(players, key=lambda x: (x[0], x[1]))]
+#     return a
+
+
+# def print_team2(file_zip, the_team="Arsenal", the_keys={"first_name", "last_name", "team", "position"}):
+#     players = []
+#     with ZipFile(file_zip, "r") as zf:
+#         for f in zf.infolist():
+#             if f.filename.endswith(".json"):
+#                 with zf.open(f) as f_json:
+#                     try:
+#                         data = json.loads(f_json.read().decode("utf-8"))
+#                         if data.keys() == the_keys and data["team"] == the_team:
+#                             players.append((data["first_name"], data["last_name"]))
+#                     except:
+#                         continue
+#     # for name, s_name in sorted(players, key=lambda x: (x[0], x[1])):
+#     #     print(name, s_name)
+#     a = [f"{name} {s_name}" for name, s_name in sorted(players, key=lambda x: (x[0], x[1]))]
+#     return a
+
+
+# def print_team3(file_zip, the_team="Arsenal", the_keys={"first_name", "last_name", "team", "position"}):
+#     def jsloads(z, n):
+#         try:
+#             with z.open(n) as f:
+#                 return json.loads(f.read().decode('utf-8'))
+#         except:
+#             return {'team': ''}
+
+#     with ZipFile(file_zip) as z:
+#         names = [n for n in z.namelist() if n[-5:] == '.json']
+#         n = {i['first_name'] + ' ' + i['last_name'] for n in names for i in [jsloads(z, n)] if i['team'] == 'Arsenal'}
+#         # print(*sorted(n), sep='\n')	
+#         a = sorted(n)
+#         return a
+
+
+# from time import monotonic
+# def execution_time(func, *args, n=1000):
+#     t0 = monotonic()
+#     for _ in range(n):
+#         func(*args)
+#     t1 = monotonic()
+#     print(f"{func.__name__:<20} {t1-t0:.2f}")
+
+
+# if __name__ == "__main__":
+#     file_zip = "etc/data.zip"
+#     # print(print_team3(file_zip))
+#     funcs = [print_team1, print_team2, print_team3]
+#     for func in funcs:
+#         execution_time(func, file_zip)
+
+
+
+# #######################
+# 4.5.23
+# Структура архива 🌶️🌶️
+# Вам доступен архив desktop.zip, содержащий различные папки и файлы. Напишите программу, которая выводит его файловую структуру и объем каждого файла.
+
 from zipfile import ZipFile
-import json
 
-def print_team1(file_zip, the_team="Arsenal", the_keys={"first_name", "last_name", "team", "position"}):
-    players = []
+def value_and_prefix(num):
+    if num == 0:
+        return None
+    prefixes = ["B", "KB", "MB", "GB", "TB"]
+    for prefix in prefixes:
+        if num//1024 == 0:
+            return " ".join([str(round(num)), prefix])
+        else:
+            num /= 1024
+
+def print_zip_structure1(file_zip):
     with ZipFile(file_zip, "r") as zf:
-        for f in zf.infolist():
-            if f.filename.endswith(".json"):
-                with zf.open(f) as f_json:
-                    try:
-                        data = json.loads(f_json.read().decode("utf-8"))
-                        if data.keys() == the_keys:
-                            if data["team"] == the_team:
-                                players.append((data["first_name"], data["last_name"]))
-                    except:
-                        continue
-    # for name, s_name in sorted(players, key=lambda x: (x[0], x[1])):
-    #     print(name, s_name)
-    a = [f"{name} {s_name}" for name, s_name in sorted(players, key=lambda x: (x[0], x[1]))]
-    return a
+        for elem in zf.infolist():
+            if elem.is_dir():
+                path = elem.filename[:-1].split("/")
+            else:
+                path = elem.filename.split("/")
+            name = "  "*(len(path) - 1) + path[-1]
+            print(name, value_and_prefix(elem.file_size) or "")
 
 
-def print_team2(file_zip, the_team="Arsenal", the_keys={"first_name", "last_name", "team", "position"}):
-    players = []
+def print_zip_structure2(file_zip):
     with ZipFile(file_zip, "r") as zf:
-        for f in zf.infolist():
-            if f.filename.endswith(".json"):
-                with zf.open(f) as f_json:
-                    try:
-                        data = json.loads(f_json.read().decode("utf-8"))
-                        if data.keys() == the_keys and data["team"] == the_team:
-                            players.append((data["first_name"], data["last_name"]))
-                    except:
-                        continue
-    # for name, s_name in sorted(players, key=lambda x: (x[0], x[1])):
-    #     print(name, s_name)
-    a = [f"{name} {s_name}" for name, s_name in sorted(players, key=lambda x: (x[0], x[1]))]
-    return a
-
-
-def print_team3(file_zip, the_team="Arsenal", the_keys={"first_name", "last_name", "team", "position"}):
-    def jsloads(z, n):
-        try:
-            with z.open(n) as f:
-                return json.loads(f.read().decode('utf-8'))
-        except:
-            return {'team': ''}
-
-    with ZipFile(file_zip) as z:
-        names = [n for n in z.namelist() if n[-5:] == '.json']
-        n = {i['first_name'] + ' ' + i['last_name'] for n in names for i in [jsloads(z, n)] if i['team'] == 'Arsenal'}
-        # print(*sorted(n), sep='\n')	
-        a = sorted(n)
-        return a
-
-
-from time import monotonic
-def execution_time(func, *args, n=1000):
-    t0 = monotonic()
-    for _ in range(n):
-        func(*args)
-    t1 = monotonic()
-    print(f"{func.__name__:<20} {t1-t0:.2f}")
-
+        for elem in zf.infolist():
+            path = elem.filename.strip("/").split("/")
+            name = "  "*(len(path) - 1) + path[-1]
+            print(name, value_and_prefix(elem.file_size) or "")
 
 if __name__ == "__main__":
-    file_zip = "etc/data.zip"
-    # print(print_team3(file_zip))
-    funcs = [print_team1, print_team2, print_team3]
-    for func in funcs:
-        execution_time(func, file_zip)
-
+    file_zip = "etc/desktop.zip"
+    # file_zip = "etc/test.zip"
+    print_zip_structure2(file_zip)
