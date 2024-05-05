@@ -73,61 +73,80 @@
 # Наилучший показатель
 # Вам доступен архив workbook.zip, содержащий различные папки и файлы. Напишите программу, которая выводит название файла из этого архива, который имеет наилучший показатель степени сжатия.
 
+# from zipfile import ZipFile
+# import os
+
+# # best solution
+# def print_best_compression1(file_in):
+#     with ZipFile(file_in, "r") as zf:
+#         info = zf.infolist()
+#     best_k = 1
+#     file_name = None
+#     for elem in info:
+#         k = elem.compress_size/elem.file_size if elem.file_size else 1
+#         if k < best_k:
+#             best_k = k
+#             file_name = elem.filename
+#     p = os.path.basename(file_name)
+#     # print(os.path.basename(file_name))
+
+# def print_best_compression2(file_in):
+#     with ZipFile(file_in) as zip_file:
+#         filelist = zip_file.infolist()
+#         t = ((f.filename, f.compress_size/f.file_size) for f in filelist
+#             if f.file_size != 0)
+#         p = min(t, key=lambda x: x[1])[0].split("/")[-1]
+#         # print(min(t, key=lambda x: x[1])[0].split("/")[-1])
+
+# def print_best_compression2(file_in):
+#     with ZipFile(file_in) as zip_file:
+#         info = [i for i in zip_file.infolist() if not i.is_dir()]
+#         p = min(info,key=lambda x:(x.compress_size/x.file_size)*100).filename.split('/')[-1]
+#         # print(min(info,key=lambda x:(x.compress_size/x.file_size)*100).filename.split('/')[-1])
+
+
+# from pathlib import Path
+# import zipfile
+# def print_best_compression3(file_in):
+#     def get_coeff(zipped_file: zipfile.ZipInfo) -> float:
+#         return zipped_file.compress_size / zipped_file.file_size
+#     with zipfile.ZipFile(file_in) as zf:
+#         p = Path(min(filter(lambda x: not x.is_dir(), zf.infolist()), key=get_coeff).filename).name
+#         # print(Path(min(filter(lambda x: not x.is_dir(), zf.infolist()), key=get_coeff).filename).name)
+
+
+# def execution_time(func, *args, n=100000):
+#     from time import monotonic
+#     t0 = monotonic()
+#     for _ in range(n):
+#         func(*args)
+#     t1 = monotonic()
+#     print(f"{func.__name__:<20} {t1-t0:.2f}")
+
+# if __name__ == "__main__":
+#     file_in = "etc/workbook.zip"
+#     # print_best_compression(file_in)
+
+
+#     funcs = [print_best_compression1, print_best_compression2, print_best_compression3]
+#     for func in funcs[::-1]:
+#         execution_time(func, file_in)
+
+
+
+# #######################
+# 4.5.17
+# Избранные
+# Вам доступен архив workbook.zip, содержащий различные папки и файлы. Напишите программу, которая выводит названия файлов из этого архива, которые были созданы или изменены позднее 2021-11-30 14:22:00. Названия файлов должны быть расположены в лексикографическом порядке, каждое на отдельной строке.
+
 from zipfile import ZipFile
 import os
 
-# best solution
-def print_best_compression1(file_in):
+def print_files_after(file_in, the_date=(2021, 11, 30, 14, 22, 0)):
     with ZipFile(file_in, "r") as zf:
         info = zf.infolist()
-    best_k = 1
-    file_name = None
-    for elem in info:
-        k = elem.compress_size/elem.file_size if elem.file_size else 1
-        if k < best_k:
-            best_k = k
-            file_name = elem.filename
-    p = os.path.basename(file_name)
-    # print(os.path.basename(file_name))
-
-def print_best_compression2(file_in):
-    with ZipFile(file_in) as zip_file:
-        filelist = zip_file.infolist()
-        t = ((f.filename, f.compress_size/f.file_size) for f in filelist
-            if f.file_size != 0)
-        p = min(t, key=lambda x: x[1])[0].split("/")[-1]
-        # print(min(t, key=lambda x: x[1])[0].split("/")[-1])
-
-def print_best_compression2(file_in):
-    with ZipFile(file_in) as zip_file:
-        info = [i for i in zip_file.infolist() if not i.is_dir()]
-        p = min(info,key=lambda x:(x.compress_size/x.file_size)*100).filename.split('/')[-1]
-        # print(min(info,key=lambda x:(x.compress_size/x.file_size)*100).filename.split('/')[-1])
-
-
-from pathlib import Path
-import zipfile
-def print_best_compression3(file_in):
-    def get_coeff(zipped_file: zipfile.ZipInfo) -> float:
-        return zipped_file.compress_size / zipped_file.file_size
-    with zipfile.ZipFile(file_in) as zf:
-        p = Path(min(filter(lambda x: not x.is_dir(), zf.infolist()), key=get_coeff).filename).name
-        # print(Path(min(filter(lambda x: not x.is_dir(), zf.infolist()), key=get_coeff).filename).name)
-
-
-def execution_time(func, *args, n=100000):
-    from time import monotonic
-    t0 = monotonic()
-    for _ in range(n):
-        func(*args)
-    t1 = monotonic()
-    print(f"{func.__name__:<20} {t1-t0:.2f}")
+    print(*sorted([os.path.basename(elem.filename) for elem in info if not elem.is_dir() and elem.date_time > the_date]), sep="\n")
 
 if __name__ == "__main__":
     file_in = "etc/workbook.zip"
-    # print_best_compression(file_in)
-
-
-    funcs = [print_best_compression1, print_best_compression2, print_best_compression3]
-    for func in funcs[::-1]:
-        execution_time(func, file_in)
+    print_files_after(file_in)
