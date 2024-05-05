@@ -203,30 +203,54 @@
 # 4.5.20
 # Вам доступен набор различных файлов, названия которых представлены в списке file_names. Также вам доступен архив files.zip. Дополните приведенный ниже код, чтобы он добавил в архив files.zip только те файлы из списка file_names, объем которых не превышает 100 байт.
 
-from os.path import getsize
+# from os.path import getsize
+# from zipfile import ZipFile
+
+# def add_to_zip1(zip_file, files_list):
+#     with ZipFile(zip_file, "a") as zf:
+#         for f in files_list:
+#             if getsize(f) <= 100:
+#                 zf.write(f)
+
+
+# def calc_file_size(file_name):
+#     with open(file_name, "r+b") as f:
+#         f.seek(0, 2)
+#         return f.tell()
+
+# def add_to_zip2(zip_file, files_list):
+#     with ZipFile(zip_file, "a") as zf:
+#         for f in files_list:
+#             if calc_file_size(f) <= 100:
+#                 zf.write(f)
+
+# if __name__ == "__main__":
+#     zip_file = "files.zip"
+#     file_names = ['how to prove.pdf', 'fipi_demo_2022.pdf', 'Hollow Knight Silksong.exe',
+#               'code.jpeg', 'stepik.png', 'readme.txt', 'shopping_list.txt',
+#               'Alexandra Savior – Crying All the Time.mp3', 'homework.py', 'test.py']
+#     add_to_zip2(zip_file, file_names)
+
+
+
+# #######################
+# 4.5.21
+# Функция extract_this()
+# Реализуйте функцию extract_this(), которая принимает один или более аргументов в следующем порядке:
+# zip_name — название zip архива, например, data.zip
+# *args — переменное количество позиционных аргументов, каждый из которых является названием некоторого файла
+# Функция должна извлекать файлы *args из архива zip_name в папку с программой. Если в функцию не передано ни одного названия файла для извлечения, то функция должна извлечь все файлы из архива.
+
 from zipfile import ZipFile
 
-def add_to_zip1(zip_file, files_list):
-    with ZipFile(zip_file, "a") as zf:
-        for f in files_list:
-            if getsize(f) <= 100:
-                zf.write(f)
-
-
-def calc_file_size(file_name):
-    with open(file_name, "r+b") as f:
-        f.seek(0, 2)
-        return f.tell()
-
-def add_to_zip2(zip_file, files_list):
-    with ZipFile(zip_file, "a") as zf:
-        for f in files_list:
-            if calc_file_size(f) <= 100:
-                zf.write(f)
+def extract_this(zip_name, *f_names):
+    with ZipFile(zip_name, "r") as zf:
+        if f_names:
+            for f in f_names:
+                zf.extract(f)
+        else:
+            zf.extractall()
 
 if __name__ == "__main__":
-    zip_file = "files.zip"
-    file_names = ['how to prove.pdf', 'fipi_demo_2022.pdf', 'Hollow Knight Silksong.exe',
-              'code.jpeg', 'stepik.png', 'readme.txt', 'shopping_list.txt',
-              'Alexandra Savior – Crying All the Time.mp3', 'homework.py', 'test.py']
-    add_to_zip2(zip_file, file_names)
+    # extract_this('workbook.zip', 'earth.jpg', 'exam.txt')
+    extract_this('workbook.zip')
