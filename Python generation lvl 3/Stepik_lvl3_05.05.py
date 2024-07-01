@@ -1,3 +1,63 @@
+import requests
+import os
+import re
+
+def get_user_question():
+    question = input("Enter your question: ")
+    return question
+
+def send_api_request(question):
+    api_key=os.environ["OPENAI_API_KEY"]
+
+    if api_key is None:
+        raise ValueError("API_KEY didn't found in environment variables")
+
+    headers = {
+        'Authorization': f'Bearer {api_key}',
+        'Content-Type': 'application/json'
+    }
+    data = {"model": "gpt-3.5-turbo",
+            "temperature": 0.7,
+            "messages": [{"role": "system", "content": ""},
+                         {"role": "user", "content": question}]}
+
+    response = requests.post("https://api.openai.com/v1/chat/completions", json=data, headers=headers)
+    response.raise_for_status()
+    return response.json()["choices"][0]["message"]["content"]
+
+def extract_python_code(api_response):
+    if "```python" not in api_response:
+        return ""  # code wan't found in the response
+    pattern = r'```python(.*?)```'
+    matches = re.findall(pattern, api_response, re.DOTALL)
+    return "\n".join(matches)
+
+def execute_code(code_to_execute):
+    if input("Run the code? y/n  ") == "y":
+        print()
+        exec(code_to_execute)
+
+def main():
+    # try:
+    question = get_user_question()
+    api_response = send_api_request(question)
+    python_code = extract_python_code(api_response)
+    if python_code:
+        print("Generated code:")
+        print(python_code, end='\n\n')
+        execute_code(python_code)
+    else:
+        print("\nThere is no code in the response.\n\nResponse:")
+        print(api_response)
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
 # import sys
 # my_variable = [1, 2, 3]
 # print(sys.getrefcount(my_variable))
@@ -54,60 +114,61 @@
 # iterate_cyclic_lists(my_var_1)
 
 
-import os
-import requests
-import re
 
-def get_user_question():
-    question = input("Enter your question: ")
-    return question
+# import requests
+# import os
+# import re
 
-def send_api_request(question):
-    api_key=os.environ["OPENAI_API_KEY"]
+# def get_user_question():
+#     question = input("Enter your question: ")
+#     return question
 
-    if api_key is None:
-        raise ValueError("API_KEY didn't found in environment variables")
+# def send_api_request(question):
+#     api_key=os.environ["OPENAI_API_KEY"]
 
-    headers = {
-        'Authorization': f'Bearer {api_key}',
-        'Content-Type': 'application/json'
-    }
-    data = {"model": "gpt-3.5-turbo",
-            "temperature": 0.7,
-            "messages": [{"role": "system", "content": ""},
-                         {"role": "user", "content": question}]}
+#     if api_key is None:
+#         raise ValueError("API_KEY didn't found in environment variables")
 
-    response = requests.post("https://api.openai.com/v1/chat/completions", json=data, headers=headers)
-    response.raise_for_status()
-    return response.json()["choices"][0]["message"]["content"]
+#     headers = {
+#         'Authorization': f'Bearer {api_key}',
+#         'Content-Type': 'application/json'
+#     }
+#     data = {"model": "gpt-3.5-turbo",
+#             "temperature": 0.7,
+#             "messages": [{"role": "system", "content": ""},
+#                          {"role": "user", "content": question}]}
 
-def extract_python_code(api_response):
-    if "```python" not in api_response:
-        return ""  # code wan't found in the response
-    pattern = r'```python(.*?)```'
-    matches = re.findall(pattern, api_response, re.DOTALL)
-    return "\n".join(matches)
+#     response = requests.post("https://api.openai.com/v1/chat/completions", json=data, headers=headers)
+#     response.raise_for_status()
+#     return response.json()["choices"][0]["message"]["content"]
 
-def execute_code(code_to_execute):
-    if input("Run the code? y/n  ") == "y":
-        print()
-        exec(code_to_execute)
+# def extract_python_code(api_response):
+#     if "```python" not in api_response:
+#         return ""  # code wan't found in the response
+#     pattern = r'```python(.*?)```'
+#     matches = re.findall(pattern, api_response, re.DOTALL)
+#     return "\n".join(matches)
 
-def main():
-    # try:
-    question = get_user_question()
-    api_response = send_api_request(question)
-    python_code = extract_python_code(api_response)
-    if python_code:
-        print("Generated code:")
-        print(python_code, end='\n\n')
-        execute_code(python_code)
-    else:
-        print("\nThere is no code in the response.\n\nResponse:")
-        print(api_response)
+# def execute_code(code_to_execute):
+#     if input("Run the code? y/n  ") == "y":
+#         print()
+#         exec(code_to_execute)
 
-if __name__ == "__main__":
-    main()
+# def main():
+#     # try:
+#     question = get_user_question()
+#     api_response = send_api_request(question)
+#     python_code = extract_python_code(api_response)
+#     if python_code:
+#         print("Generated code:")
+#         print(python_code, end='\n\n')
+#         execute_code(python_code)
+#     else:
+#         print("\nThere is no code in the response.\n\nResponse:")
+#         print(api_response)
+
+# if __name__ == "__main__":
+#     main()
 
 
 # import os
